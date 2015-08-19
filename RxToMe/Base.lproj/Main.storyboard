@@ -1,68 +1,1571 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="PxF-Ax-wPy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="1wb-ZE-EcT">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
-        <!--Data View Controller-->
-        <scene sceneID="3qM-eY-iJ1">
+        <!--Navigation Controller-->
+        <scene sceneID="pEM-ad-XHM">
             <objects>
-                <viewController storyboardIdentifier="DataViewController" id="hzS-jB-y9W" customClass="DataViewController" customModuleProvider="" sceneMemberID="viewController">
+                <navigationController id="1wb-ZE-EcT" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fRw-Bx-kMa">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="8Vg-sL-CmK" kind="relationship" relationship="rootViewController" id="oYV-p7-PhB"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="T4o-5M-dAe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-569" y="476"/>
+        </scene>
+        <!--Main Page View Controller-->
+        <scene sceneID="kH8-Y2-xtJ">
+            <objects>
+                <viewController storyboardIdentifier="Home" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8Vg-sL-CmK" customClass="MainPageViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="6LC-1I-4vP"/>
-                        <viewControllerLayoutGuide type="bottom" id="a4F-Wq-f2I"/>
+                        <viewControllerLayoutGuide type="top" id="iWY-2R-mur"/>
+                        <viewControllerLayoutGuide type="bottom" id="IzI-B2-Eei"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="gLe-Tb-ylt">
+                    <view key="view" contentMode="scaleToFill" id="s0c-8V-sVv">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wFW-NB-ba9">
-                                <rect key="frame" x="8" y="45" width="584" height="547"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gaK-61-xSt" userLabel="Get Started">
+                                <rect key="frame" x="146" y="520" width="308" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="gaK-61-xSt" secondAttribute="height" multiplier="54:7" id="anv-6q-2At"/>
+                                    <constraint firstAttribute="height" constant="40" id="nDK-qS-BeU"/>
+                                </constraints>
+                                <state key="normal" image="get_started_unpressed">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="getStartedButtonPressed:" destination="8Vg-sL-CmK" eventType="touchUpInside" id="C8k-WB-mgk"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cyc-Qp-hAO" userLabel="Login">
+                                <rect key="frame" x="146" y="456" width="308" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Cyc-Qp-hAO" secondAttribute="height" multiplier="54:7" id="Njp-Do-11K"/>
+                                </constraints>
+                                <state key="normal" image="login_unpressed">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="loginButtonPressed:" destination="8Vg-sL-CmK" eventType="touchUpInside" id="zDY-OG-axr"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rxtome_logo" translatesAutoresizingMaskIntoConstraints="NO" id="IOm-lF-gBa">
+                                <rect key="frame" x="100" y="120" width="400" height="180"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="IOm-lF-gBa" secondAttribute="height" multiplier="20:9" id="4D0-E6-Obw"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="front_page_text" translatesAutoresizingMaskIntoConstraints="NO" id="9hE-uA-IEt">
+                                <rect key="frame" x="0.0" y="300" width="600" height="247"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="9hE-uA-IEt" secondAttribute="height" multiplier="600:247" id="0zP-Jd-kjH"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="IOm-lF-gBa" firstAttribute="top" secondItem="iWY-2R-mur" secondAttribute="bottom" constant="100" id="62v-vf-byH"/>
+                            <constraint firstAttribute="centerX" secondItem="gaK-61-xSt" secondAttribute="centerX" id="7i3-B1-8uH"/>
+                            <constraint firstItem="Cyc-Qp-hAO" firstAttribute="height" secondItem="gaK-61-xSt" secondAttribute="height" id="Gew-f5-kze"/>
+                            <constraint firstItem="IzI-B2-Eei" firstAttribute="top" secondItem="Cyc-Qp-hAO" secondAttribute="bottom" constant="134" id="LgS-cd-DRM"/>
+                            <constraint firstItem="9hE-uA-IEt" firstAttribute="top" secondItem="IOm-lF-gBa" secondAttribute="bottom" id="Mee-V5-1ty"/>
+                            <constraint firstItem="gaK-61-xSt" firstAttribute="top" secondItem="Cyc-Qp-hAO" secondAttribute="bottom" constant="24" id="Vy0-9C-7ls"/>
+                            <constraint firstAttribute="width" secondItem="IOm-lF-gBa" secondAttribute="width" multiplier="3:2" id="WiR-jr-WLU"/>
+                            <constraint firstAttribute="centerX" secondItem="Cyc-Qp-hAO" secondAttribute="centerX" id="aaN-XR-upN"/>
+                            <constraint firstItem="IzI-B2-Eei" firstAttribute="top" secondItem="gaK-61-xSt" secondAttribute="bottom" constant="40" id="jPI-by-mPJ"/>
+                            <constraint firstItem="9hE-uA-IEt" firstAttribute="width" secondItem="s0c-8V-sVv" secondAttribute="width" id="nWh-fP-1iD"/>
+                            <constraint firstAttribute="centerX" secondItem="9hE-uA-IEt" secondAttribute="centerX" id="qg9-dX-fGr"/>
+                            <constraint firstAttribute="centerX" secondItem="IOm-lF-gBa" secondAttribute="centerX" id="vuN-KI-Wpf"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="LgS-cd-DRM"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" id="C6e-2c-C2U"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <outlet property="get_started_button" destination="gaK-61-xSt" id="iZn-1O-KGa"/>
+                        <outlet property="login_button" destination="Cyc-Qp-hAO" id="fRd-pj-r5a"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="I43-mE-mFI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="183" y="476"/>
+        </scene>
+        <!--Contact Info-->
+        <scene sceneID="ITR-el-I5x">
+            <objects>
+                <viewController storyboardIdentifier="Form" title="Contact Info" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4m3-9n-MM8" customClass="FormViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="eH2-JJ-j6Y"/>
+                        <viewControllerLayoutGuide type="bottom" id="V0A-h5-5GT"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rEA-cr-cWp">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" minimumFontSize="17" background="textbox" translatesAutoresizingMaskIntoConstraints="NO" id="0un-Eg-xoB">
+                                <rect key="frame" x="111" y="123" width="414" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" background="textbox" translatesAutoresizingMaskIntoConstraints="NO" id="3wd-Qh-qet">
+                                <rect key="frame" x="111" y="179" width="414" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="QuR-GQ-V8f"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="QuR-GQ-V8f"/>
+                                    </mask>
+                                </variation>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Phone" minimumFontSize="17" background="textbox" translatesAutoresizingMaskIntoConstraints="NO" id="2xH-p0-sqH">
+                                <rect key="frame" x="111" y="235" width="414" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Mbq-Rq-mmm"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ECu-Mv-nhW">
+                                <rect key="frame" x="248" y="522" width="105" height="33"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="33" id="OkJ-Jg-FXc"/>
+                                    <constraint firstAttribute="width" constant="105" id="d8N-W3-yGM"/>
+                                </constraints>
+                                <state key="normal" title="Next" image="next_unpressed">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="nextButtonPressed:" destination="4m3-9n-MM8" eventType="touchUpInside" id="6JU-6q-A8c"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_name" translatesAutoresizingMaskIntoConstraints="NO" id="v3b-8K-7rm">
+                                <rect key="frame" x="75" y="123" width="36" height="30"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_email" translatesAutoresizingMaskIntoConstraints="NO" id="nL3-O9-xdz">
+                                <rect key="frame" x="75" y="179" width="36" height="30"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_phone" translatesAutoresizingMaskIntoConstraints="NO" id="inN-A6-Ih9">
+                                <rect key="frame" x="75" y="235" width="36" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="inN-A6-Ih9" secondAttribute="height" multiplier="6:5" id="ljN-10-Rjo"/>
+                                </constraints>
+                            </imageView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NSk-Mu-bFH">
+                                <rect key="frame" x="75" y="464" width="450" height="50"/>
+                                <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="0.48999999999999999" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="brr-IJ-Wdp"/>
+                                </constraints>
                             </view>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="i7n-lc-4In">
-                                <rect key="frame" x="8" y="20" width="584" height="17"/>
-                                <fontDescription key="fontDescription" type="system" size="system"/>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CQa-Y5-c6R">
+                                <rect key="frame" x="476" y="286" width="51" height="31"/>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Paying with insurance?" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="p5H-XS-tU9">
+                                <rect key="frame" x="75" y="291" width="178" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.97826086960000003" green="0.91848131079999995" blue="0.73914263440000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="wFW-NB-ba9" firstAttribute="top" secondItem="i7n-lc-4In" secondAttribute="bottom" constant="8" symbolic="YES" id="U81-Od-SYy"/>
-                            <constraint firstAttribute="trailing" secondItem="i7n-lc-4In" secondAttribute="trailing" constant="8" id="WdW-Rj-aSg"/>
-                            <constraint firstItem="i7n-lc-4In" firstAttribute="top" secondItem="gLe-Tb-ylt" secondAttribute="top" constant="20" symbolic="YES" id="Z9a-TM-cFj"/>
-                            <constraint firstItem="i7n-lc-4In" firstAttribute="leading" secondItem="wFW-NB-ba9" secondAttribute="leading" id="fxn-Tu-GH1"/>
-                            <constraint firstAttribute="bottom" secondItem="wFW-NB-ba9" secondAttribute="bottom" constant="8" id="jm5-t9-aTI"/>
-                            <constraint firstItem="i7n-lc-4In" firstAttribute="leading" secondItem="gLe-Tb-ylt" secondAttribute="leading" constant="8" id="reE-mV-FOp"/>
-                            <constraint firstItem="i7n-lc-4In" firstAttribute="trailing" secondItem="wFW-NB-ba9" secondAttribute="trailing" id="zIS-yv-SWb"/>
+                            <constraint firstItem="0un-Eg-xoB" firstAttribute="top" secondItem="eH2-JJ-j6Y" secondAttribute="bottom" constant="59" id="9if-ye-9Ju"/>
+                            <constraint firstItem="NSk-Mu-bFH" firstAttribute="trailing" secondItem="2xH-p0-sqH" secondAttribute="trailing" id="9rJ-9X-qky"/>
+                            <constraint firstItem="V0A-h5-5GT" firstAttribute="top" secondItem="NSk-Mu-bFH" secondAttribute="bottom" constant="86" id="CoI-m3-qEQ"/>
+                            <constraint firstItem="V0A-h5-5GT" firstAttribute="top" secondItem="ECu-Mv-nhW" secondAttribute="bottom" constant="45" id="D1L-Fs-ZwJ"/>
+                            <constraint firstItem="p5H-XS-tU9" firstAttribute="top" secondItem="2xH-p0-sqH" secondAttribute="bottom" constant="26" id="EAb-nm-byp"/>
+                            <constraint firstItem="0un-Eg-xoB" firstAttribute="leading" secondItem="v3b-8K-7rm" secondAttribute="trailing" id="EH9-a1-eEe"/>
+                            <constraint firstItem="2xH-p0-sqH" firstAttribute="top" secondItem="3wd-Qh-qet" secondAttribute="bottom" constant="26" id="Eu8-5C-qrb"/>
+                            <constraint firstItem="3wd-Qh-qet" firstAttribute="top" secondItem="0un-Eg-xoB" secondAttribute="bottom" constant="26" id="GZY-Dv-aDC"/>
+                            <constraint firstItem="nL3-O9-xdz" firstAttribute="height" secondItem="3wd-Qh-qet" secondAttribute="height" id="H83-wl-tXw"/>
+                            <constraint firstItem="2xH-p0-sqH" firstAttribute="width" secondItem="3wd-Qh-qet" secondAttribute="width" id="MDg-K5-Jna"/>
+                            <constraint firstItem="2xH-p0-sqH" firstAttribute="height" secondItem="3wd-Qh-qet" secondAttribute="height" id="MQM-gQ-ujW"/>
+                            <constraint firstItem="NSk-Mu-bFH" firstAttribute="leading" secondItem="inN-A6-Ih9" secondAttribute="leading" id="Oha-SI-6G3"/>
+                            <constraint firstAttribute="centerX" secondItem="ECu-Mv-nhW" secondAttribute="centerX" id="PF6-6n-MCK"/>
+                            <constraint firstItem="v3b-8K-7rm" firstAttribute="centerY" secondItem="0un-Eg-xoB" secondAttribute="centerY" id="QmR-JD-h0j"/>
+                            <constraint firstItem="NSk-Mu-bFH" firstAttribute="trailing" secondItem="0un-Eg-xoB" secondAttribute="trailing" id="RNe-j3-8kP"/>
+                            <constraint firstAttribute="centerX" secondItem="NSk-Mu-bFH" secondAttribute="centerX" id="SkA-ZB-nfv"/>
+                            <constraint firstItem="3wd-Qh-qet" firstAttribute="trailing" secondItem="NSk-Mu-bFH" secondAttribute="trailing" id="VEN-Sf-U5q"/>
+                            <constraint firstItem="inN-A6-Ih9" firstAttribute="height" secondItem="2xH-p0-sqH" secondAttribute="height" id="WP0-6M-Xzz"/>
+                            <constraint firstItem="v3b-8K-7rm" firstAttribute="height" secondItem="0un-Eg-xoB" secondAttribute="height" id="Wgk-YB-IY1"/>
+                            <constraint firstItem="0un-Eg-xoB" firstAttribute="width" secondItem="2xH-p0-sqH" secondAttribute="width" id="YZl-Ro-Hvm"/>
+                            <constraint firstItem="nL3-O9-xdz" firstAttribute="leading" secondItem="NSk-Mu-bFH" secondAttribute="leading" id="Zfx-8u-GyG"/>
+                            <constraint firstItem="CQa-Y5-c6R" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="p5H-XS-tU9" secondAttribute="trailing" constant="10" id="cCC-Fo-O7G"/>
+                            <constraint firstItem="NSk-Mu-bFH" firstAttribute="trailing" secondItem="CQa-Y5-c6R" secondAttribute="trailing" id="hqz-Nn-mqu"/>
+                            <constraint firstItem="NSk-Mu-bFH" firstAttribute="leading" secondItem="p5H-XS-tU9" secondAttribute="leading" id="jYk-yy-kGp"/>
+                            <constraint firstItem="nL3-O9-xdz" firstAttribute="centerY" secondItem="3wd-Qh-qet" secondAttribute="centerY" id="jif-ty-9gx"/>
+                            <constraint firstItem="NSk-Mu-bFH" firstAttribute="width" secondItem="rEA-cr-cWp" secondAttribute="width" multiplier="3:4" id="m9d-z9-meV"/>
+                            <constraint firstItem="3wd-Qh-qet" firstAttribute="leading" secondItem="nL3-O9-xdz" secondAttribute="trailing" id="pu1-GE-RXr"/>
+                            <constraint firstItem="p5H-XS-tU9" firstAttribute="centerY" secondItem="CQa-Y5-c6R" secondAttribute="centerY" id="sEz-jI-kuG"/>
+                            <constraint firstItem="2xH-p0-sqH" firstAttribute="leading" secondItem="inN-A6-Ih9" secondAttribute="trailing" id="t88-kF-AoD"/>
+                            <constraint firstItem="NSk-Mu-bFH" firstAttribute="leading" secondItem="v3b-8K-7rm" secondAttribute="leading" id="zCy-WV-Fvu"/>
+                            <constraint firstItem="inN-A6-Ih9" firstAttribute="centerY" secondItem="2xH-p0-sqH" secondAttribute="centerY" id="zd0-tf-9Ur"/>
+                            <constraint firstItem="2xH-p0-sqH" firstAttribute="height" secondItem="0un-Eg-xoB" secondAttribute="height" id="zw0-Rw-jeI"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="EtN-FP-CQx" appends="YES" id="GaC-5x-iGe"/>
+                        </connections>
                     </view>
+                    <navigationItem key="navigationItem" id="qC1-U4-KoS"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <outlet property="dataLabel" destination="i7n-lc-4In" id="8Kj-KN-eO6"/>
+                        <outlet property="email_field" destination="3wd-Qh-qet" id="NrM-j4-5BC"/>
+                        <outlet property="insurance_switch" destination="CQa-Y5-c6R" id="pW9-zc-2AH"/>
+                        <outlet property="name_field" destination="0un-Eg-xoB" id="TFO-zk-hxf"/>
+                        <outlet property="phone_field" destination="2xH-p0-sqH" id="uC8-WL-syl"/>
+                        <outlet property="tap_recognizer" destination="EtN-FP-CQx" id="gTP-kt-ccI"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PHE-GN-Yf3" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4Aq-Br-vxM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="EtN-FP-CQx"/>
             </objects>
-            <point key="canvasLocation" x="933" y="476"/>
+            <point key="canvasLocation" x="183" y="1184"/>
         </scene>
-        <!--Root View Controller-->
-        <scene sceneID="3GU-QQ-JyJ">
+        <!--Photo View Controller-->
+        <scene sceneID="Zjk-Pr-0aI">
             <objects>
-                <viewController id="PxF-Ax-wPy" customClass="RootViewController" customModuleProvider="" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Photo" useStoryboardIdentifierAsRestorationIdentifier="YES" id="1fA-wP-B1d" customClass="PhotoViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="17i-ZA-3zy"/>
-                        <viewControllerLayoutGuide type="bottom" id="8Yh-h8-jIR"/>
+                        <viewControllerLayoutGuide type="top" id="JK0-da-4Mv"/>
+                        <viewControllerLayoutGuide type="bottom" id="SyQ-gM-SnU"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="cc6-cB-pgf">
+                    <view key="view" contentMode="scaleToFill" id="Mkh-Ai-WiZ">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" red="0.60000002379999995" green="0.40000000600000002" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="*ensure that prescription is readable before proceeding" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aFe-ni-1TU">
+                                <rect key="frame" x="100" y="605" width="400" height="41"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9vV-iq-Deg">
+                                <rect key="frame" x="247" y="522" width="106" height="33"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="33" id="bmm-N9-HOz"/>
+                                    <constraint firstAttribute="width" constant="106" id="igp-lU-D4b"/>
+                                </constraints>
+                                <state key="normal" title="Next" image="next_unpressed">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="nextButtonPressed:" destination="1fA-wP-B1d" eventType="touchUpInside" id="tuq-Af-aVy"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="aFe-ni-1TU" firstAttribute="top" secondItem="9vV-iq-Deg" secondAttribute="bottom" constant="50" id="ENV-Qn-yX3"/>
+                            <constraint firstAttribute="centerX" secondItem="aFe-ni-1TU" secondAttribute="centerX" id="EjP-Hi-QYv"/>
+                            <constraint firstItem="aFe-ni-1TU" firstAttribute="width" secondItem="Mkh-Ai-WiZ" secondAttribute="width" multiplier="2:3" id="FRX-vr-noP"/>
+                            <constraint firstAttribute="centerX" secondItem="9vV-iq-Deg" secondAttribute="centerX" id="POF-0Y-yuV"/>
+                            <constraint firstItem="SyQ-gM-SnU" firstAttribute="top" secondItem="9vV-iq-Deg" secondAttribute="bottom" constant="45" id="ms8-ZN-62i"/>
+                        </constraints>
                     </view>
+                    <toolbarItems/>
+                    <connections>
+                        <outlet property="instructions_image" destination="Xtn-b0-TEV" id="XK4-8K-LFW"/>
+                        <outlet property="next_button" destination="9vV-iq-Deg" id="MgW-hE-t9G"/>
+                        <outlet property="note_label" destination="aFe-ni-1TU" id="egg-dz-AqZ"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="BPC-vx-IW7" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yxi-EJ-Frk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="181" y="476"/>
+            <point key="canvasLocation" x="895" y="843"/>
+        </scene>
+        <!--Instructions View Controller-->
+        <scene sceneID="2BY-d1-Ost">
+            <objects>
+                <viewController storyboardIdentifier="Instruct" useStoryboardIdentifierAsRestorationIdentifier="YES" id="CY7-PJ-hqO" customClass="InstructionsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2dg-rQ-XgU"/>
+                        <viewControllerLayoutGuide type="bottom" id="tLC-xS-jWW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="VNl-hD-a2i">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="prescription_instructions" translatesAutoresizingMaskIntoConstraints="NO" id="Xtn-b0-TEV">
+                                <rect key="frame" x="0.0" y="114" width="600" height="450"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Xtn-b0-TEV" secondAttribute="height" multiplier="4:3" id="5iq-xD-b8t"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y2m-j0-yI9">
+                                <rect key="frame" x="248" y="522" width="105" height="33"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="105" id="8LS-up-i2R"/>
+                                    <constraint firstAttribute="height" constant="33" id="KBs-JJ-7AV"/>
+                                </constraints>
+                                <state key="normal" title="Next" image="next_unpressed">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="nextButtonPressed:" destination="CY7-PJ-hqO" eventType="touchUpInside" id="6i6-Pj-2kU"/>
+                                    <action selector="nextButtonPressed:" destination="1fA-wP-B1d" eventType="touchUpInside" id="fwN-Ru-KmO"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="y2m-j0-yI9" firstAttribute="top" secondItem="Xtn-b0-TEV" secondAttribute="bottom" constant="14" id="GLt-Gs-ZJz"/>
+                            <constraint firstAttribute="centerX" secondItem="y2m-j0-yI9" secondAttribute="centerX" id="Hyg-x2-c8e"/>
+                            <constraint firstItem="Xtn-b0-TEV" firstAttribute="top" secondItem="2dg-rQ-XgU" secondAttribute="bottom" constant="50" id="NLo-DO-lqc"/>
+                            <constraint firstItem="Xtn-b0-TEV" firstAttribute="width" secondItem="VNl-hD-a2i" secondAttribute="width" id="OKO-Pi-3Li"/>
+                            <constraint firstItem="tLC-xS-jWW" firstAttribute="bottom" secondItem="y2m-j0-yI9" secondAttribute="bottom" constant="45" id="RIw-LW-mWQ"/>
+                            <constraint firstAttribute="centerX" secondItem="Xtn-b0-TEV" secondAttribute="centerX" id="znN-T5-ljj"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="GLt-Gs-ZJz"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="instructions_image" destination="Xtn-b0-TEV" id="erP-Df-G0F"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ILf-Nm-3O5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="939" y="1560"/>
+        </scene>
+        <!--Terms and Conditions-->
+        <scene sceneID="x3x-6b-cb0">
+            <objects>
+                <viewController storyboardIdentifier="Terms" title="Terms and Conditions" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hye-yj-j3S" customClass="ConditionsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1a0-pM-20s"/>
+                        <viewControllerLayoutGuide type="bottom" id="ILe-yf-H9c"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ada-fj-2P8">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="obX-ke-QEW">
+                                <rect key="frame" x="16" y="466" width="51" height="31"/>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I agree to the above terms and conditions" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7GO-vo-I0Y">
+                                <rect key="frame" x="264" y="471" width="320" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WSs-pB-vcB">
+                                <rect key="frame" x="239" y="522" width="123" height="33"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="33" id="JAA-pM-Gcf"/>
+                                    <constraint firstAttribute="width" secondItem="WSs-pB-vcB" secondAttribute="height" multiplier="150:40" id="e9u-We-ymF"/>
+                                </constraints>
+                                <state key="normal" image="done_unpressed">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="createAccountButtonPressed:" destination="hye-yj-j3S" eventType="touchUpInside" id="PyR-mC-0tP"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yX8-1d-wSW">
+                                <rect key="frame" x="0.0" y="64" width="600" height="377"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="User’s Acknowledgment and Terms of Use">
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="28" name="HelveticaNeue-Bold"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="15" minimumLineHeight="30" defaultTabInterval="36" headerLevel="2">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content" base64-UTF8="YES">
+Cg
+</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="15" minimumLineHeight="30" defaultTabInterval="36" headerLevel="2">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">RxtoMe (“Us” or “We”) provides the RxtoMe site, applications and various related services (collectively, the “site”) to you, the user, subject to your compliance with all the terms, conditions, and notices contained or referenced herein (the “Terms of Use”), as well as any other written agreement between us and you. In addition, when using particular services or materials on this site (“Services”), users shall be subject to any posted rules applicable to such services or materials that may contain terms and conditions in addition to those in these Terms of Use. All such guidelines or rules are hereby incorporated by reference into these Terms of Use.
+</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">Description of Services
+</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="22" name="HelveticaNeue-Bold"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36" headerLevel="3">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">By using the site, you are expressly agreeing and providing your consent to use the services for the purpose of routing your prescription(s) to a third party (“Licensed Pharmacy”). You understand that RXtoMe is in no way involved in the process of filling or the delivery of prescribed medications.
+You agree that by using RxtoMe and its services you understand that:
+</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">	•	</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" headIndent="36" minimumLineHeight="20" defaultTabInterval="36">
+                                                <tabStops>
+                                                    <textTab alignment="left" location="11"/>
+                                                    <textTab alignment="natural" location="36"/>
+                                                </tabStops>
+                                            </paragraphStyle>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="RxtoMe is provided free of charge.">
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" headIndent="36" minimumLineHeight="20" defaultTabInterval="36">
+                                                <tabStops>
+                                                    <textTab alignment="left" location="11"/>
+                                                    <textTab alignment="natural" location="36"/>
+                                                </tabStops>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content" base64-UTF8="YES">
+Cg
+</string>
+                                        <attributes>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" headIndent="36" minimumLineHeight="20" defaultTabInterval="36">
+                                                <tabStops>
+                                                    <textTab alignment="left" location="11"/>
+                                                    <textTab alignment="natural" location="36"/>
+                                                </tabStops>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">	•	</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" headIndent="36" minimumLineHeight="20" defaultTabInterval="36">
+                                                <tabStops>
+                                                    <textTab alignment="left" location="11"/>
+                                                    <textTab alignment="natural" location="36"/>
+                                                </tabStops>
+                                            </paragraphStyle>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">You are responsible for providing all necessary material required for the fulfillment of your prescription, and must not tamper with the images submitted, directions or instructions provided by your healthcare provider.</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" headIndent="36" minimumLineHeight="20" defaultTabInterval="36">
+                                                <tabStops>
+                                                    <textTab alignment="left" location="11"/>
+                                                    <textTab alignment="natural" location="36"/>
+                                                </tabStops>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content" base64-UTF8="YES">
+Cg
+</string>
+                                        <attributes>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" headIndent="36" minimumLineHeight="20" defaultTabInterval="36">
+                                                <tabStops>
+                                                    <textTab alignment="left" location="11"/>
+                                                    <textTab alignment="natural" location="36"/>
+                                                </tabStops>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">	•	</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" headIndent="36" minimumLineHeight="20" defaultTabInterval="36">
+                                                <tabStops>
+                                                    <textTab alignment="left" location="11"/>
+                                                    <textTab alignment="natural" location="36"/>
+                                                </tabStops>
+                                            </paragraphStyle>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">By placing an order you are voluntarily providing Personal Information about you or on behalf of those whom you’ve been authorized to conduct such an action and authorize RxtoMe and its subsidiaries to use/and or disclose Personal Information to Licensed Pharmacies for the purposes of providing the services in accordance to our Terms of Use.</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" headIndent="36" minimumLineHeight="20" defaultTabInterval="36">
+                                                <tabStops>
+                                                    <textTab alignment="left" location="11"/>
+                                                    <textTab alignment="natural" location="36"/>
+                                                </tabStops>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content" base64-UTF8="YES">
+Cg
+</string>
+                                        <attributes>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" headIndent="36" minimumLineHeight="20" defaultTabInterval="36">
+                                                <tabStops>
+                                                    <textTab alignment="left" location="11"/>
+                                                    <textTab alignment="natural" location="36"/>
+                                                </tabStops>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">	•	</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" headIndent="36" minimumLineHeight="20" defaultTabInterval="36">
+                                                <tabStops>
+                                                    <textTab alignment="left" location="11"/>
+                                                    <textTab alignment="natural" location="36"/>
+                                                </tabStops>
+                                            </paragraphStyle>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">You authorize RxtoMe and its subsidiaries to be contacted by SMS, email, auto dialer calls and/or pre-recorded messages, and Licensed Pharmacies in the RxtoMe Network regardless of your status on any State or Federal Do Not Call list.</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" headIndent="36" minimumLineHeight="20" defaultTabInterval="36">
+                                                <tabStops>
+                                                    <textTab alignment="left" location="11"/>
+                                                    <textTab alignment="natural" location="36"/>
+                                                </tabStops>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content" base64-UTF8="YES">
+Cg
+</string>
+                                        <attributes>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" headIndent="36" minimumLineHeight="20" defaultTabInterval="36">
+                                                <tabStops>
+                                                    <textTab alignment="left" location="11"/>
+                                                    <textTab alignment="natural" location="36"/>
+                                                </tabStops>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">	•	</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" headIndent="36" minimumLineHeight="20" defaultTabInterval="36">
+                                                <tabStops>
+                                                    <textTab alignment="left" location="11"/>
+                                                    <textTab alignment="natural" location="36"/>
+                                                </tabStops>
+                                            </paragraphStyle>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">RxtoMe does not recommend or endorse any of the Licensed Pharmacies providing the service and makes no representations or warranties with respect to the quality of the services they may provide.</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" headIndent="36" minimumLineHeight="20" defaultTabInterval="36">
+                                                <tabStops>
+                                                    <textTab alignment="left" location="11"/>
+                                                    <textTab alignment="natural" location="36"/>
+                                                </tabStops>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content" base64-UTF8="YES">
+Cg
+</string>
+                                        <attributes>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" headIndent="36" minimumLineHeight="20" defaultTabInterval="36">
+                                                <tabStops>
+                                                    <textTab alignment="left" location="11"/>
+                                                    <textTab alignment="natural" location="36"/>
+                                                </tabStops>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">You understand and acknowledge that the site is on an “AS IS” and “AS AVAILABLE” basis for the purpose of providing Us with feedback on the quality and usability of the service (“Service”). The Service may contain errors or inaccuracies that could cause failures, corruption or loss of data and/or information from your device and from peripherals (including, without limitation, servers and computers) connected thereto. We strongly encourage you to backup all data and information before using the site.
+You assume all risks and costs associated with your use of the Service, including, without limitation, costs incurred for the use of your device and peripherals, mobile service fees, co-pays, and any damage to any equipment, software, information or data.
+We reserve the sole right to either modify or discontinue the site, including any of the site’s features, at any time with or without notice to you. We will not be liable to you or any third party should we exercise such right. Any new features that augment or enhance the then-current services on this site shall also be subject to these Terms of Use.
+</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">Not Medical Advice
+</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="22" name="HelveticaNeue-Bold"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36" headerLevel="3">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">The contents of the site are for informational purposes only. The content is not intended to be a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or qualified health provider with any questions you may have regarding a medical condition. Never disregard professional medical advice or delay in seeking it because of the site.
+</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">Registration Data and Privacy
+</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="22" name="HelveticaNeue-Bold"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36" headerLevel="3">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">In order to access some of the services on this site, you will be required to use an account and password that can be obtained through registration for RxtoMe. By registering, you agree that all information provided is true and accurate and that you will maintain and update this information as required in order to keep it current, complete, and accurate.</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content=" ">
+                                        <attributes>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">You also grant us the right to disclose to third parties certain registration data about you. The information we obtain through your use of this site is subject to our Privacy Policy.
+</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">Conduct on Site
+</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="22" name="HelveticaNeue-Bold"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36" headerLevel="3">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">We are not responsible for any failure or delay in removing such content. You hereby consent to such removal and waive any claim against us arising out of such removal of content. See “Use of Your Materials” below for a description of the procedures to be followed in the event that any party believes that content posted on this site infringes on any patent, trademark, trade secret, copyright, right of publicity, or proprietary right of any party.
+In addition, you may not use your account to breach security of another account or attempt to gain unauthorized access to another network or server. Not all areas of the site may be available to you or other authorized users of the site. You shall not interfere with anyone else’s use and enjoyment of the site or other similar services. Users who violate systems or network security may incur criminal or civil liability.
+You agree that we may at any time, and at our sole discretion, terminate your membership, account, or other affiliation with our site without prior notice to you for violating any of the above provisions. In addition, you acknowledge that we will cooperate fully with investigations of violations of systems or network security at other sites, including cooperating with law enforcement authorities in investigating suspected criminal violations.
+</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">Third Party Sites and Information
+</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="22" name="HelveticaNeue-Bold"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36" headerLevel="3">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">This site may link you to other sites on the Internet or otherwise include references to information, documents, software, materials and/or services provided by other parties. These sites may contain information or material that some people may find inappropriate or offensive.
+These other sites and parties are not under our control, and you acknowledge that we are not responsible for the accuracy, copyright compliance, legality, decency, or any other aspect of the content of such sites, nor are we responsible for errors or omissions in any references to other parties or their products and services. The inclusion of such a link or reference is provided merely as a convenience and does not imply endorsement of, or association with, the site or party by us, or any warranty of any kind, either expresses or implied.
+</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">Intellectual Property Information
+</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="22" name="HelveticaNeue-Bold"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36" headerLevel="3">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">For purposes of these Terms of Use, “content” is defined as any information, data, communications, software, photos, video, graphics, music, sounds, and other material and services that can be viewed by users on our site. This includes all content.
+By accepting these Terms of Use, you acknowledge and agree that all content presented to you on this site is protected by copyrights, trademarks, service marks, patents or other proprietary rights and laws, and is the sole property of Rx to Me Inc. and/or its Affiliates. You are only permitted to use the content as expressly authorized by us or the specific content provider. Except for a single copy made for personal use only, you may not copy, reproduce, modify, republish, upload, post, transmit, or distribute any documents or information from this site in any form or by any means without prior written permission from us or the specific content provider, and you are solely responsible for obtaining permission before reusing any copyrighted material that is available on this site. Any unauthorized use of the materials appearing on this site may violate copyright, trademark and other applicable laws and could result in criminal or civil penalties.
+</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">Unauthorized Use of Materials
+</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="22" name="HelveticaNeue-Bold"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36" headerLevel="3">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">Subject to our Privacy Policy, any communication or material that you transmit to this site or to us, whether by electronic mail, post, or other means, for any reason, will be treated as non-confidential and non-proprietary. While you retain all rights in such communications or material, you grant us and our agents and affiliates a non-exclusive, paid-up, perpetual, and worldwide right to copy, distribute, display, perform, publish, translate, adapt, modify, and otherwise use such material for any purpose regardless of the form or medium (now known or not currently known) in which it is used.
+Please do not submit confidential or proprietary information to us unless we have mutually agreed in writing otherwise. We are also unable to accept your unsolicited ideas or proposals, so please do not submit them to us in any circumstance.
+You acknowledge and agree that upon receipt of a notice of a claim of copyright infringement, we may immediately remove the identified materials from our site without liability to you or any other party and that the claims of the complaining party and the party that originally posted the materials will be referred to the United States Copyright Office for adjudication as provided in the Digital Millennium Copyright Act.
+</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">Disclaimer of Warranties
+</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="22" name="HelveticaNeue-Bold"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36" headerLevel="3">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">Through your use of the site, you may have the opportunities to engage in commercial transactions with other users and vendors. You acknowledge that all transactions relating to any merchandise or services offered by any party, including, but not limited to the purchase terms, payment terms, warranties, guarantees, maintenance and delivery terms relating to such transactions, are agreed to solely between the seller or purchaser of such merchandize and services and you.
+Content available through this site often represents the opinions and judgments of an information provider, site user, or other person or entity not connected with us. We do not endorse, nor are we responsible for the accuracy or reliability of, any opinion, advice, or statement made by anyone other than an authorized RxtoMe, Inc. spokesperson speaking in his/her official capacity. Please refer to the specific editorial policies posted on various sections of this site for further information, which policies are incorporated by reference into these Terms of Use.
+You understand and agree that temporary interruptions of the services available through this site may occur as normal events. You further understand and agree that we have no control over third party networks you may access in the course of the use of this site, and therefore, delays and disruption of other network transmissions are completely beyond our control.</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content=" ">
+                                        <attributes>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">You understand and agree that temporary interruptions of the services available through this site may occur as normal events. You further understand and agree that we have no control over third party networks you may access in the course of the use of this site, and therefore, delays and disruption of other network transmissions are completely beyond our control.
+You understand and agree that the services available on this site are provided “AS IS” and that we assume no responsibility for the timeliness, deletion, mis-delivery or failure to store any user communications or personalization settings.
+</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">Indemnification
+</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="22" name="HelveticaNeue-Bold"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36" headerLevel="3">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">Upon a request by us, you agree to defend, indemnify, and hold us and our Affiliates harmless from all liabilities, claims, and expenses, including attorney’s fees that arise from your use or misuse of this site. We reserve the right, at our own expense, to assume the exclusive defense and control of any matter otherwise subject to indemnification by you, in which event you will cooperate with us in asserting any available defenses.
+</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">Limitation of Liability
+</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="22" name="HelveticaNeue-Bold"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36" headerLevel="3">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">In no event shall we or our affiliates be liable to you or any third party for any special, punitive, incidental, indirect or consequential damages of any kind, or any damages whatsoever, including, without limitation, those resulting from loss of use, data or profits, whether or not we have been advised of the possibility of such damages, and on any theory of liability, arising out of or in connection with the use of this site or of any web site referenced or linked to from this site.
+</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">Security and Password
+</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="22" name="HelveticaNeue-Bold"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36" headerLevel="3">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">You are solely responsible for maintaining the confidentiality of your password and account and for any and all statements made and acts or omissions that occur through the use of your password and account. Therefore, you must take steps to ensure that others do not gain access to your password and account. Our personnel will never ask you for your password. You may not transfer or share your account with anyone, and we reserve the right to immediately terminate your account if you do transfer or share your account.
+</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">E-mail, Messaging, Blogging, and Chat Services
+</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="22" name="HelveticaNeue-Bold"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36" headerLevel="3">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">We may communicate (collectively, “Communications”) available to users of our site, either directly or through a third-party provider or within the RxtoMe application. We make available separate supplemental agreements characterizing the relationship between you and us that, except where expressly noted or contradictory, includes these Terms.</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content=" ">
+                                        <attributes>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">We will not inspect or disclose the contents of private Communications except with the consent of the sender or the recipient, or in the narrowly-defined situations provided under the Electronic Communications Privacy Act, or as other required by law or by court or governmental order. Further information is available in our Privacy Policy.
+We may employ automated monitoring devices or techniques to protect our users from mass unsolicited communications (also known as “spam”) and/or other types of electronic communications that we deem inconsistent with our business purposes. However, such devices or techniques are not perfect, and we will not be responsible for any legitimate communication that is blocked, or for any unsolicited communication that is not blocked.
+</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">International Use
+</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="22" name="HelveticaNeue-Bold"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36" headerLevel="3">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">Although this site may be accessible worldwide, we make no representation that materials on this site are appropriate or available for use in locations outside the United States, and accessing them from territories where their contents are illegal is prohibited. Those who choose to access this site from other locations do so on their own initiative and are responsible for compliance with local laws. Any offer for any product, service, and/or information made in connection with this site is void where prohibited.
+</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">Termination of Use
+</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="22" name="HelveticaNeue-Bold"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36" headerLevel="3">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">You agree that we may, in our sole discretion, terminate or suspend your access to all or part of the site with or without notice and for any reason, including, without limitation, breach of these Terms of Use. Any suspected fraudulent, abusive or illegal activity may be grounds for terminating your relationship and may be referred to appropriate law enforcement authorities.
+We shall not be liable to you or any third party for any claims or damages arising out of any termination or suspension or any other actions taken by us in connection with such termination or suspension.
+</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">Entire Agreement
+</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="22" name="HelveticaNeue-Bold"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36" headerLevel="3">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">These terms and conditions constitute the entire agreement and understanding between us concerning the subject matter of this agreement and supersedes all prior agreements and understandings of the parties with respect to that subject matter. These Terms of Use may not be altered, supplemented, or amended by the use of any other document(s). Any attempt to alter, supplement or amend this document or to enter an order for products or services which are subject to additional or altered terms and conditions shall be null and void, unless otherwise agreed to in a written agreement signed by you and us. To the extent that anything in or associated with this site is in conflict or inconsistent with these Terms of Use, these Terms of Use shall take precedence.
+</string>
+                                        <attributes>
+                                            <color key="NSBackgroundColor" red="0.98431372549019602" green="0.9882352941176471" blue="0.99215686274509807" alpha="1" colorSpace="deviceRGB"/>
+                                            <color key="NSColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="10" minimumLineHeight="24" defaultTabInterval="36">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <color key="NSStrokeColor" red="0.36078431372549019" green="0.36078431372549019" blue="0.36078431372549019" alpha="1" colorSpace="deviceRGB"/>
+                                            <real key="NSStrokeWidth" value="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="obX-ke-QEW" firstAttribute="leading" secondItem="Ada-fj-2P8" secondAttribute="leadingMargin" id="0DC-0t-9il"/>
+                            <constraint firstItem="obX-ke-QEW" firstAttribute="centerY" secondItem="7GO-vo-I0Y" secondAttribute="centerY" id="4wm-dl-wmu"/>
+                            <constraint firstItem="ILe-yf-H9c" firstAttribute="top" relation="greaterThanOrEqual" secondItem="7GO-vo-I0Y" secondAttribute="bottom" constant="90" id="CXV-Be-Xca"/>
+                            <constraint firstItem="7GO-vo-I0Y" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="obX-ke-QEW" secondAttribute="trailing" constant="20" id="JG5-dA-42C"/>
+                            <constraint firstItem="yX8-1d-wSW" firstAttribute="width" secondItem="Ada-fj-2P8" secondAttribute="width" id="TAj-0W-kEk"/>
+                            <constraint firstItem="7GO-vo-I0Y" firstAttribute="top" secondItem="yX8-1d-wSW" secondAttribute="bottom" constant="30" id="bH8-7y-M1l"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="7GO-vo-I0Y" secondAttribute="trailing" id="fE2-S5-fPS"/>
+                            <constraint firstItem="ILe-yf-H9c" firstAttribute="top" secondItem="WSs-pB-vcB" secondAttribute="bottom" constant="45" id="fUh-Jh-GNS"/>
+                            <constraint firstItem="yX8-1d-wSW" firstAttribute="top" secondItem="1a0-pM-20s" secondAttribute="bottom" id="kC2-nR-abw"/>
+                            <constraint firstAttribute="centerX" secondItem="yX8-1d-wSW" secondAttribute="centerX" id="qfx-gT-bq0"/>
+                            <constraint firstAttribute="centerX" secondItem="WSs-pB-vcB" secondAttribute="centerX" id="ubG-ii-YyK"/>
+                            <constraint firstItem="ILe-yf-H9c" firstAttribute="top" secondItem="obX-ke-QEW" secondAttribute="bottom" constant="103" id="y5p-c8-DhA"/>
+                        </constraints>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="agree_switch" destination="obX-ke-QEW" id="CD1-Dh-MY5"/>
+                        <outlet property="agreement_text" destination="yX8-1d-wSW" id="RDh-Pi-TPL"/>
+                        <outlet property="create_account_button" destination="WSs-pB-vcB" id="yR0-2P-khX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yH3-gS-ZRW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1637" y="843"/>
+        </scene>
+        <!--Address Form View Controller-->
+        <scene sceneID="mzP-bC-Ka9">
+            <objects>
+                <viewController storyboardIdentifier="Address" useStoryboardIdentifierAsRestorationIdentifier="YES" id="VwR-hn-c8K" customClass="AddressFormViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="IQQ-pX-6NJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="Pqx-u0-l18"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qfj-HS-QwL">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kzi-39-Sgh">
+                                <rect key="frame" x="0.0" y="418" width="600" height="162"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="4m3-9n-MM8" id="ZNd-48-QuY"/>
+                                    <outlet property="delegate" destination="4m3-9n-MM8" id="V7a-aj-rrM"/>
+                                </connections>
+                            </pickerView>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Ss2-1n-XZu">
+                                <rect key="frame" x="476" y="159" width="51" height="31"/>
+                                <connections>
+                                    <action selector="locationSwitchChanged:" destination="4m3-9n-MM8" eventType="valueChanged" id="P9O-df-5bg"/>
+                                    <action selector="switchSwitched:" destination="VwR-hn-c8K" eventType="valueChanged" id="5Pz-Hv-4iy"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use current location?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ELR-pm-iX5">
+                                <rect key="frame" x="75" y="164" width="164" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="state" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="State/Province" minimumFontSize="17" background="textbox" translatesAutoresizingMaskIntoConstraints="NO" id="tpP-Bi-kpe">
+                                <rect key="frame" x="111" y="240" width="414" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="4m3-9n-MM8" id="MZj-zg-dHT"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="city" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="City" minimumFontSize="17" background="textbox" translatesAutoresizingMaskIntoConstraints="NO" id="QDD-ik-NCQ">
+                                <rect key="frame" x="111" y="280" width="414" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="4m3-9n-MM8" id="4wH-ID-Oyu"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="country" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Country" minimumFontSize="17" background="textbox" translatesAutoresizingMaskIntoConstraints="NO" id="dle-Cv-5RY">
+                                <rect key="frame" x="111" y="200" width="414" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="4m3-9n-MM8" id="Olz-Yz-z8C"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="address" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Address" minimumFontSize="17" background="textbox" translatesAutoresizingMaskIntoConstraints="NO" id="V0M-69-YU5">
+                                <rect key="frame" x="111" y="104" width="414" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gK0-O8-mqQ">
+                                <rect key="frame" x="247" y="522" width="106" height="33"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="33" id="G93-gs-dnR"/>
+                                    <constraint firstAttribute="width" constant="106" id="SIc-i7-Ogn"/>
+                                </constraints>
+                                <state key="normal" title="Next" image="next_unpressed">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="nextButtonPressed:" destination="VwR-hn-c8K" eventType="touchUpInside" id="ccN-6d-bvV"/>
+                                    <action selector="nextButtonPressed:" destination="1fA-wP-B1d" eventType="touchUpInside" id="oJ0-px-mc6"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="zip" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="ZIP" minimumFontSize="17" background="textbox" translatesAutoresizingMaskIntoConstraints="NO" id="OkD-4c-Vv7">
+                                <rect key="frame" x="111" y="320" width="414" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_city" translatesAutoresizingMaskIntoConstraints="NO" id="Qlv-ES-GCh">
+                                <rect key="frame" x="75" y="280" width="36" height="30"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="textbox_country" translatesAutoresizingMaskIntoConstraints="NO" id="Wo2-zn-khc">
+                                <rect key="frame" x="75" y="200" width="36" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Wo2-zn-khc" secondAttribute="height" multiplier="6:5" id="Y1v-i4-F7g"/>
+                                    <constraint firstAttribute="height" constant="30" id="YBP-1o-d93"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_state" translatesAutoresizingMaskIntoConstraints="NO" id="dpu-N6-rRr">
+                                <rect key="frame" x="75" y="240" width="36" height="30"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_address" translatesAutoresizingMaskIntoConstraints="NO" id="eGM-Mt-lKC">
+                                <rect key="frame" x="75" y="104" width="36" height="30"/>
+                            </imageView>
+                            <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wDs-ji-Uw4">
+                                <rect key="frame" x="75" y="-54" width="450" height="50"/>
+                                <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="0.48999999999999999" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="RWG-la-tGM"/>
+                                </constraints>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_zip" translatesAutoresizingMaskIntoConstraints="NO" id="9gJ-pr-QG1">
+                                <rect key="frame" x="75" y="320" width="36" height="30"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="wDs-ji-Uw4" firstAttribute="trailing" secondItem="V0M-69-YU5" secondAttribute="trailing" id="2H5-7f-MTk"/>
+                            <constraint firstItem="9gJ-pr-QG1" firstAttribute="width" secondItem="Wo2-zn-khc" secondAttribute="width" id="3IY-h1-GcH"/>
+                            <constraint firstItem="dle-Cv-5RY" firstAttribute="top" secondItem="ELR-pm-iX5" secondAttribute="bottom" constant="15" id="42P-0a-vcn"/>
+                            <constraint firstItem="tpP-Bi-kpe" firstAttribute="top" secondItem="dle-Cv-5RY" secondAttribute="bottom" constant="10" id="4ny-Yc-4G8"/>
+                            <constraint firstItem="V0M-69-YU5" firstAttribute="top" secondItem="IQQ-pX-6NJ" secondAttribute="bottom" constant="40" id="5dE-Ce-nX9"/>
+                            <constraint firstItem="9gJ-pr-QG1" firstAttribute="leading" secondItem="wDs-ji-Uw4" secondAttribute="leading" id="6cq-M3-htB"/>
+                            <constraint firstItem="Qlv-ES-GCh" firstAttribute="height" secondItem="QDD-ik-NCQ" secondAttribute="height" id="6qg-mt-Q1o"/>
+                            <constraint firstItem="Wo2-zn-khc" firstAttribute="width" secondItem="eGM-Mt-lKC" secondAttribute="width" id="8FA-ZY-iXa"/>
+                            <constraint firstItem="wDs-ji-Uw4" firstAttribute="trailing" secondItem="QDD-ik-NCQ" secondAttribute="trailing" id="9Jr-71-Dsg"/>
+                            <constraint firstAttribute="width" secondItem="Kzi-39-Sgh" secondAttribute="width" id="9eY-Dl-NfM"/>
+                            <constraint firstItem="Wo2-zn-khc" firstAttribute="height" secondItem="eGM-Mt-lKC" secondAttribute="height" id="Awa-AX-Nrh"/>
+                            <constraint firstItem="QDD-ik-NCQ" firstAttribute="width" secondItem="tpP-Bi-kpe" secondAttribute="width" id="Ewy-JC-BgD"/>
+                            <constraint firstAttribute="centerX" secondItem="Kzi-39-Sgh" secondAttribute="centerX" id="FE1-Yy-lWd"/>
+                            <constraint firstItem="V0M-69-YU5" firstAttribute="height" secondItem="eGM-Mt-lKC" secondAttribute="height" id="Fo4-kq-csu"/>
+                            <constraint firstItem="Qlv-ES-GCh" firstAttribute="centerY" secondItem="QDD-ik-NCQ" secondAttribute="centerY" id="H5T-Lk-2OL"/>
+                            <constraint firstItem="dpu-N6-rRr" firstAttribute="height" secondItem="tpP-Bi-kpe" secondAttribute="height" id="I9M-h6-ghh"/>
+                            <constraint firstItem="9gJ-pr-QG1" firstAttribute="height" secondItem="OkD-4c-Vv7" secondAttribute="height" id="IdA-5j-FJC"/>
+                            <constraint firstItem="OkD-4c-Vv7" firstAttribute="top" secondItem="QDD-ik-NCQ" secondAttribute="bottom" constant="10" id="L7G-TA-UID"/>
+                            <constraint firstItem="dle-Cv-5RY" firstAttribute="width" secondItem="tpP-Bi-kpe" secondAttribute="width" id="LcU-TI-qBg"/>
+                            <constraint firstItem="wDs-ji-Uw4" firstAttribute="leading" secondItem="eGM-Mt-lKC" secondAttribute="leading" id="M8C-yx-LeI"/>
+                            <constraint firstAttribute="centerX" secondItem="wDs-ji-Uw4" secondAttribute="centerX" id="MEP-ex-qSZ"/>
+                            <constraint firstItem="9gJ-pr-QG1" firstAttribute="height" secondItem="dle-Cv-5RY" secondAttribute="height" id="MFR-cP-SzW"/>
+                            <constraint firstItem="OkD-4c-Vv7" firstAttribute="leading" secondItem="9gJ-pr-QG1" secondAttribute="trailing" id="MQv-fj-Ffa"/>
+                            <constraint firstItem="V0M-69-YU5" firstAttribute="leading" secondItem="eGM-Mt-lKC" secondAttribute="trailing" id="PHk-R9-WRj"/>
+                            <constraint firstAttribute="centerX" secondItem="gK0-O8-mqQ" secondAttribute="centerX" id="RIP-0k-nQx"/>
+                            <constraint firstItem="9gJ-pr-QG1" firstAttribute="centerY" secondItem="OkD-4c-Vv7" secondAttribute="centerY" id="RQk-8M-YtL"/>
+                            <constraint firstItem="QDD-ik-NCQ" firstAttribute="top" secondItem="tpP-Bi-kpe" secondAttribute="bottom" constant="10" id="Su1-ZS-kHU"/>
+                            <constraint firstItem="tpP-Bi-kpe" firstAttribute="leading" secondItem="dpu-N6-rRr" secondAttribute="trailing" id="VMa-I1-tk1"/>
+                            <constraint firstItem="wDs-ji-Uw4" firstAttribute="leading" secondItem="ELR-pm-iX5" secondAttribute="leading" id="Vjf-YQ-7xy"/>
+                            <constraint firstItem="dle-Cv-5RY" firstAttribute="height" secondItem="Wo2-zn-khc" secondAttribute="height" id="YC1-6K-rp5"/>
+                            <constraint firstItem="dle-Cv-5RY" firstAttribute="height" secondItem="QDD-ik-NCQ" secondAttribute="height" id="a5Q-7v-Zxm"/>
+                            <constraint firstItem="QDD-ik-NCQ" firstAttribute="leading" secondItem="Qlv-ES-GCh" secondAttribute="trailing" id="bTI-Gk-vWd"/>
+                            <constraint firstItem="wDs-ji-Uw4" firstAttribute="trailing" secondItem="tpP-Bi-kpe" secondAttribute="trailing" id="dzO-f3-7Lq"/>
+                            <constraint firstItem="dpu-N6-rRr" firstAttribute="width" secondItem="Wo2-zn-khc" secondAttribute="width" id="er5-eV-Fqy"/>
+                            <constraint firstItem="Ss2-1n-XZu" firstAttribute="centerY" secondItem="ELR-pm-iX5" secondAttribute="centerY" id="hY0-gZ-epl"/>
+                            <constraint firstItem="wDs-ji-Uw4" firstAttribute="leading" secondItem="Qlv-ES-GCh" secondAttribute="leading" id="i0F-V3-Xoj"/>
+                            <constraint firstItem="wDs-ji-Uw4" firstAttribute="leading" secondItem="Wo2-zn-khc" secondAttribute="leading" id="i9h-uS-Ql0"/>
+                            <constraint firstItem="wDs-ji-Uw4" firstAttribute="width" secondItem="qfj-HS-QwL" secondAttribute="width" multiplier="3:4" id="jIJ-JP-sTG"/>
+                            <constraint firstItem="V0M-69-YU5" firstAttribute="centerY" secondItem="eGM-Mt-lKC" secondAttribute="centerY" id="lSu-r1-FqB"/>
+                            <constraint firstItem="OkD-4c-Vv7" firstAttribute="width" secondItem="QDD-ik-NCQ" secondAttribute="width" id="lVU-SI-qRB"/>
+                            <constraint firstItem="Ss2-1n-XZu" firstAttribute="trailing" secondItem="wDs-ji-Uw4" secondAttribute="trailing" id="oi1-q2-LeO"/>
+                            <constraint firstItem="Pqx-u0-l18" firstAttribute="top" secondItem="gK0-O8-mqQ" secondAttribute="bottom" constant="45" id="rLz-YO-hgf"/>
+                            <constraint firstItem="Wo2-zn-khc" firstAttribute="centerY" secondItem="dle-Cv-5RY" secondAttribute="centerY" id="rVd-bV-7l4"/>
+                            <constraint firstItem="wDs-ji-Uw4" firstAttribute="trailing" secondItem="OkD-4c-Vv7" secondAttribute="trailing" id="tAG-DW-xea"/>
+                            <constraint firstItem="dpu-N6-rRr" firstAttribute="leading" secondItem="wDs-ji-Uw4" secondAttribute="leading" id="vhy-Ro-jzw"/>
+                            <constraint firstItem="ELR-pm-iX5" firstAttribute="top" secondItem="V0M-69-YU5" secondAttribute="bottom" constant="30" id="wnv-NH-ZJB"/>
+                            <constraint firstItem="Pqx-u0-l18" firstAttribute="top" secondItem="Kzi-39-Sgh" secondAttribute="bottom" constant="20" id="xhW-Cb-Ba6"/>
+                            <constraint firstItem="dpu-N6-rRr" firstAttribute="centerY" secondItem="tpP-Bi-kpe" secondAttribute="centerY" id="y0C-lc-Cl7"/>
+                            <constraint firstItem="dle-Cv-5RY" firstAttribute="leading" secondItem="Wo2-zn-khc" secondAttribute="trailing" id="yJ7-p7-63n"/>
+                            <constraint firstItem="dpu-N6-rRr" firstAttribute="height" secondItem="dle-Cv-5RY" secondAttribute="height" id="zRo-7z-BjI"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="lna-qO-FWR" appends="YES" id="msQ-XR-7Nc"/>
+                        </connections>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="address_field" destination="V0M-69-YU5" id="d65-at-Cn0"/>
+                        <outlet property="city_field" destination="QDD-ik-NCQ" id="qob-ID-yAx"/>
+                        <outlet property="country_field" destination="dle-Cv-5RY" id="3VQ-gR-c9u"/>
+                        <outlet property="location_switch" destination="Ss2-1n-XZu" id="GGT-Ru-CN3"/>
+                        <outlet property="next_button" destination="gK0-O8-mqQ" id="GSW-6H-1r7"/>
+                        <outlet property="picker" destination="Kzi-39-Sgh" id="ej3-yN-mqG"/>
+                        <outlet property="state_field" destination="tpP-Bi-kpe" id="4pD-lv-dXm"/>
+                        <outlet property="tap_recognizer" destination="lna-qO-FWR" id="lJ1-pG-XX8"/>
+                        <outlet property="zip_field" destination="OkD-4c-Vv7" id="Zfb-CD-N5B"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ns7-cs-mEu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="lna-qO-FWR">
+                    <connections>
+                        <action selector="backgroundTapped:" destination="VwR-hn-c8K" id="Q2m-y5-j4Y"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="1637" y="1560"/>
+        </scene>
+        <!--Order Confirmation-->
+        <scene sceneID="auZ-EY-eg2">
+            <objects>
+                <viewController storyboardIdentifier="Confirmation" title="Order Confirmation" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4tr-Jd-SfW" customClass="ConfirmationViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ami-OV-v01"/>
+                        <viewControllerLayoutGuide type="bottom" id="e1Y-6u-GjG"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="zya-jK-oTt">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zLj-Qh-4n4">
+                                <rect key="frame" x="203" y="485" width="195" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="zLj-Qh-4n4" secondAttribute="height" multiplier="500:180" id="6qk-se-3DJ"/>
+                                    <constraint firstAttribute="height" constant="70" id="aqI-Oq-NNS"/>
+                                </constraints>
+                                <state key="normal" image="complete_unpressed">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="completeButtonPressed:" destination="4tr-Jd-SfW" eventType="touchUpInside" id="DKb-9z-ZBb"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send to: Address" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="CJf-LI-ImB">
+                                <rect key="frame" x="16" y="84" width="568" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V5R-RS-iZm">
+                                <rect key="frame" x="16" y="156" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T8x-0w-LL2">
+                                <rect key="frame" x="16" y="187" width="50" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rMP-Cs-uJf">
+                                <rect key="frame" x="16" y="125" width="46" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZIh-KN-xQG">
+                                <rect key="frame" x="16" y="218" width="329" height="247"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="ZIh-KN-xQG" secondAttribute="height" multiplier="4:3" id="3Z7-rC-bhH"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="R53-Qa-Xnu" appends="YES" id="CgD-mJ-Wht"/>
+                                </connections>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="CJf-LI-ImB" firstAttribute="leading" secondItem="zya-jK-oTt" secondAttribute="leadingMargin" id="2hs-NY-uNO"/>
+                            <constraint firstItem="V5R-RS-iZm" firstAttribute="top" secondItem="rMP-Cs-uJf" secondAttribute="bottom" constant="10" id="7kV-dX-QJL"/>
+                            <constraint firstItem="e1Y-6u-GjG" firstAttribute="top" secondItem="zLj-Qh-4n4" secondAttribute="bottom" constant="45" id="Ax2-I0-QlN"/>
+                            <constraint firstItem="CJf-LI-ImB" firstAttribute="top" secondItem="Ami-OV-v01" secondAttribute="bottom" constant="20" id="C7z-Yu-alj"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="CJf-LI-ImB" secondAttribute="trailing" id="GCs-Z5-95p"/>
+                            <constraint firstItem="CJf-LI-ImB" firstAttribute="leading" secondItem="rMP-Cs-uJf" secondAttribute="leading" id="Nso-zR-tCZ"/>
+                            <constraint firstItem="CJf-LI-ImB" firstAttribute="leading" secondItem="V5R-RS-iZm" secondAttribute="leading" id="Rca-mm-FJX"/>
+                            <constraint firstItem="zLj-Qh-4n4" firstAttribute="top" secondItem="ZIh-KN-xQG" secondAttribute="bottom" constant="20" id="UzZ-0d-Yhe"/>
+                            <constraint firstItem="ZIh-KN-xQG" firstAttribute="leading" secondItem="CJf-LI-ImB" secondAttribute="leading" id="Y1D-dQ-Vit"/>
+                            <constraint firstItem="T8x-0w-LL2" firstAttribute="top" secondItem="V5R-RS-iZm" secondAttribute="bottom" constant="10" id="Zto-CW-RQF"/>
+                            <constraint firstItem="rMP-Cs-uJf" firstAttribute="top" secondItem="CJf-LI-ImB" secondAttribute="bottom" constant="20" id="h2x-J4-FDn"/>
+                            <constraint firstItem="ZIh-KN-xQG" firstAttribute="top" secondItem="T8x-0w-LL2" secondAttribute="bottom" constant="10" id="jkU-nD-uKf"/>
+                            <constraint firstAttribute="centerX" secondItem="zLj-Qh-4n4" secondAttribute="centerX" id="l7B-Yu-KQH"/>
+                            <constraint firstItem="CJf-LI-ImB" firstAttribute="leading" secondItem="T8x-0w-LL2" secondAttribute="leading" id="yAq-Ih-39h"/>
+                            <constraint firstItem="ZIh-KN-xQG" firstAttribute="width" relation="lessThanOrEqual" secondItem="zya-jK-oTt" secondAttribute="width" multiplier="3:4" id="z5B-UN-KFE"/>
+                        </constraints>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="address_label" destination="CJf-LI-ImB" id="sus-jZ-vln"/>
+                        <outlet property="complete_button" destination="zLj-Qh-4n4" id="hYj-Bv-nYQ"/>
+                        <outlet property="email_label" destination="V5R-RS-iZm" id="8ii-3H-1Bd"/>
+                        <outlet property="name_label" destination="rMP-Cs-uJf" id="c1N-Ju-NjR"/>
+                        <outlet property="phone_label" destination="T8x-0w-LL2" id="ASc-cV-X1i"/>
+                        <outlet property="prescription_image" destination="ZIh-KN-xQG" id="rw0-AN-tvS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bwa-Xc-m5H" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="R53-Qa-Xnu">
+                    <connections>
+                        <action selector="takePhoto:" destination="4tr-Jd-SfW" id="M7w-Dy-yhR"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="2364" y="843"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="complete_unpressed" width="540" height="180"/>
+        <image name="done_unpressed" width="300" height="80"/>
+        <image name="front_page_text" width="500" height="247"/>
+        <image name="get_started_unpressed" width="540" height="70"/>
+        <image name="icon_address" width="112" height="80"/>
+        <image name="icon_city" width="112" height="80"/>
+        <image name="icon_email" width="112" height="80"/>
+        <image name="icon_name" width="112" height="80"/>
+        <image name="icon_phone" width="112" height="80"/>
+        <image name="icon_state" width="112" height="80"/>
+        <image name="icon_zip" width="112" height="80"/>
+        <image name="login_unpressed" width="540" height="70"/>
+        <image name="next_unpressed" width="540" height="180"/>
+        <image name="prescription_instructions" width="1008" height="903"/>
+        <image name="rxtome_logo" width="641" height="180"/>
+        <image name="textbox" width="560" height="80"/>
+        <image name="textbox_country" width="112" height="80"/>
+    </resources>
 </document>
