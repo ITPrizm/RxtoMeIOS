@@ -239,6 +239,12 @@
 				TargetAttributes = {
 					58A3F6401B77FB780037C6E8 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = B6XA9LWC7P;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 0;
+							};
+						};
 					};
 					58A3F65F1B77FB790037C6E8 = {
 						CreatedOnToolsVersion = 6.4;
@@ -460,6 +466,7 @@
 			baseConfigurationReference = F5D0F9C33E82A693C442E360 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = RxToMe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -471,6 +478,7 @@
 			baseConfigurationReference = 8DFFCBF7B30953740A99EDE3 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = RxToMe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

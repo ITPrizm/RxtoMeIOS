@@ -14,6 +14,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *get_started_button;
 @property (weak, nonatomic) IBOutlet UIButton *login_button;
 @property (nonatomic) UIActivityIndicatorView *loading;
+@property (nonatomic) UIAlertAction *forgot_alert;
+@property (nonatomic) UIAlertAction *login_alert;
 
 @end
 
@@ -69,6 +71,16 @@
     [self.view addSubview:_loading];
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if ([string isEqualToString:@""] && range.location == 0) {
+        _forgot_alert.enabled = NO;
+        _login_alert.enabled = NO;
+    } else {
+        _forgot_alert.enabled = YES;
+        _login_alert.enabled = YES;
+    }
+    return YES;
+}
 
 - (IBAction)loginButtonPressed:(id)sender {
     User *user = [User sharedManager];
@@ -76,25 +88,27 @@
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Login" message:@"Please enter login information" preferredStyle:UIAlertControllerStyleAlert];
 
     UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:nil];
-    UIAlertAction* forgot = [UIAlertAction actionWithTitle:@"Forgot Password" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    _forgot_alert = [UIAlertAction actionWithTitle:@"Forgot Password" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         user.email = ((UITextField*)alertController.textFields[0]).text;
         [self presentLoadingView];
         [user forgotPassword];
     }];
-    UIAlertAction* ok = [UIAlertAction actionWithTitle:@"Login" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    _login_alert = [UIAlertAction actionWithTitle:@"Login" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
         user.email = ((UITextField*)alertController.textFields[0]).text;
         user.password = ((UITextField*)alertController.textFields[1]).text;
-        
         [self presentLoadingView];
         
         [user login];
     }];
-    [alertController addAction:ok];
-    [alertController addAction:forgot];
+    _forgot_alert.enabled = NO;
+    _login_alert.enabled  = NO;
+    [alertController addAction:_login_alert];
+    [alertController addAction:_forgot_alert];
     [alertController addAction:cancel];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-        textField.placeholder = @"Login";
+        textField.placeholder  = @"Login";
+        textField.delegate     = self;
         textField.keyboardType = UIKeyboardTypeEmailAddress;
     }];
     

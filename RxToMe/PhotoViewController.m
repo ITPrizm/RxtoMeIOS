@@ -8,6 +8,7 @@
 
 #import "PhotoViewController.h"
 #import "User.h"
+#import "InstructionsViewController.h"
 
 @interface PhotoViewController ()
 
@@ -47,20 +48,14 @@
         if (_user.prescription_image) {
             [_prescription_button setImage:_user.prescription_image forState:UIControlStateNormal];
             _note_label.hidden = NO;
-            _next_button.hidden = NO;
-        } else {
-            _note_label.hidden = YES;
-            _next_button.hidden = YES;
         }
     } else {
+        _note_label.hidden = YES;
         if (_user.insurance_front) {
             [_insurance_front_button setImage:_user.insurance_front forState:UIControlStateNormal];
         }
         if (_user.insurance_back) {
             [_insurance_back_button setImage:_user.insurance_back forState:UIControlStateNormal];
-        }
-        if (_user.insurance_back && _user.insurance_front) {
-            _next_button.hidden = NO;
         }
     }
 }
@@ -73,19 +68,19 @@
 #pragma mark - View Setup
 
 - (void)prescriptionSetup {
-    _prescription_button = [self setButton:@"Add Prescription" :0 :0];
+    _prescription_button = [self setButton:@"Add Prescription" xpos:0 ypos:-50];
 }
 
 - (void)insuranceSetup {
-    _insurance_back_button = [self setButton:@"Add Prescription" :0 :-100];
-    _insurance_front_button = [self setButton:@"Add Prescription" :0 :100];
+    _insurance_back_button = [self setButton:@"Add Insurance Back" xpos:0 ypos:-100];
+    _insurance_front_button = [self setButton:@"Add Insurance Front" xpos:0 ypos:100];
     
     [_insurance_front_button setRestorationIdentifier:@"front"];
     [_insurance_back_button setRestorationIdentifier:@"back"];
 }
 
 // quasi button factory
-- (UIButton*)setButton:(NSString*)title :(NSInteger)xpos :(NSInteger)ypos {
+- (UIButton*)setButton:(NSString*)title xpos:(NSInteger)xpos ypos:(NSInteger)ypos {
     UIButton *new_button = [[UIButton alloc] init];
     new_button.translatesAutoresizingMaskIntoConstraints = NO;
     new_button.imageView.clipsToBounds = YES;
@@ -151,7 +146,6 @@
         if ([_type isEqualToString:@"prescription"]) {
             _user.prescription_image = image;
             _note_label.hidden = NO;
-            _next_button.hidden = NO;
         } else {
             if ([_selected_apv.restorationIdentifier isEqualToString: @"front"]) {
                 _user.insurance_front = image;
@@ -162,25 +156,40 @@
     }];
 }
 
+- (void)presentErrorWithMessage:(NSString*)message {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Missing Photo" message:message preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+    [alertController addAction:ok];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
 #pragma mark - Navigation
 
 - (IBAction)nextButtonPressed:(id)sender {
     UIViewController *conditions = [self.storyboard instantiateViewControllerWithIdentifier:@"Terms"];
     if ([_type isEqualToString:@"prescription"]) {
-        if (_user.logged_in) {
-            if (_user.has_insurance) {
-                PhotoViewController *insurnaceVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Photo"];
-                insurnaceVC.type = @"insurance";
-                [self.navigationController pushViewController:insurnaceVC animated:YES];
+        if (_prescription_button.imageView.image) {
+            if (_user.logged_in) {
+                if (_user.has_insurance) {
+                    InstructionsViewController *insurnaceVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Instruct"];
+                    insurnaceVC.type = @"insurance";
+                    [self.navigationController pushViewController:insurnaceVC animated:YES];
+                } else {
+                    [self.navigationController pushViewController:conditions animated:YES];
+                }
             } else {
-                [self.navigationController pushViewController:conditions animated:YES];
+                UIViewController *formVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Form"];
+                [self.navigationController pushViewController:formVC animated:YES];
             }
         } else {
-            UIViewController *formVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Form"];
-            [self.navigationController pushViewController:formVC animated:YES];
+            [self presentErrorWithMessage:@"Add an image of your prescription before continuing."];
         }
     } else {
-        [self.navigationController pushViewController:conditions animated:YES];
+        if (_insurance_back_button.imageView.image && _insurance_front_button.imageView.image) {
+            [self.navigationController pushViewController:conditions animated:YES];
+        } else {
+            [self presentErrorWithMessage:@"Add images of the front and back of your insurance before continuing."];
+        }
     }
 }
 

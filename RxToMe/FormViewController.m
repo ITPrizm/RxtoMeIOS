@@ -27,6 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _tap_recognizer.delegate = self;
+    _phone_field.delegate = self;
     _user = [User sharedManager];
     [self setTitle:@"Contact Information"];
 }
@@ -40,6 +41,14 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (range.location == 2)
+        textField.text = [NSString stringWithFormat:@"(%@) ", textField.text];
+    if (range.location > 9) return NO;
+    
+    return YES;
 }
 
 - (NSString*)validateForm {

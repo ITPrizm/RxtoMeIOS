@@ -252,12 +252,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="*ensure that prescription is readable before proceeding" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aFe-ni-1TU">
-                                <rect key="frame" x="100" y="605" width="400" height="41"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9vV-iq-Deg">
                                 <rect key="frame" x="247" y="522" width="106" height="33"/>
                                 <constraints>
@@ -271,10 +265,16 @@
                                     <action selector="nextButtonPressed:" destination="1fA-wP-B1d" eventType="touchUpInside" id="tuq-Af-aVy"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="*ensure that prescription is readable before proceeding" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aFe-ni-1TU">
+                                <rect key="frame" x="100" y="431" width="400" height="41"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="aFe-ni-1TU" firstAttribute="top" secondItem="9vV-iq-Deg" secondAttribute="bottom" constant="50" id="ENV-Qn-yX3"/>
+                            <constraint firstItem="9vV-iq-Deg" firstAttribute="top" secondItem="aFe-ni-1TU" secondAttribute="bottom" constant="50" id="D3j-yS-sbw"/>
                             <constraint firstAttribute="centerX" secondItem="aFe-ni-1TU" secondAttribute="centerX" id="EjP-Hi-QYv"/>
                             <constraint firstItem="aFe-ni-1TU" firstAttribute="width" secondItem="Mkh-Ai-WiZ" secondAttribute="width" multiplier="2:3" id="FRX-vr-noP"/>
                             <constraint firstAttribute="centerX" secondItem="9vV-iq-Deg" secondAttribute="centerX" id="POF-0Y-yuV"/>
