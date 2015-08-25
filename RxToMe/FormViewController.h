@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FormViewController : UIViewController <UITextFieldDelegate, UIGestureRecognizerDelegate>
+@interface FormViewController : UIViewController <UITextFieldDelegate>
+
+@property BOOL is_modal;
 
 @end

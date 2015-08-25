@@ -8,7 +8,7 @@
 
 #import "PhotoViewController.h"
 #import "User.h"
-#import "InstructionsViewController.h"
+#import "CashOrInsuranceViewController.h"
 
 @interface PhotoViewController ()
 
@@ -68,7 +68,7 @@
 #pragma mark - View Setup
 
 - (void)prescriptionSetup {
-    _prescription_button = [self setButton:@"Add Prescription" xpos:0 ypos:-50];
+    _prescription_button = [self setButton:@"Add Prescription" xpos:0 ypos:50];
 }
 
 - (void)insuranceSetup {
@@ -170,13 +170,8 @@
     if ([_type isEqualToString:@"prescription"]) {
         if (_prescription_button.imageView.image) {
             if (_user.logged_in) {
-                if (_user.has_insurance) {
-                    InstructionsViewController *insurnaceVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Instruct"];
-                    insurnaceVC.type = @"insurance";
-                    [self.navigationController pushViewController:insurnaceVC animated:YES];
-                } else {
-                    [self.navigationController pushViewController:conditions animated:YES];
-                }
+                CashOrInsuranceViewController *cashVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CashOrInsurance"];
+                [self.navigationController pushViewController:cashVC animated:YES];
             } else {
                 UIViewController *formVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Form"];
                 [self.navigationController pushViewController:formVC animated:YES];

@@ -22,6 +22,8 @@
 		58A3F68B1B7AA1AA0037C6E8 /* ConditionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58A3F68A1B7AA1AA0037C6E8 /* ConditionsViewController.m */; };
 		58A3F6941B7BA94A0037C6E8 /* InstructionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58A3F6931B7BA94A0037C6E8 /* InstructionsViewController.m */; };
 		58A3F69A1B7BCB670037C6E8 /* AddressFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58A3F6991B7BCB670037C6E8 /* AddressFormViewController.m */; };
+		58A81C161B87AC25008F0593 /* CashOrInsuranceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58A81C151B87AC25008F0593 /* CashOrInsuranceViewController.m */; };
+		58A81C191B87D5E0008F0593 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58A81C181B87D5E0008F0593 /* LoginViewController.m */; };
 		58C907891B7E568E007E7702 /* RxClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 58C907881B7E568E007E7702 /* RxClient.m */; };
 		A8536B76FF55B1B3E9FA3AFB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 98AB78DCDCB62D02CA4D5105 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -65,6 +67,10 @@
 		58A3F6931B7BA94A0037C6E8 /* InstructionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstructionsViewController.m; sourceTree = "<group>"; };
 		58A3F6981B7BCB670037C6E8 /* AddressFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressFormViewController.h; sourceTree = "<group>"; };
 		58A3F6991B7BCB670037C6E8 /* AddressFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressFormViewController.m; sourceTree = "<group>"; };
+		58A81C141B87AC25008F0593 /* CashOrInsuranceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CashOrInsuranceViewController.h; sourceTree = "<group>"; };
+		58A81C151B87AC25008F0593 /* CashOrInsuranceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CashOrInsuranceViewController.m; sourceTree = "<group>"; };
+		58A81C171B87D5E0008F0593 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		58A81C181B87D5E0008F0593 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		58C907871B7E568E007E7702 /* RxClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RxClient.h; sourceTree = "<group>"; };
 		58C907881B7E568E007E7702 /* RxClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RxClient.m; sourceTree = "<group>"; };
 		8DFFCBF7B30953740A99EDE3 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "podfile/Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -130,6 +136,8 @@
 				58A3F6771B7913F80037C6E8 /* FormViewController.m */,
 				58A3F6981B7BCB670037C6E8 /* AddressFormViewController.h */,
 				58A3F6991B7BCB670037C6E8 /* AddressFormViewController.m */,
+				58A81C141B87AC25008F0593 /* CashOrInsuranceViewController.h */,
+				58A81C151B87AC25008F0593 /* CashOrInsuranceViewController.m */,
 				58A3F6571B77FB790037C6E8 /* Images.xcassets */,
 				58A3F6591B77FB790037C6E8 /* LaunchScreen.xib */,
 				58A3F6811B7959610037C6E8 /* ConfirmationViewController.h */,
@@ -138,6 +146,8 @@
 				58A3F6871B7A6DEB0037C6E8 /* PhotoViewController.m */,
 				58A3F6891B7AA1AA0037C6E8 /* ConditionsViewController.h */,
 				58A3F68A1B7AA1AA0037C6E8 /* ConditionsViewController.m */,
+				58A81C171B87D5E0008F0593 /* LoginViewController.h */,
+				58A81C181B87D5E0008F0593 /* LoginViewController.m */,
 				58A3F6441B77FB780037C6E8 /* Supporting Files */,
 			);
 			path = RxToMe;
@@ -330,6 +340,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				58A3F64A1B77FB780037C6E8 /* AppDelegate.m in Sources */,
+				58A81C161B87AC25008F0593 /* CashOrInsuranceViewController.m in Sources */,
+				58A81C191B87D5E0008F0593 /* LoginViewController.m in Sources */,
 				58C907891B7E568E007E7702 /* RxClient.m in Sources */,
 				58A3F69A1B7BCB670037C6E8 /* AddressFormViewController.m in Sources */,
 				58A3F6831B7959610037C6E8 /* ConfirmationViewController.m in Sources */,

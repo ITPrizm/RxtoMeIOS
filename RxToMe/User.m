@@ -31,11 +31,9 @@
 #pragma mark - POST Requests
 
 - (void)login {
-/*  DEVELOPMENT USE ONLY
-    NSDictionary *params = [NSDictionary dictionaryWithObjects:@[@"mikespearman.e@gmail.com", @"bHUWy"]
-                                                       forKeys:@[@"pt_email", @"pt_upass"]];
-*/
     NSDictionary *params = [NSDictionary dictionaryWithObjects:@[_email, _password] forKeys:@[@"pt_email", @"pt_upass"]];
+//    NSDictionary *params = [NSDictionary dictionaryWithObjects:@[@"mikespearman.e@gmail.com", @"bHUWy"] forKeys:@[@"pt_email", @"pt_upass"]];
+
     
     [[RxClient sharedClient] POST:@"http://api.rxtome.com/api/v1/patient/login" parameters:params
                           success:^(NSURLSessionDataTask *task, id responseObject) {
@@ -44,7 +42,7 @@
                               NSDictionary *response = (NSDictionary*)responseObject;
                               // Pass response to user fields
                               [self parseLoginResponse:response[@"data"]];
-                              [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginComplete" object:nil userInfo:nil];
+                              [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginSuccess" object:nil userInfo:nil];
                           }
                           failure:^(NSURLSessionDataTask *task, NSError *error) {
                               NSLog(@"FAILURE: %@", task.response);
@@ -56,7 +54,10 @@
                                   error_info = @{@"message" : error.localizedDescription};
                               }
                               
-                              [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginComplete"object:nil userInfo:error_info];
+                              _email = nil;
+                              _password = nil;
+                              
+                              [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginFailure"object:nil userInfo:error_info];
                           }
      ];
 }
@@ -113,8 +114,9 @@
     }];
 }
 
-- (void)forgotPassword {
-    [[RxClient sharedClient] POST:kRxForgotPasswordEndpoint parameters:@{@"pt_email":_email} success:^(NSURLSessionDataTask *task, id responseObject) {
+
+- (void)forgotPasswordForEmail:(NSString*)email {
+    [[RxClient sharedClient] POST:kRxForgotPasswordEndpoint parameters:@{@"pt_email":email} success:^(NSURLSessionDataTask *task, id responseObject) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"PasswordRecoveryComplete" object:self userInfo:nil];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSDictionary* error_info = @{@"message" : @"Could not find user with supplied email."};
@@ -131,7 +133,7 @@
                               @"pt_country"     : _country,
                               @"pt_state"       : _state,
                               @"pt_address1"    : _address,
-                              @"pt_address2"    : @"",
+                              @"pt_address2"    : _address2,
                               @"pt_city"        : _city,
                               @"pt_uname"       : _name,
                               @"or_regid"       : _device_id,
@@ -146,7 +148,6 @@
 - (void)parseRegistrationResponse:(NSDictionary*)response {
     NSDictionary *data = response[@"pt_data"];
     NSDictionary *patient = data[@"patient"];
-    _order_id = data[@"or_id"];
     _token = patient[@"pt_token"];
 }
 
@@ -154,6 +155,7 @@
     NSDictionary *data = response[@"pt_data"];
     _name = data[@"pt_uname"];
     _address = data[@"pt_address1"];
+    _address2 = data[@"pt_address2"];
     _city = data[@"pt_city"];
     _state = data[@"pt_state"];
     _country = data[@"pt_country"];
@@ -162,26 +164,88 @@
     _phone = data[@"pt_phone"];
     _token = data[@"pt_token"];
     _password = data[@"pt_upass"];
+    _insurance_back = [UIImage imageWithData: [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat: @"%@%@", kRxBaseURL, data[@"pt_insfront"]]]]];
+    _insurance_front = [UIImage imageWithData: [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat: @"%@%@", kRxBaseURL, data[@"pt_insback"]]]]];
     _has_insurance = [response[@"or_cash"] isEqual: @"0"];
+}
+
+- (void)empty {
+    _name = nil;
+    _address = nil;
+    _address2 = nil;
+    _city = nil;
+    _state = nil;
+    _country = nil;
+    _zip = nil;
+    _email = nil;
+    _phone = nil;
+    _token = nil;
+    _password = nil;
+    _insurance_back = nil;
+    _insurance_front = nil;
+    _prescription_image = nil;
+    _logged_in = NO;
+    _token = nil;
 }
 
 # pragma mark - Validations
 
 - (BOOL)validateEmail:(NSString*)email {
+    if ([self onlyWhiteSpace:email]) return NO;
     NSString *emailRegex = @"^.+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*$";
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
     return [emailTest evaluateWithObject:email];
 }
 
 - (BOOL)validatePhone:(NSString*)phone {
-    // valid = 10 digits and only integers
+    // valid = 10 digits
+    if ([self onlyWhiteSpace:phone]) return NO;
+    return [self allChars:phone withLength:10];
+}
+
+- (BOOL)validateZip:(NSString*)zip {
+    // must be 5 integers
+    return [self allChars:zip withLength:5];
+}
+
+- (BOOL)validatePostalCode:(NSString*)code {
+    // valid if follows format A#A#A#
+    if (code.length != 6) return NO;
+    NSCharacterSet *letters = [NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"];
+    NSCharacterSet *numbers = [NSCharacterSet characterSetWithCharactersInString:@"1234567890"];
+    for (int i = 0; i < code.length; i++) {
+        char c = [code characterAtIndex:i];
+        // even vs odd
+        if (i % 2) {
+            // check if int
+            if (![numbers characterIsMember:c]) return false;
+        } else {
+            // check if letter
+            if (![letters characterIsMember:c]) return false;
+        }
+    }
+    return YES;
+}
+
+- (BOOL)onlyWhiteSpace:(NSString*)string{
+    int i = 0;
+    while (i < string.length) {
+        char c = [string characterAtIndex:i];
+        if (![[NSCharacterSet whitespaceCharacterSet] characterIsMember:c]) return NO;
+        i++;
+    }
+    return YES;
+}
+
+- (BOOL)allChars:(NSString*)string withLength:(NSInteger)length {
     NSCharacterSet* notDigits = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
-    if ([phone rangeOfCharacterFromSet:notDigits].location == NSNotFound)
-        return phone.length == 10;
+    if ([string rangeOfCharacterFromSet:notDigits].location == NSNotFound)
+        return string.length == length;
     return NO;
 }
 
 - (BOOL)validateLength:(NSString*)str {
+    if ([self onlyWhiteSpace:str]) return NO;
     return str.length > 0;
 }
 

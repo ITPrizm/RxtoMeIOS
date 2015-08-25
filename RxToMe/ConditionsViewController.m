@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UISwitch *agree_switch;
 @property (weak, nonatomic) IBOutlet UIButton *create_account_button;
 @property (nonatomic) UIActivityIndicatorView *indicator;
+@property (weak, nonatomic) IBOutlet UILabel *agreement_label;
 @property (weak, nonatomic) User *user;
 @end
 
@@ -24,22 +25,17 @@
     _user = [User sharedManager];
     [self.agreement_text scrollRangeToVisible:NSMakeRange(0, 0)];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(registrationComplete:) name:@"RegistrationComplete" object:nil];
     // Do any additional setup after loading the view.
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    self.agreement_label.text = [NSString stringWithFormat:@"I, %@, agree to the above terms and conditions.", _user.name];
 }
 
 - (IBAction)createAccountButtonPressed:(id)sender {
     if (_agree_switch.on) {
-        if (!_user.logged_in) {
-            _indicator = [[UIActivityIndicatorView alloc]
-                        initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-            _indicator.center = self.view.center;
-            [_indicator startAnimating];
-            [self.view addSubview:_indicator];
-            [_user registerAccount];
-        } else {
-            [self navigateToConfirmation];
-        }
+        UIViewController *confirmVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Confirmation"];
+        [self.navigationController pushViewController:confirmVC animated:YES];
     } else {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Terms and Conditions" message:@"You must agree to the terms and conditions before continuing" preferredStyle:UIAlertControllerStyleAlert];
         
@@ -47,27 +43,6 @@
         [alertController addAction:ok];
         
         [self presentViewController:alertController animated:YES completion:nil];
-    }
-}
-
-- (void)navigateToConfirmation {
-    UIViewController *confirmVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Confirmation"];
-    [self.navigationController pushViewController:confirmVC animated:YES];
-}
-
-
-- (void)registrationComplete: (NSNotification*)note {
-    [_indicator removeFromSuperview];
-    if (note.userInfo) {
-        NSDictionary *userInfo = note.userInfo;
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Account Info" message:userInfo[@"message"] preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-        [alertController addAction:ok];
-        
-        [self presentViewController:alertController animated:YES completion:nil];
-    } else {
-        _user.logged_in = YES;
-        [self navigateToConfirmation];
     }
 }
 

@@ -14,17 +14,21 @@
 + (id)sharedManager;
 - (BOOL)validateEmail:(NSString*)email;
 - (BOOL)validatePhone:(NSString*)phone;
+- (BOOL)validatePostalCode:(NSString*)code;
+- (BOOL)validateZip:(NSString*)zip;
 - (BOOL)validateLength:(NSString*)length;
 - (void)login;
 - (void)registerAccount;
 - (void)createOrder;
-- (void)forgotPassword;
+- (void)forgotPasswordForEmail:(NSString*)email;
+- (void)empty;
 
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *email;
 @property (strong, nonatomic) NSString *password;
 @property (strong, nonatomic) NSString *phone;
 @property (strong, nonatomic) NSString *address;
+@property (strong, nonatomic) NSString *address2;
 @property (strong, nonatomic) NSString *country;
 @property (strong, nonatomic) NSString *zip;
 @property (strong, nonatomic) NSString *state;
@@ -34,7 +38,6 @@
 @property (strong, nonatomic) UIImage *prescription_image;
 @property (strong, nonatomic) UIImage *insurance_front;
 @property (strong, nonatomic) UIImage *insurance_back;
-@property (strong, nonatomic) NSString *order_id;
 @property (nonatomic) BOOL has_insurance;
 @property (nonatomic) BOOL logged_in;
 

@@ -9,11 +9,11 @@
 #import "RxClient.h"
 #import "User.h"
 
-NSString* const kRxBaseURL = @"http://api.rxtome.com/api/v1/";
-NSString* const kRxLoginEndpoint = @"patient/login";
-NSString* const kRxNewUserEndpoint = @"patient/newuser";
-NSString* const kRxNewOrderEndpoint = @"patient/neworder";
-NSString* const kRxForgotPasswordEndpoint = @"patient/forgotpassword";
+NSString* const kRxBaseURL = @"http://api.rxtome.com/";
+NSString* const kRxLoginEndpoint = @"api/v1/patient/login";
+NSString* const kRxNewUserEndpoint = @"api/v1/patient/newuser";
+NSString* const kRxNewOrderEndpoint = @"api/v1/patient/neworder";
+NSString* const kRxForgotPasswordEndpoint = @"api/v1/patient/forgotpassword";
 
 @implementation RxClient
 
@@ -38,7 +38,7 @@ NSString* const kRxForgotPasswordEndpoint = @"patient/forgotpassword";
     });
     User *user = [User sharedManager];
     if (user.token != nil) {
-        [sharedManager.requestSerializer setValue:user.token forHTTPHeaderField:@"user_token"];
+        [sharedManager.requestSerializer setValue:user.token forHTTPHeaderField:@"pt_token"];
     }
     return sharedManager;
 }

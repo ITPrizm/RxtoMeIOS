@@ -14,15 +14,16 @@
 
 @interface AddressFormViewController ()
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tap_recognizer;
-
-@property (nonatomic) CLLocationManager *location_manager;
+@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *picker_gesture;
 @property (weak, nonatomic) IBOutlet UIPickerView *picker;
-@property (weak, nonatomic) IBOutlet UISwitch *location_switch;
 @property (weak, nonatomic) IBOutlet UITextField *state_field;
 @property (weak, nonatomic) IBOutlet UITextField *zip_field;
 @property (weak, nonatomic) IBOutlet UITextField *city_field;
 @property (weak, nonatomic) IBOutlet UITextField *address_field;
+@property (weak, nonatomic) IBOutlet UITextField *address2_field;
 @property (weak, nonatomic) IBOutlet UITextField *country_field;
+@property (weak, nonatomic) IBOutlet UIImageView *state_icon;
+@property (weak, nonatomic) IBOutlet UIImageView *zip_icon;
 @property (weak, nonatomic) User *user;
 @property NSArray *picker_data;
 @property (weak, nonatomic) UITextField *selected_field;
@@ -36,20 +37,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _user = [User sharedManager];
-    self.location_manager = [[CLLocationManager alloc] init];
-    [self.tap_recognizer setDelegate:self];
-    [self.location_manager setDelegate:self];
+    [self.picker_gesture setDelegate:self];
     [self.picker setDelegate:self];
     [self.picker setDataSource:self];
     [self.state_field setDelegate:self];
     [self.country_field setDelegate:self];
     [self setTitle:@"Contact Information"];
     _picker.hidden = YES;
+    _picker_gesture.cancelsTouchesInView = NO;
+    
+    if (_is_modal) {
+        self.next_button.hidden = YES;
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismiss)];
+    }
+    
     // Do any additional setup after loading the view.
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     self.address_field.text = _user.address;
+    self.address2_field.text = _user.address2;
     self.zip_field.text = _user.zip;
     self.state_field.text = _user.state;
     self.city_field.text = _user.city;
@@ -63,32 +70,21 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     _user.address = self.address_field.text;
+    _user.address2 = self.address2_field.text;
     _user.zip = self.zip_field.text;
     _user.country = _country_field.text;
     _user.state = _state_field.text;
     _user.city = _city_field.text;
 }
 
-- (IBAction)switchSwitched:(id)sender {
-    if (((UISwitch*)sender).on) {
-        [self.location_manager startUpdatingLocation];
-        _indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        _indicator.center = self.view.center;
-        [_indicator startAnimating];
-        _state_field.enabled = YES;
-        _city_field.enabled = YES;
-        _zip_field.enabled = YES;
-        [self.view addSubview:_indicator];
-    }
-}
-
 - (IBAction)backgroundTapped:(id)sender {
     [self.picker setHidden:YES];
-    [self.next_button setHidden:NO];
+    if (!_is_modal)
+        _next_button.hidden = NO;
+    [self.view endEditing:YES];
 }
 
--(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    [self.view endEditing:YES];
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     return YES;
 }
 
@@ -103,49 +99,34 @@
     if (![_user validateLength:_city_field.text])
         errors = [NSString stringWithFormat:@"%@\n City cannot be empty.", errors];
     if (![_user validateLength:_zip_field.text])
-        errors = [NSString stringWithFormat:@"%@\n Zip cannot be empty.", errors];
+        errors = [NSString stringWithFormat:@"%@\n Postal code cannot be empty.", errors];
+    else {
+        if ([_country_field.text isEqualToString:@"Canada"]) {
+            if (![_user validatePostalCode:_zip_field.text])
+                errors = [NSString stringWithFormat:@"%@\n Postal code is invalid.", errors];
+        } else {
+            if (![_user validateZip:_zip_field.text])
+                errors = [NSString stringWithFormat:@"%@\n Zip code is invalid.", errors];
+        }
+    }
     return errors;
-}
-
-#pragma mark - CoreLocationDelegate Functions
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    CLLocation *location = locations.lastObject;
-    [self.location_manager stopUpdatingLocation];
-    [self fillFieldsWith:location];
-}
-
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    NSLog(@"Location Error: %@", error.description);
-}
-
-- (void)fillFieldsWith:(CLLocation*)location {
-    CLGeocoder *geo = [[CLGeocoder alloc] init];
-    [geo reverseGeocodeLocation:location completionHandler:
-     ^(NSArray *placemarks, NSError *error) {
-         if ([placemarks count] > 0 && error == nil) {
-             CLPlacemark *placemark = placemarks[0];
-             self.zip_field.text = placemark.postalCode;
-             self.city_field.text = placemark.locality;
-             self.state_field.text = placemark.administrativeArea;
-             self.country_field.text = placemark.country;
-             [_indicator stopAnimating];
-             [_indicator removeFromSuperview];
-         }
-     }
-     ];
 }
 
 #pragma mark - UITextFieldDelegate Functions
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     if ([textField.restorationIdentifier isEqualToString:@"country"]) {
+        [self.view endEditing:YES];
         _picker_data = @[@"Canada", @"USA"];
     } else if ([textField.restorationIdentifier isEqualToString:@"state"]) {
         if ([_country_field.text isEqualToString:@"USA"])
-            _picker_data = @[@"Alabama", @"Alaska", @"Arizona", @"Arkansas", @"California", @"Colorado", @"Connecticut", @"Delaware", @"Florida", @"Georgia", @"Hawaii", @"Idaho", @"Illinois", @"Indiana", @"Iowa", @"Kansas", @"Kentucky", @"Louisiana", @"Maine", @"Maryland", @"Massachusetts", @"Michigan", @"Minnesota", @"Mississippi", @"Missouri", @"Montana", @"Nebraska", @"Nevada", @"New Hampshire", @"New Jersey", @"New Mexico", @"New York", @"North Carolina", @"North Dakota", @"Ohio", @"Oklahoma", @"Oregon", @"Pennsylvania", @"Rhode Island", @"South Carolina", @"South Dakota", @"Tennessee", @"Texas", @"Utah", @"Vermont", @"Virginia", @"Washington", @"West Virginia", @"Wisconsin", @"Wyoming"];
+            _picker_data = @[@"AL", @"AK", @"AZ", @"AR", @"CA", @"CO", @"CT", @"DC", @"DE", @"FL", @"GA",
+                             @"HI", @"ID", @"IL", @"IN", @"IA", @"KS", @"KY", @"LA", @"ME", @"MD",
+                             @"MA", @"MI", @"MN", @"MS", @"MO", @"MT", @"NE", @"NV", @"NH", @"NJ",
+                             @"NM", @"NY", @"NC", @"ND", @"OH", @"OK", @"OR", @"PA", @"RI", @"SC",
+                             @"SD", @"TN", @"TX", @"UT", @"VT", @"VA", @"WA", @"WV", @"WI", @"WY"];
         else
-            _picker_data = @[@"Alberta", @"British Columbia", @"Ontario", @"Manitoba", @"Nanavut", @"New Brunswick", @"Nova Scotia", @"Prince Edward", @"Newfoundland", @"Northwest Territories", @"Yukon", @"Saskatchewan", @"Quebec"];
+            _picker_data = @[@"AB", @"BC", @"MB", @"NB", @"NL", @"NS", @"NT", @"NU", @"ON", @"PE", @"QC", @"SK", @"YT"];
     }
     [_picker reloadAllComponents];
     _selected_field = textField;
@@ -168,15 +149,47 @@
     return _picker_data[row];
 }
 
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    _picker.hidden = YES;
-    if ([_selected_field.restorationIdentifier isEqualToString:@"country"]) {
-        _country_field.text = _picker_data[row];
-        _state_field.enabled = YES;
-    } else if ([_selected_field.restorationIdentifier isEqualToString:@"state"]) {
-        _state_field.text = _picker_data[row];
+- (IBAction)pickerViewTapGestureRecognized:(id)sender {
+    UITapGestureRecognizer *gestureRecognizer = (UITapGestureRecognizer*) sender;
+    CGPoint touchPoint = [gestureRecognizer locationInView:gestureRecognizer.view.superview];
+    
+    CGRect frame = self.picker.frame;
+    CGRect selectorFrame = CGRectInset( frame, 0.0, self.picker.bounds.size.height * 0.85 / 2.0 );
+    
+    if( CGRectContainsPoint( selectorFrame, touchPoint) ) {
+        if ([_selected_field.restorationIdentifier isEqualToString:@"country"]) {
+            _country_field.text = _picker_data[[self.picker selectedRowInComponent:0]];
+            _state_field.text = @"";
+            _state_field.enabled = YES;
+            if ([_country_field.text isEqualToString:@"Canada"]) {
+                _state_icon.image = [UIImage imageNamed:@"textbox_province"];
+                _zip_icon.image = [UIImage imageNamed:@"textbox_postal_code"];
+                _state_field.placeholder = @"Province";
+                _zip_field.placeholder = @"Postal Code";
+            } else {
+                _state_icon.image = [UIImage imageNamed:@"icon_state"];
+                _zip_icon.image = [UIImage imageNamed:@"icon_zip"];
+                _state_field.placeholder = @"State";
+                _zip_field.placeholder = @"Zip Code";
+            }
+            
+        } else if ([_selected_field.restorationIdentifier isEqualToString:@"state"]) {
+            _state_field.text = _picker_data[[self.picker selectedRowInComponent:0]];
+        }
+        _picker.hidden = YES;
+        
+        if (!_is_modal)
+            _next_button.hidden = NO;
     }
-    _next_button.hidden = NO;
+}
+
+- (void)presentErrors:(NSString*)errors {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Please fix error" message:errors preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+    [alertController addAction:ok];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 #pragma mark - Navigation
@@ -184,21 +197,19 @@
 - (IBAction)nextButtonPressed:(id)sender {
     NSString *errors = [self validateForm];
     if (errors.length > 0) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Please fix error" message:errors preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-        [alertController addAction:ok];
-        
-        [self presentViewController:alertController animated:YES completion:nil];
+        [self presentErrors:errors];
     } else {
-        if (_user.has_insurance) {
-            InstructionsViewController *insurnace = [self.storyboard instantiateViewControllerWithIdentifier:@"Instruct"];
-            insurnace.type = @"insurance";
-            [self.navigationController pushViewController:insurnace animated:YES];
-        } else {
-            ConditionsViewController *conditions = [self.storyboard instantiateViewControllerWithIdentifier:@"Terms"];
-            [self.navigationController pushViewController:conditions animated:YES];
-        }
+        UIViewController *cashOrInsuranceVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CashOrInsurance"];
+        [self.navigationController pushViewController:cashOrInsuranceVC animated:YES];
+    }
+}
+
+- (void)dismiss {
+    NSString *errors = [self validateForm];
+    if (errors.length > 0) {
+        [self presentErrors:errors];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 

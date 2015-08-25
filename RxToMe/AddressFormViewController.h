@@ -10,5 +10,5 @@
 #import <CoreLocation/CoreLocation.h>
 
 @interface AddressFormViewController : UIViewController <UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource,CLLocationManagerDelegate, UIGestureRecognizerDelegate>
-
+@property BOOL is_modal;
 @end

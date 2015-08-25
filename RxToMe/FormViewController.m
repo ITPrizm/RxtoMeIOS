@@ -16,7 +16,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *email_field;
 @property (weak, nonatomic) IBOutlet UITextField *phone_field;
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tap_recognizer;
-@property (weak, nonatomic) IBOutlet UISwitch *insurance_switch;
+@property (weak, nonatomic) IBOutlet UIButton *next_button;
 
 @property (weak, nonatomic) User *user;
 
@@ -26,10 +26,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _tap_recognizer.delegate = self;
     _phone_field.delegate = self;
     _user = [User sharedManager];
     [self setTitle:@"Contact Information"];
+    if (_is_modal) {
+        self.next_button.hidden = YES;
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismiss)];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -38,17 +41,15 @@
     self.phone_field.text = _user.phone;
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    _user.name = self.name_field.text;
+    _user.email = self.email_field.text;
+    _user.phone = self.phone_field.text;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if (range.location == 2)
-        textField.text = [NSString stringWithFormat:@"(%@) ", textField.text];
-    if (range.location > 9) return NO;
-    
-    return YES;
 }
 
 - (NSString*)validateForm {
@@ -62,39 +63,39 @@
     return errors;
 }
 
+- (IBAction)backgroundTapped:(id)sender {
+    [self.view endEditing:YES];
+}
+
 - (IBAction)nextButtonPressed:(id)sender {
     NSString *errors = [self validateForm];
     if (errors.length > 0) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Please fix error" message:errors preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-        [alertController addAction:ok];
-        
-        [self presentViewController:alertController animated:YES completion:nil];
+        [self presentErrors:errors];
     } else {
-        _user.name = self.name_field.text;
-        _user.email = self.email_field.text;
-        _user.phone = self.phone_field.text;
-        _user.has_insurance = _insurance_switch.on;
         AddressFormViewController *address = [self.storyboard instantiateViewControllerWithIdentifier:@"Address"];
         [self.navigationController pushViewController:address animated:YES];
     }
 }
 
-
--(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    [self.view endEditing:YES];
-    return YES;
+- (void)presentErrors:(NSString*)errors {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Please fix error" message:errors preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+    [alertController addAction:ok];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//     Get the new view controller using [segue destinationViewController].
-//     Pass the selected object to the new view controller.
-    
+- (void)dismiss {
+    NSString *errors = [self validateForm];
+    if (errors.length > 0) {
+        [self presentErrors:errors];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 

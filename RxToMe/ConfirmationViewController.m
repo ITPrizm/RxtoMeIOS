@@ -10,6 +10,7 @@
 #import "FormViewController.h"
 #import "User.h"
 #import "MainPageViewController.h"
+#import "AddressFormViewController.h"
 
 @interface ConfirmationViewController ()
 
@@ -33,8 +34,8 @@
     _image_controller.sourceType = UIImagePickerControllerSourceTypeCamera;
     _image_controller.delegate = self;
     _user = [User sharedManager];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonPressed:)];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orderCreated:) name:@"OrderCreated" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orderCreated:) name:@"RegistrationComplete" object:nil];
 }
 
 - (IBAction)takePhoto:(id)sender {
@@ -43,13 +44,15 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     UIImage *image = info[UIImagePickerControllerOriginalImage];
-    [_prescription_image setImage:image];
-    [_user setPrescription_image:image];
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+        [_prescription_image setImage:image];
+        [_user setPrescription_image:image];
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    self.address_label.text = [NSString stringWithFormat:@"Send to: \n%@, %@, %@, %@, %@", _user.address, _user.city, _user.state, _user.zip, _user.country];
-    self.name_label.text = _user.name;
+    self.address_label.text = [NSString stringWithFormat:@"Send to: \n%@, %@, %@, %@, %@", [_user.address capitalizedString], [_user.city capitalizedString], _user.state, _user.zip, _user.country];
+    self.name_label.text = [_user.name capitalizedString];
     self.email_label.text = _user.email;
     NSString *area_code;
     NSString *prefix;
@@ -72,18 +75,19 @@
     [_indicator removeFromSuperview];
     NSString *alertTitle, *alertMessage;
     
-    if (!note.userInfo[@"error"]) {
+    if (!note.userInfo[@"message"]) {
         alertTitle = @"Success";
         alertMessage = @"Your order has been submitted.";
     } else {
         alertTitle = @"Error";
-        alertMessage = ((NSError*)note.userInfo[@"error"]).localizedDescription;
+        alertMessage = note.userInfo[@"message"];
     }
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:alertTitle message:alertMessage preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *ok_action;
-    if (note.userInfo[@"success"]) {
+    if (!note.userInfo[@"message"]) {
+        [_user empty];
         ok_action = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             MainPageViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"Home"];
             [self.navigationController pushViewController:home animated:YES];
@@ -108,12 +112,26 @@
     _indicator.center = self.view.center;
     [_indicator startAnimating];
     [self.view addSubview:_indicator];
-    [_user createOrder];
+    // or register user depending on login status
+    if (_user.logged_in) {
+        [_user createOrder];
+    } else {
+        [_user registerAccount];
+    }
+}
+- (IBAction)changeAddressButtonPressed:(id)sender {
+    AddressFormViewController *addressVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Address"];
+    addressVC.is_modal = YES;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:addressVC];
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
+    
 }
 
-- (IBAction)editButtonPressed:(id)sender {
-    FormViewController *form = [self.storyboard instantiateViewControllerWithIdentifier:@"Form"];
-    [self.navigationController pushViewController:form animated:YES];
+- (IBAction)changeContactButtonPressed:(id)sender {
+    FormViewController *formVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Form"];
+    formVC.is_modal = YES;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:formVC];
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
 
 /*
