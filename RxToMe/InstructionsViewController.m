@@ -19,6 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(nextButtonPressed:)];
     if ([_type isEqualToString:@"prescription"]) {
         _instructions_image.image = [UIImage imageNamed:@"prescription_instructions"];
     } else {

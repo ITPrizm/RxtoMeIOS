@@ -31,8 +31,8 @@
 #pragma mark - POST Requests
 
 - (void)login {
-    NSDictionary *params = [NSDictionary dictionaryWithObjects:@[_email, _password] forKeys:@[@"pt_email", @"pt_upass"]];
-//    NSDictionary *params = [NSDictionary dictionaryWithObjects:@[@"mikespearman.e@gmail.com", @"bHUWy"] forKeys:@[@"pt_email", @"pt_upass"]];
+//    NSDictionary *params = [NSDictionary dictionaryWithObjects:@[_email, _password] forKeys:@[@"pt_email", @"pt_upass"]];
+    NSDictionary *params = [NSDictionary dictionaryWithObjects:@[@"mikespearman.e@gmail.com", @"bHUWy"] forKeys:@[@"pt_email", @"pt_upass"]];
 
     
     [[RxClient sharedClient] POST:@"http://api.rxtome.com/api/v1/patient/login" parameters:params
@@ -164,8 +164,8 @@
     _phone = data[@"pt_phone"];
     _token = data[@"pt_token"];
     _password = data[@"pt_upass"];
-    _insurance_back = [UIImage imageWithData: [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat: @"%@%@", kRxBaseURL, data[@"pt_insfront"]]]]];
-    _insurance_front = [UIImage imageWithData: [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat: @"%@%@", kRxBaseURL, data[@"pt_insback"]]]]];
+    _insurance_back = [UIImage imageWithData: [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat: @"%@%@", kRxBaseURL, data[@"pt_insback"]]]]];
+    _insurance_front = [UIImage imageWithData: [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat: @"%@%@", kRxBaseURL, data[@"pt_insfront"]]]]];
     _has_insurance = [response[@"or_cash"] isEqual: @"0"];
 }
 

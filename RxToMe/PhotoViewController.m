@@ -29,12 +29,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Used for the prescription and insurance scene
+    // Used for the prescription and insurance scenes
     // Which is loaded depends on _type
     _user = [User sharedManager];
     _image_controller = [[UIImagePickerController alloc] init];
     _image_controller.sourceType = UIImagePickerControllerSourceTypeCamera;
     _image_controller.delegate = self;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(nextButtonPressed:)];
     if ([_type isEqualToString:@"prescription"]) {
         [self prescriptionSetup];
     } else {
@@ -72,14 +73,14 @@
 }
 
 - (void)insuranceSetup {
-    _insurance_back_button = [self setButton:@"Add Insurance Back" xpos:0 ypos:-100];
     _insurance_front_button = [self setButton:@"Add Insurance Front" xpos:0 ypos:100];
+    _insurance_back_button = [self setButton:@"Add Insurance Back" xpos:0 ypos:-150];
     
     [_insurance_front_button setRestorationIdentifier:@"front"];
     [_insurance_back_button setRestorationIdentifier:@"back"];
 }
 
-// quasi button factory
+// button constructor
 - (UIButton*)setButton:(NSString*)title xpos:(NSInteger)xpos ypos:(NSInteger)ypos {
     UIButton *new_button = [[UIButton alloc] init];
     new_button.translatesAutoresizingMaskIntoConstraints = NO;
@@ -112,16 +113,9 @@
                                                               toItem:nil
                                                            attribute:NSLayoutAttributeNotAnAttribute
                                                           multiplier:1
-                                                            constant:150]
-     ];
-    [self.view addConstraint: [NSLayoutConstraint constraintWithItem:new_button
-                                                           attribute:NSLayoutAttributeWidth
-                                                           relatedBy:NSLayoutRelationEqual
-                                                              toItem:nil
-                                                           attribute:NSLayoutAttributeNotAnAttribute
-                                                          multiplier:1
                                                             constant:200]
      ];
+
     [self.view addConstraint: [NSLayoutConstraint constraintWithItem:new_button
                                                            attribute:NSLayoutAttributeHeight
                                                            relatedBy:NSLayoutRelationEqual

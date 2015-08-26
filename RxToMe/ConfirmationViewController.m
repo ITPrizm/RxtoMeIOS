@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *complete_button;
 @property (nonatomic) UIImagePickerController *image_controller;
 @property (nonatomic) UIActivityIndicatorView *indicator;
+@property (weak, nonatomic) IBOutlet UILabel *signature_label;
 
 @end
 
@@ -34,6 +35,7 @@
     _image_controller.sourceType = UIImagePickerControllerSourceTypeCamera;
     _image_controller.delegate = self;
     _user = [User sharedManager];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Order" style:UIBarButtonItemStylePlain target:self action:@selector(completeButtonPressed:)];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orderCreated:) name:@"OrderCreated" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orderCreated:) name:@"RegistrationComplete" object:nil];
 }
@@ -53,6 +55,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     self.address_label.text = [NSString stringWithFormat:@"Send to: \n%@, %@, %@, %@, %@", [_user.address capitalizedString], [_user.city capitalizedString], _user.state, _user.zip, _user.country];
     self.name_label.text = [_user.name capitalizedString];
+    self.signature_label.text = [_user.name capitalizedString];
     self.email_label.text = _user.email;
     NSString *area_code;
     NSString *prefix;
@@ -94,10 +97,6 @@
         }];
     } else {
         ok_action = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
-        UIAlertAction *retry_action = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            [self completeButtonPressed:self];
-        }];
-        [alertController addAction:retry_action];
     }
     
     [alertController addAction:ok_action];

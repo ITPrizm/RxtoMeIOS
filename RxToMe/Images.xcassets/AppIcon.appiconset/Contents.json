@@ -3,55 +3,55 @@
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "android_icon(29x29).png",
+      "filename" : "29 Spotlight (iOS 5_6).png",
       "scale" : "1x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "android_icon(58x58).png",
+      "filename" : "58 Retina Settings (iOS 5-8).png",
       "scale" : "2x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "android_icon(87x87).png",
+      "filename" : "87 Retina HD Settings (iOS 5-8).png",
       "scale" : "3x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "android_icon(80x80).png",
+      "filename" : "80 Retina Spotlight (iOS 7_8)-1-1.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "android_icon(120x120).png",
+      "filename" : "120 Retina HD Spotlight (iOS 7_8).png",
       "scale" : "3x"
     },
     {
       "size" : "57x57",
       "idiom" : "iphone",
-      "filename" : "android_icon(57x57).png",
+      "filename" : "57 Home Screen (iOS 5_6).png",
       "scale" : "1x"
     },
     {
       "size" : "57x57",
       "idiom" : "iphone",
-      "filename" : "android_icon(114x114).png",
+      "filename" : "114 Retina Home Screen (iOS 5_6).png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "android_icon(120x120)-1.png",
+      "filename" : "120 Retina HD Spotlight (iOS 7_8)-1.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "android_icon(180x180).png",
+      "filename" : "180 Retina HD Home Screen (iOS 7_8).png",
       "scale" : "3x"
     }
   ],

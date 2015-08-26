@@ -28,7 +28,7 @@
 @property NSArray *picker_data;
 @property (weak, nonatomic) UITextField *selected_field;
 @property (nonatomic) UIActivityIndicatorView *indicator;
-@property (weak, nonatomic) IBOutlet UIButton *next_button;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @end
 
@@ -40,18 +40,24 @@
     [self.picker_gesture setDelegate:self];
     [self.picker setDelegate:self];
     [self.picker setDataSource:self];
-    [self.state_field setDelegate:self];
-    [self.country_field setDelegate:self];
     [self setTitle:@"Contact Information"];
     _picker.hidden = YES;
     _picker_gesture.cancelsTouchesInView = NO;
-    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(nextButtonPressed:)];
     if (_is_modal) {
-        self.next_button.hidden = YES;
+        self.state_field.enabled = YES;
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismiss)];
     }
     
-    // Do any additional setup after loading the view.
+    [self registerForKeyboardNotifications];
+}
+
+- (void)updateViewConstraints {
+    [super updateViewConstraints];
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0);
+    _scrollView.contentInset = contentInsets;
+    _scrollView.scrollIndicatorInsets = contentInsets;
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -77,10 +83,53 @@
     _user.city = _city_field.text;
 }
 
+// Call this method somewhere in your view controller setup code.
+- (void)registerForKeyboardNotifications
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardDidShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
+    
+}
+
+// Called when the UIKeyboardDidShowNotification is sent.
+- (void)keyboardWasShown:(NSNotification*)aNotification
+{
+    UIView *firstResponder;
+    for (UIView *view in self.view.subviews) {
+        if (view.isFirstResponder)
+            firstResponder = view;
+    }
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
+    _scrollView.contentInset = contentInsets;
+    _scrollView.scrollIndicatorInsets = contentInsets;
+    
+    // If active text field is hidden by keyboard, scroll it so it's visible
+    // Your app might not need or want this behavior.
+    CGRect aRect = self.view.frame;
+    aRect.size.height -= kbSize.height;
+    if (!CGRectContainsPoint(aRect, firstResponder.frame.origin) ) {
+        [self.scrollView scrollRectToVisible:firstResponder.frame animated:YES];
+    }
+}
+
+// Called when the UIKeyboardWillHideNotification is sent
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+{
+    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+    _scrollView.contentInset = contentInsets;
+    _scrollView.scrollIndicatorInsets = contentInsets;
+}
+
 - (IBAction)backgroundTapped:(id)sender {
     [self.picker setHidden:YES];
-    if (!_is_modal)
-        _next_button.hidden = NO;
     [self.view endEditing:YES];
 }
 
@@ -115,6 +164,7 @@
 #pragma mark - UITextFieldDelegate Functions
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    if (!([textField.restorationIdentifier isEqualToString:@"country"] || [textField.restorationIdentifier isEqualToString:@"state"])) return YES;
     if ([textField.restorationIdentifier isEqualToString:@"country"]) {
         [self.view endEditing:YES];
         _picker_data = @[@"Canada", @"USA"];
@@ -131,7 +181,6 @@
     [_picker reloadAllComponents];
     _selected_field = textField;
     _picker.hidden = NO;
-    _next_button.hidden = YES;
     return NO;
 }
 
@@ -177,9 +226,6 @@
             _state_field.text = _picker_data[[self.picker selectedRowInComponent:0]];
         }
         _picker.hidden = YES;
-        
-        if (!_is_modal)
-            _next_button.hidden = NO;
     }
 }
 
@@ -190,6 +236,21 @@
     [alertController addAction:ok];
     
     [self presentViewController:alertController animated:YES completion:nil];
+}
+
+#pragma mark - UITextFieldDelegate Functions
+// Navigating through textfields
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    NSInteger nextTag = textField.tag + 1;
+    // Try to find next responder
+    UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [nextResponder becomeFirstResponder];
+    } else {
+        [self nextButtonPressed:nil];
+    }
+    return NO; // We do not want UITextField to insert line-breaks.
 }
 
 #pragma mark - Navigation

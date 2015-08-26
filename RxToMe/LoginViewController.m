@@ -86,6 +86,21 @@
     [self presentSingleActionAlertWithTitle:title message:message];
 }
 
+#pragma mark - UITextFieldDelegate Functions
+// Navigating through textfields
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    NSInteger nextTag = textField.tag + 1;
+    // Try to find next responder
+    UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [nextResponder becomeFirstResponder];
+    } else {
+        [self loginButtonPressed:nil];
+    }
+    return NO; // We do not want UITextField to insert line-breaks.
+}
+
 #pragma mark - Navigation
 
 - (void)dismissSelf {

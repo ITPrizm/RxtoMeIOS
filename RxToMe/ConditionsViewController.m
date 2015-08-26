@@ -12,7 +12,6 @@
 @interface ConditionsViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *agreement_text;
 @property (weak, nonatomic) IBOutlet UISwitch *agree_switch;
-@property (weak, nonatomic) IBOutlet UIButton *create_account_button;
 @property (nonatomic) UIActivityIndicatorView *indicator;
 @property (weak, nonatomic) IBOutlet UILabel *agreement_label;
 @property (weak, nonatomic) User *user;
@@ -20,16 +19,21 @@
 
 @implementation ConditionsViewController
 
+- (void)updateViewConstraints {
+    [super updateViewConstraints];
+    self.agreement_label.text = [NSString stringWithFormat:@"I, %@, agree to the above terms and conditions.", _user.name];
+    CGFloat switch_right_pos = self.view.frame.size.width - _agree_switch.frame.size.width - _agree_switch.frame.origin.x - 40;
+    [self.agreement_label setPreferredMaxLayoutWidth:switch_right_pos];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     _user = [User sharedManager];
     [self.agreement_text scrollRangeToVisible:NSMakeRange(0, 0)];
     self.automaticallyAdjustsScrollViewInsets = NO;
     // Do any additional setup after loading the view.
-}
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sign" style:UIBarButtonItemStylePlain target:self action:@selector(createAccountButtonPressed:)];
 
-- (void)viewWillAppear:(BOOL)animated {
-    self.agreement_label.text = [NSString stringWithFormat:@"I, %@, agree to the above terms and conditions.", _user.name];
 }
 
 - (IBAction)createAccountButtonPressed:(id)sender {
