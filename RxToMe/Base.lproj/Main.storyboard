@@ -48,7 +48,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cyc-Qp-hAO" userLabel="Login">
-                                <rect key="frame" x="75" y="503" width="450" height="59"/>
+                                <rect key="frame" x="75" y="488" width="450" height="59"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Cyc-Qp-hAO" secondAttribute="height" multiplier="54:7" id="Njp-Do-11K"/>
                                 </constraints>
@@ -66,10 +66,7 @@
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="front_page_text" translatesAutoresizingMaskIntoConstraints="NO" id="9hE-uA-IEt">
-                                <rect key="frame" x="0.0" y="250" width="600" height="247"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="9hE-uA-IEt" secondAttribute="height" multiplier="600:247" id="0zP-Jd-kjH"/>
-                                </constraints>
+                                <rect key="frame" x="50" y="250" width="500" height="213"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -80,10 +77,11 @@
                             <constraint firstItem="Cyc-Qp-hAO" firstAttribute="height" secondItem="gaK-61-xSt" secondAttribute="height" id="Gew-f5-kze"/>
                             <constraint firstItem="IzI-B2-Eei" firstAttribute="top" secondItem="gaK-61-xSt" secondAttribute="bottom" constant="50" id="JkU-4w-EDA"/>
                             <constraint firstItem="9hE-uA-IEt" firstAttribute="top" secondItem="IOm-lF-gBa" secondAttribute="bottom" id="Mee-V5-1ty"/>
-                            <constraint firstItem="gaK-61-xSt" firstAttribute="top" secondItem="Cyc-Qp-hAO" secondAttribute="bottom" constant="30" id="Vy0-9C-7ls"/>
+                            <constraint firstItem="Cyc-Qp-hAO" firstAttribute="top" relation="greaterThanOrEqual" secondItem="9hE-uA-IEt" secondAttribute="bottom" constant="25" id="Snw-yf-Ybx"/>
+                            <constraint firstItem="gaK-61-xSt" firstAttribute="top" secondItem="Cyc-Qp-hAO" secondAttribute="bottom" constant="45" id="Vy0-9C-7ls"/>
                             <constraint firstAttribute="width" secondItem="IOm-lF-gBa" secondAttribute="width" multiplier="3:2" id="WiR-jr-WLU"/>
                             <constraint firstAttribute="centerX" secondItem="Cyc-Qp-hAO" secondAttribute="centerX" id="aaN-XR-upN"/>
-                            <constraint firstItem="9hE-uA-IEt" firstAttribute="width" secondItem="s0c-8V-sVv" secondAttribute="width" id="nWh-fP-1iD"/>
+                            <constraint firstItem="9hE-uA-IEt" firstAttribute="width" secondItem="s0c-8V-sVv" secondAttribute="width" multiplier="5:6" id="nWh-fP-1iD"/>
                             <constraint firstAttribute="centerX" secondItem="9hE-uA-IEt" secondAttribute="centerX" id="qg9-dX-fGr"/>
                             <constraint firstAttribute="centerX" secondItem="IOm-lF-gBa" secondAttribute="centerX" id="vuN-KI-Wpf"/>
                         </constraints>
@@ -303,11 +301,17 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Z2i-N0-mgA" id="g5e-pG-oy4"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" background="textbox" translatesAutoresizingMaskIntoConstraints="NO" id="ltW-iW-wt2">
                                 <rect key="frame" x="224" y="251" width="201" height="35"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done" secureTextEntry="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Z2i-N0-mgA" id="8Ll-4C-mYD"/>
+                                </connections>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_email" translatesAutoresizingMaskIntoConstraints="NO" id="zbw-4W-Pi3">
                                 <rect key="frame" x="175" y="182" width="49" height="34"/>
@@ -1925,7 +1929,7 @@ We shall not be liable to you or any third party for any claims or damages arisi
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aTn-xN-sP4">
-                                <rect key="frame" x="75" y="271" width="450" height="58"/>
+                                <rect key="frame" x="75" y="388" width="450" height="59"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="aTn-xN-sP4" secondAttribute="height" multiplier="54:7" id="4pC-TU-nQE"/>
                                 </constraints>
@@ -1937,7 +1941,7 @@ We shall not be liable to you or any third party for any claims or damages arisi
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="llC-mH-EGi">
-                                <rect key="frame" x="75" y="374" width="450" height="59"/>
+                                <rect key="frame" x="75" y="492" width="450" height="58"/>
                                 <state key="normal" image="cash_unpressed">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -1945,24 +1949,23 @@ We shall not be liable to you or any third party for any claims or damages arisi
                                     <action selector="cashButtonPressed:" destination="DTM-No-WSU" eventType="touchUpInside" id="Tgs-v1-jHz"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please select your form of payment" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iIg-We-2GS">
-                                <rect key="frame" x="165" y="150" width="271" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cash_or_insurance_text" translatesAutoresizingMaskIntoConstraints="NO" id="v3l-Sr-Yc4">
+                                <rect key="frame" x="50" y="45" width="500" height="283"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerY" secondItem="aTn-xN-sP4" secondAttribute="centerY" id="1Le-NJ-JwJ"/>
                             <constraint firstAttribute="width" secondItem="aTn-xN-sP4" secondAttribute="width" multiplier="4:3" id="664-5z-2e0"/>
+                            <constraint firstAttribute="centerX" secondItem="v3l-Sr-Yc4" secondAttribute="centerX" id="C5O-0h-rgt"/>
                             <constraint firstAttribute="centerX" secondItem="aTn-xN-sP4" secondAttribute="centerX" id="Hd1-Lx-SkY"/>
+                            <constraint firstItem="saU-5s-sfc" firstAttribute="top" secondItem="llC-mH-EGi" secondAttribute="bottom" constant="50" id="I57-2G-tEx"/>
                             <constraint firstItem="llC-mH-EGi" firstAttribute="width" secondItem="aTn-xN-sP4" secondAttribute="width" id="KcZ-xY-4lx"/>
+                            <constraint firstItem="v3l-Sr-Yc4" firstAttribute="width" secondItem="sRQ-rq-dmw" secondAttribute="width" multiplier="5:6" id="OBj-Og-AIE"/>
                             <constraint firstItem="llC-mH-EGi" firstAttribute="height" secondItem="aTn-xN-sP4" secondAttribute="height" id="Q9T-83-PSF"/>
                             <constraint firstItem="llC-mH-EGi" firstAttribute="top" secondItem="aTn-xN-sP4" secondAttribute="bottom" constant="45" id="XyR-pi-cGi"/>
+                            <constraint firstItem="aTn-xN-sP4" firstAttribute="top" relation="greaterThanOrEqual" secondItem="v3l-Sr-Yc4" secondAttribute="bottom" constant="25" id="a1k-70-RHq"/>
                             <constraint firstAttribute="centerX" secondItem="llC-mH-EGi" secondAttribute="centerX" id="aMc-Tf-LUR"/>
-                            <constraint firstAttribute="centerX" secondItem="iIg-We-2GS" secondAttribute="centerX" id="osR-zy-wPw"/>
-                            <constraint firstItem="aTn-xN-sP4" firstAttribute="top" secondItem="iIg-We-2GS" secondAttribute="bottom" constant="100" id="wga-3d-coz"/>
+                            <constraint firstItem="v3l-Sr-Yc4" firstAttribute="top" secondItem="goF-Vi-ZbI" secondAttribute="bottom" constant="25" id="btx-dG-Xfb"/>
                         </constraints>
                     </view>
                     <connections>
@@ -2046,12 +2049,12 @@ We shall not be liable to you or any third party for any claims or damages arisi
                                     <action selector="changeContactButtonPressed:" destination="4tr-Jd-SfW" eventType="touchUpInside" id="B8X-8z-YAX"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JI7-Nh-vdw">
-                                <rect key="frame" x="77" y="190" width="89" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JI7-Nh-vdw">
+                                <rect key="frame" x="77" y="189" width="67" height="22"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Signature">
                                         <attributes>
-                                            <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <font key="NSFont" size="17" name="SnellRoundhand-Bold"/>
                                             <font key="NSOriginalFont" size="17" name="SnellRoundhand-Bold"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
@@ -2106,6 +2109,7 @@ We shall not be liable to you or any third party for any claims or damages arisi
         </scene>
     </scenes>
     <resources>
+        <image name="cash_or_insurance_text" width="446" height="283"/>
         <image name="cash_unpressed" width="540" height="70"/>
         <image name="change_unpressed" width="300" height="80"/>
         <image name="forgot_password" width="500" height="61"/>

@@ -177,6 +177,7 @@
                              @"SD", @"TN", @"TX", @"UT", @"VT", @"VA", @"WA", @"WV", @"WI", @"WY"];
         else
             _picker_data = @[@"AB", @"BC", @"MB", @"NB", @"NL", @"NS", @"NT", @"NU", @"ON", @"PE", @"QC", @"SK", @"YT"];
+        [self.view endEditing:YES];
     }
     [_picker reloadAllComponents];
     _selected_field = textField;

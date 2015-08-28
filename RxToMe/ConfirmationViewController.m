@@ -11,6 +11,10 @@
 #import "User.h"
 #import "MainPageViewController.h"
 #import "AddressFormViewController.h"
+#import "CircularLoaderView.h"
+
+NSString* const kSuccess = @"Success";
+NSString* const kError = @"Error";
 
 @interface ConfirmationViewController ()
 
@@ -20,10 +24,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *email_label;
 @property (weak, nonatomic) IBOutlet UILabel *phone_label;
 @property (weak, nonatomic) IBOutlet UIImageView *prescription_image;
-@property (weak, nonatomic) IBOutlet UIButton *complete_button;
 @property (nonatomic) UIImagePickerController *image_controller;
 @property (nonatomic) UIActivityIndicatorView *indicator;
 @property (weak, nonatomic) IBOutlet UILabel *signature_label;
+@property (nonatomic) CircularLoaderView *progressIndicatorView;
 
 @end
 
@@ -35,9 +39,15 @@
     _image_controller.sourceType = UIImagePickerControllerSourceTypeCamera;
     _image_controller.delegate = self;
     _user = [User sharedManager];
+    _progressIndicatorView = [[CircularLoaderView alloc] initWithFrame: CGRectZero];
+    CGRect frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, 100, 100);
+    [_progressIndicatorView setFrame:frame];
+    _progressIndicatorView.center = self.view.center;
+    _progressIndicatorView.autoresizingMask = YES;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Order" style:UIBarButtonItemStylePlain target:self action:@selector(completeButtonPressed:)];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orderCreated:) name:@"OrderCreated" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orderCreated:) name:@"RegistrationComplete" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orderCreated:) name:@"AccountRegistered" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateProgress:) name:@"FractionCompleted" object:nil];
 }
 
 - (IBAction)takePhoto:(id)sender {
@@ -53,7 +63,8 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    self.address_label.text = [NSString stringWithFormat:@"Send to: \n%@, %@, %@, %@, %@", [_user.address capitalizedString], [_user.city capitalizedString], _user.state, _user.zip, _user.country];
+    NSString *address2_string = _user.address2.length > 0 ? [NSString stringWithFormat:@"%@, ", [_user.address2 capitalizedString]] : @"";
+    self.address_label.text = [NSString stringWithFormat:@"Send to: \n%@, %@%@, %@, %@, %@", [_user.address capitalizedString], address2_string, [_user.city capitalizedString], _user.state, _user.zip, _user.country];
     self.name_label.text = [_user.name capitalizedString];
     self.signature_label.text = [_user.name capitalizedString];
     self.email_label.text = _user.email;
@@ -74,30 +85,41 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)updateProgress:(NSNotification*)note {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        NSProgress* prog = note.userInfo[@"progress"];
+        [self.progressIndicatorView updateProgress:(CGFloat)prog.fractionCompleted];
+    });
+}
+
 - (void)orderCreated:(NSNotification*)note {
-    [_indicator removeFromSuperview];
-    NSString *alertTitle, *alertMessage;
-    
-    if (!note.userInfo[@"message"]) {
-        alertTitle = @"Success";
-        alertMessage = @"Your order has been submitted.";
+    [self.progressIndicatorView removeFromSuperview];
+    if (note.userInfo[@"message"]) {
+        [self presentAlertType:kError withMessage: note.userInfo[@"message"]];
     } else {
-        alertTitle = @"Error";
-        alertMessage = note.userInfo[@"message"];
-    }
-    
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:alertTitle message:alertMessage preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction *ok_action;
-    if (!note.userInfo[@"message"]) {
+        NSString *alertMessage;
+        if (_user.logged_in) {
+            alertMessage = @"A pharmacy in your area will deliver your product within 24 hours";
+        } else {
+            alertMessage = @"Your account has been created.\nWe have sent your new password to the email address you provided.\nA pharmacy in your area will deliver your product within 24 hours";
+        }
+        [self presentAlertType:kSuccess withMessage:alertMessage];
         [_user empty];
+    }
+}
+
+- (void)presentAlertType:(NSString*)type withMessage:(NSString*)alertMessage {
+    UIAlertAction *ok_action;
+    if ([type isEqualToString:kError]) {
+        ok_action = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
+    } else {
         ok_action = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             MainPageViewController *home = [self.storyboard instantiateViewControllerWithIdentifier:@"Home"];
             [self.navigationController pushViewController:home animated:YES];
         }];
-    } else {
-        ok_action = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
     }
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:type message:alertMessage preferredStyle:UIAlertControllerStyleAlert];
     
     [alertController addAction:ok_action];
     [self presentViewController:alertController animated:YES completion:nil];
@@ -106,11 +128,7 @@
 #pragma mark - Navigation
 
 - (IBAction)completeButtonPressed:(id)sender {
-    _indicator = [[UIActivityIndicatorView alloc]
-                  initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    _indicator.center = self.view.center;
-    [_indicator startAnimating];
-    [self.view addSubview:_indicator];
+    [self.view addSubview:_progressIndicatorView];
     // or register user depending on login status
     if (_user.logged_in) {
         [_user createOrder];

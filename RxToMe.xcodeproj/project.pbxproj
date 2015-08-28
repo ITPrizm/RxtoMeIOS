@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		58071FFF1B8E79D600E2BE01 /* CircularLoaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58071FFE1B8E79D600E2BE01 /* CircularLoaderView.m */; };
 		58A3F6471B77FB780037C6E8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 58A3F6461B77FB780037C6E8 /* main.m */; };
 		58A3F64A1B77FB780037C6E8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 58A3F6491B77FB780037C6E8 /* AppDelegate.m */; };
 		58A3F6561B77FB780037C6E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58A3F6541B77FB780037C6E8 /* Main.storyboard */; };
@@ -39,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		58071FFD1B8E79D600E2BE01 /* CircularLoaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircularLoaderView.h; sourceTree = "<group>"; };
+		58071FFE1B8E79D600E2BE01 /* CircularLoaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircularLoaderView.m; sourceTree = "<group>"; };
 		58A3F6411B77FB780037C6E8 /* RxToMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxToMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		58A3F6451B77FB780037C6E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		58A3F6461B77FB780037C6E8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -148,6 +151,8 @@
 				58A3F68A1B7AA1AA0037C6E8 /* ConditionsViewController.m */,
 				58A81C171B87D5E0008F0593 /* LoginViewController.h */,
 				58A81C181B87D5E0008F0593 /* LoginViewController.m */,
+				58071FFD1B8E79D600E2BE01 /* CircularLoaderView.h */,
+				58071FFE1B8E79D600E2BE01 /* CircularLoaderView.m */,
 				58A3F6441B77FB780037C6E8 /* Supporting Files */,
 			);
 			path = RxToMe;
@@ -343,6 +348,7 @@
 				58A81C161B87AC25008F0593 /* CashOrInsuranceViewController.m in Sources */,
 				58A81C191B87D5E0008F0593 /* LoginViewController.m in Sources */,
 				58C907891B7E568E007E7702 /* RxClient.m in Sources */,
+				58071FFF1B8E79D600E2BE01 /* CircularLoaderView.m in Sources */,
 				58A3F69A1B7BCB670037C6E8 /* AddressFormViewController.m in Sources */,
 				58A3F6831B7959610037C6E8 /* ConfirmationViewController.m in Sources */,
 				58A3F6941B7BA94A0037C6E8 /* InstructionsViewController.m in Sources */,

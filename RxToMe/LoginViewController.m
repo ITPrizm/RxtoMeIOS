@@ -9,14 +9,15 @@
 #import "LoginViewController.h"
 #import "User.h"
 #import "InstructionsViewController.h"
+#import "CircularLoaderView.h"
 
 @interface LoginViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *forgot_password_button;
 @property (weak, nonatomic) IBOutlet UIButton *login_button;
 @property (weak, nonatomic) IBOutlet UITextField *email_field;
 @property (weak, nonatomic) IBOutlet UITextField *password_field;
-@property (nonatomic) UIActivityIndicatorView *loading;
 @property (weak, nonatomic) User *user;
+@property (nonatomic) CircularLoaderView *progressIndicatorView;
 @end
 
 @implementation LoginViewController
@@ -24,9 +25,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _user = [User sharedManager];
+    _progressIndicatorView = [[CircularLoaderView alloc] initWithFrame: CGRectZero];
+    CGRect frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, 100, 100);
+    [_progressIndicatorView setFrame:frame];
+    _progressIndicatorView.center = self.view.center;
+    _progressIndicatorView.autoresizingMask = YES;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismissSelf)];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginError:) name:@"LoginFailure" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(passwordRecoveryComplete:) name:@"PasswordRecoveryComplete" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateProgress:) name:@"FractionCompleted" object:nil];
     UITapGestureRecognizer *tap_recog = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundTapped)];
     [self.view addGestureRecognizer:tap_recog];
 }
@@ -41,27 +48,26 @@
 }
 
 - (IBAction)loginButtonPressed:(id)sender {
-    _user.email = _email_field.text;
-    _user.password = _password_field.text;
-    [self presentLoadingView];
-    [_user login];
+    [self.view addSubview:_progressIndicatorView];
+    [_user loginWithEmail:_email_field.text password:_password_field.text];
 }
 
-- (void)presentLoadingView {
-    _loading = [[UIActivityIndicatorView alloc]
-                initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    _loading.center = self.view.center;
-    [_loading startAnimating];
-    [self.view addSubview:_loading];
+- (void)updateProgress:(NSNotification*)note {
+    NSProgress *prog = note.userInfo[@"progress"];
+    [_progressIndicatorView updateProgress:prog.fractionCompleted];
 }
 
 - (IBAction)forgotPasswordButtonPressed:(id)sender {
-    [self presentLoadingView];
+    [self.view addSubview:_progressIndicatorView];
     [_user forgotPasswordForEmail:_email_field.text];
 }
 
+- (void)removeLoadingView {
+    [self.progressIndicatorView removeFromSuperview];
+}
+
 - (void)loginError:(NSNotification*)note {
-    [_loading removeFromSuperview];
+    [self removeLoadingView];
     [self presentSingleActionAlertWithTitle:@"Error" message:note.userInfo[@"message"]];
 }
 
@@ -73,7 +79,6 @@
 }
 
 - (void)passwordRecoveryComplete:(NSNotification*)note {
-    [_loading removeFromSuperview];
     NSString *title;
     NSString *message;
     if (!note.userInfo) {
@@ -83,6 +88,7 @@
         title = @"Error";
         message = note.userInfo[@"message"];
     }
+    [self removeLoadingView];
     [self presentSingleActionAlertWithTitle:title message:message];
 }
 

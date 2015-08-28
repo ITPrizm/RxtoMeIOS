@@ -15,6 +15,12 @@ NSString* const kRxNewUserEndpoint = @"api/v1/patient/newuser";
 NSString* const kRxNewOrderEndpoint = @"api/v1/patient/neworder";
 NSString* const kRxForgotPasswordEndpoint = @"api/v1/patient/forgotpassword";
 
+@interface RxClient ()
+
+@property NSProgress *progress;
+
+@end
+
 @implementation RxClient
 
 - (id)initWithBaseURL:(NSURL *)url

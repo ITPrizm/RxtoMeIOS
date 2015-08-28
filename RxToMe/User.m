@@ -30,99 +30,169 @@
 
 #pragma mark - POST Requests
 
-- (void)login {
-//    NSDictionary *params = [NSDictionary dictionaryWithObjects:@[_email, _password] forKeys:@[@"pt_email", @"pt_upass"]];
-    NSDictionary *params = [NSDictionary dictionaryWithObjects:@[@"mikespearman.e@gmail.com", @"bHUWy"] forKeys:@[@"pt_email", @"pt_upass"]];
-
+- (void)loginWithEmail:(NSString*)email password:(NSString*)password {
+    NSString *params = [NSString stringWithFormat:@"pt_email=%@&pt_upass=%@", email, password];
     
-    [[RxClient sharedClient] POST:@"http://api.rxtome.com/api/v1/patient/login" parameters:params
-                          success:^(NSURLSessionDataTask *task, id responseObject) {
-                              NSLog(@"SUCCESS: %@", task.response);
-                              _logged_in = YES;
-                              NSDictionary *response = (NSDictionary*)responseObject;
-                              // Pass response to user fields
-                              [self parseLoginResponse:response[@"data"]];
-                              [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginSuccess" object:nil userInfo:nil];
-                          }
-                          failure:^(NSURLSessionDataTask *task, NSError *error) {
-                              NSLog(@"FAILURE: %@", task.response);
-                              NSDictionary* error_info;
-                              NSData* response_data = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-                              if (response_data) {
-                                  error_info = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:response_data options:NSJSONReadingMutableContainers error:nil];
-                              } else {
-                                  error_info = @{@"message" : error.localizedDescription};
-                              }
-                              
-                              _email = nil;
-                              _password = nil;
-                              
-                              [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginFailure"object:nil userInfo:error_info];
-                          }
-     ];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://api.rxtome.com/api/v1/patient/login"]];
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody: [params dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    
+    NSProgress *progress = nil;
+    NSURLSessionUploadTask *uploadTask = [[RxClient sharedClient] uploadTaskWithStreamedRequest:request progress:&progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        if (error) {
+            NSLog(@"FAILURE: %@", response);
+            NSDictionary* error_info;
+            NSData* response_data = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+            if (response_data) {
+              error_info = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:response_data options:NSJSONReadingMutableContainers error:nil];
+            } else {
+              error_info = @{@"message" : error.localizedDescription};
+            }
+
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginFailure"object:nil userInfo:error_info];
+        } else {
+            NSLog(@"SUCCESS: %@", response);
+            _logged_in = YES;
+            NSDictionary *response = (NSDictionary*)responseObject;
+            // Pass response to user fields
+            [self parseLoginResponse:response[@"data"]];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"LoginSuccess" object:nil userInfo:nil];
+        }
+    }];
+    
+    [progress addObserver:self
+               forKeyPath:@"fractionCompleted"
+                  options:NSKeyValueObservingOptionNew
+                  context:NULL];
+    
+    [uploadTask resume];
 }
 
 - (void)createOrder {
-    [[RxClient sharedClient] POST:kRxNewOrderEndpoint parameters:[self formatUserParams] constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-            [formData appendPartWithFileData:UIImageJPEGRepresentation(_prescription_image, .5) name:@"pre_front" fileName:@"pre_front.jpeg" mimeType:@"image/jpeg"];
-            if (_has_insurance) {
-                [formData appendPartWithFileData:UIImageJPEGRepresentation(_insurance_front, .5) name:@"ins_front" fileName:@"ins_front.jpg" mimeType:@"image/jpeg"];
-                [formData appendPartWithFileData:UIImageJPEGRepresentation(_insurance_back, .5) name:@"ins_back" fileName:@"ins_back.jpg" mimeType:@"image/jpeg"];
-            }
-    } success:^(NSURLSessionDataTask *task, id responseObject) {
-        NSLog(@"SUCCESS: %@", task.response);
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"OrderCreated" object:self userInfo:nil];
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSLog(@"FAILURE: %@", task.response);
-        NSDictionary* error_info;
-        NSData* response_data = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-        if (response_data) {
-            error_info = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:response_data options:NSJSONReadingMutableContainers error:nil];
-        } else {
-            error_info = @{@"message" : error.localizedDescription};
+    
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:@"http://api.rxtome.com/api/v1/patient/neworder" parameters:[self formatUserParams] constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [formData appendPartWithFileData:UIImageJPEGRepresentation(_prescription_image, .5) name:@"pre_front" fileName:@"pre_front.jpeg" mimeType:@"image/jpeg"];
+        if (_has_insurance) {
+            [formData appendPartWithFileData:UIImageJPEGRepresentation(_insurance_front, .5) name:@"ins_front" fileName:@"ins_front.jpg" mimeType:@"image/jpeg"];
+            [formData appendPartWithFileData:UIImageJPEGRepresentation(_insurance_back, .5) name:@"ins_back" fileName:@"ins_back.jpg" mimeType:@"image/jpeg"];
         }
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"OrderCreated" object:self userInfo:error_info];
+    } error:nil];
+    
+    [request setValue:_token forHTTPHeaderField:@"pt_token"];
+    
+    NSProgress *progress = nil;
+    
+    NSURLSessionUploadTask *uploadTask = [[RxClient sharedClient] uploadTaskWithStreamedRequest:request progress:&progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        if (error) {
+            NSLog(@"FAILURE: %@", response);
+            NSDictionary* error_info;
+            NSData* response_data = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+            if (response_data) {
+                error_info = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:response_data options:NSJSONReadingMutableContainers error:nil];
+            } else {
+                error_info = @{@"message" : error.localizedDescription};
+            }
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"OrderCreated" object:self userInfo:error_info];
+        } else {
+            NSLog(@"SUCCESS: %@", response);
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"OrderCreated" object:self userInfo:nil];
+        }
     }];
+    
+    [progress addObserver:self
+               forKeyPath:@"fractionCompleted"
+                  options:NSKeyValueObservingOptionNew
+                  context:NULL];
+    
+    [uploadTask resume];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"fractionCompleted"] && [object isKindOfClass:[NSProgress class]]) {
+        NSProgress *progress = (NSProgress *)object;
+        NSDictionary *userInfo = @{@"progress":progress};
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"FractionCompleted" object:self userInfo:userInfo];
+    }
 }
 
 - (void)registerAccount {
-    [[RxClient sharedClient] POST:kRxNewUserEndpoint parameters:[self formatUserParams] constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-            [formData appendPartWithFileData:UIImageJPEGRepresentation(_prescription_image, .5) name:@"pre_front" fileName:@"pre_front.jpeg" mimeType:@"image/jpeg"];
-            if (_has_insurance) {
-                [formData appendPartWithFileData:UIImageJPEGRepresentation(_insurance_front, .5) name:@"ins_front" fileName:@"ins_front.jpg" mimeType:@"image/jpeg"];
-                [formData appendPartWithFileData:UIImageJPEGRepresentation(_insurance_back, .5) name:@"ins_back" fileName:@"ins_back.jpg" mimeType:@"image/jpeg"];
-            }
-    } success:^(NSURLSessionDataTask *task, id responseObject) {
-        NSLog(@"SUCCESS: %@", task.response);
-        NSDictionary *response = (NSDictionary*)responseObject;
-        _logged_in = YES;
-        // Pass response to user fields
-        [self parseRegistrationResponse:response[@"data"]];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"RegistrationComplete" object:self userInfo:nil];
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSLog(@"FAILURE: %@", task.response);
-        
-        NSDictionary* error_info;
-        NSData* response_data = error.userInfo[@"com.alamofire.serialization.response.error.data"];
-        if (response_data) {
-            error_info = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:response_data options:NSJSONReadingMutableContainers error:nil];
-        } else {
-            error_info = @{@"message" : error.localizedDescription};
+    
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:@"http://api.rxtome.com/api/v1/patient/newuser" parameters:[self formatUserParams] constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [formData appendPartWithFileData:UIImageJPEGRepresentation(_prescription_image, .5) name:@"pre_front" fileName:@"pre_front.jpeg" mimeType:@"image/jpeg"];
+        if (_has_insurance) {
+            [formData appendPartWithFileData:UIImageJPEGRepresentation(_insurance_front, .5) name:@"ins_front" fileName:@"ins_front.jpg" mimeType:@"image/jpeg"];
+            [formData appendPartWithFileData:UIImageJPEGRepresentation(_insurance_back, .5) name:@"ins_back" fileName:@"ins_back.jpg" mimeType:@"image/jpeg"];
         }
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"RegistrationComplete" object:self userInfo:error_info];
+    } error:nil];
+    
+    
+    NSProgress *progress = nil;
+    
+    NSURLSessionUploadTask *uploadTask = [[RxClient sharedClient] uploadTaskWithStreamedRequest:request progress:&progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        if (error) {
+            NSLog(@"FAILURE: %@", response);
+            NSDictionary* error_info;
+            NSData* response_data = error.userInfo[@"com.alamofire.serialization.response.error.data"];
+            if (response_data) {
+                error_info = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:response_data options:NSJSONReadingMutableContainers error:nil];
+            } else {
+                error_info = @{@"message" : error.localizedDescription};
+            }
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"AccountRegistered" object:self userInfo:error_info];
+        } else {
+            NSLog(@"SUCCESS: %@", response);
+            NSDictionary *response = (NSDictionary*)responseObject;
+            // Pass response to user fields
+            [self parseRegistrationResponse:response[@"data"]];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"AccountRegistered" object:self userInfo:nil];
+        }
     }];
+    
+    [progress addObserver:self
+               forKeyPath:@"fractionCompleted"
+                  options:NSKeyValueObservingOptionNew
+                  context:NULL];
+    
+    [uploadTask resume];
 }
 
 
 - (void)forgotPasswordForEmail:(NSString*)email {
-    [[RxClient sharedClient] POST:kRxForgotPasswordEndpoint parameters:@{@"pt_email":email} success:^(NSURLSessionDataTask *task, id responseObject) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"PasswordRecoveryComplete" object:self userInfo:nil];
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSDictionary* error_info = @{@"message" : @"Could not find user with supplied email."};
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"PasswordRecoveryComplete" object:self userInfo:error_info];
+//    [[RxClient sharedClient] POST:kRxForgotPasswordEndpoint parameters:@{@"pt_email":email} success:^(NSURLSessionDataTask *task, id responseObject) {
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"PasswordRecoveryComplete" object:self userInfo:nil];
+//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+//        NSDictionary* error_info = @{@"message" : @"Could not find user with supplied email."};
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"PasswordRecoveryComplete" object:self userInfo:error_info];
+//    }];
+    
+    NSString *params = [NSString stringWithFormat:@"pt_email=%@", email];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://api.rxtome.com/api/v1/patient/forgotpassword"]];
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody: [params dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSProgress *progress = nil;
+    NSURLSessionUploadTask *uploadTask = [[RxClient sharedClient] uploadTaskWithStreamedRequest:request progress:&progress completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        if (error) {
+            NSLog(@"FAILURE: %@", response);
+            NSDictionary* error_info = @{@"message" : @"Could not find user with supplied email."};
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"PasswordRecoveryComplete" object:self userInfo:error_info];
+        } else {
+            NSLog(@"SUCCESS: %@", response);
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"PasswordRecoveryComplete" object:self userInfo:nil];
+        }
     }];
+    
+    [progress addObserver:self
+               forKeyPath:@"fractionCompleted"
+                  options:NSKeyValueObservingOptionNew
+                  context:NULL];
+    
+    [uploadTask resume];
 }
+
+
 
 #pragma mark - Formatting/Parsing
 /* Performs special formating on User parameters in order to match servers format requirements */

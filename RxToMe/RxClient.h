@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "AFHTTPSessionManager.h"
+#import "AFHTTPRequestOperationManager.h"
 
 @interface RxClient : AFHTTPSessionManager
 

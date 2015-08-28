@@ -17,7 +17,7 @@
 - (BOOL)validatePostalCode:(NSString*)code;
 - (BOOL)validateZip:(NSString*)zip;
 - (BOOL)validateLength:(NSString*)length;
-- (void)login;
+- (void)loginWithEmail:(NSString*)email password:(NSString*)password;
 - (void)registerAccount;
 - (void)createOrder;
 - (void)forgotPasswordForEmail:(NSString*)email;

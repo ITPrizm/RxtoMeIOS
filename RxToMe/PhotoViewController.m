@@ -35,6 +35,14 @@
     _image_controller = [[UIImagePickerController alloc] init];
     _image_controller.sourceType = UIImagePickerControllerSourceTypeCamera;
     _image_controller.delegate = self;
+    _image_controller.showsCameraControls = YES;
+    _image_controller.allowsEditing = NO;
+    
+//    UIView *cameraView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
+//    cameraView.backgroundColor = [UIColor greenColor];
+
+    _image_controller.cameraOverlayView = nil;
+    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(nextButtonPressed:)];
     if ([_type isEqualToString:@"prescription"]) {
         [self prescriptionSetup];
@@ -85,7 +93,7 @@
     UIButton *new_button = [[UIButton alloc] init];
     new_button.translatesAutoresizingMaskIntoConstraints = NO;
     new_button.imageView.clipsToBounds = YES;
-    new_button.imageView.contentMode = UIViewContentModeScaleAspectFill;
+    new_button.imageView.contentMode = UIViewContentModeScaleAspectFit;
     [new_button setTitle:title forState:UIControlStateNormal];
     [new_button setBackgroundColor:[UIColor grayColor]];
     [new_button addTarget:self action:@selector(takePhoto:) forControlEvents:UIControlEventTouchUpInside];
@@ -132,8 +140,20 @@
     [self.navigationController presentViewController:_image_controller animated:YES completion:nil];
 }
 
+- (UIImage*)cropImage:(UIImage*)image {
+    CGRect crop = CGRectMake(0, image.size.height/4, image.size.width, image.size.width*3/4);
+    UIGraphicsBeginImageContextWithOptions(crop.size, false, [image scale]);
+    [image drawAtPoint:CGPointMake(-crop.origin.x, -crop.origin.y)];
+    UIImage *cropped_image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return cropped_image;
+}
+
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     UIImage *image = info[UIImagePickerControllerOriginalImage];
+    if (image.size.height > image.size.width) {
+        image = [self cropImage:image];
+    }
     
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
         [_selected_apv setImage:image forState:UIControlStateNormal];
