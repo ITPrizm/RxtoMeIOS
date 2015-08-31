@@ -37,9 +37,6 @@
     _image_controller.delegate = self;
     _image_controller.showsCameraControls = YES;
     _image_controller.allowsEditing = NO;
-    
-//    UIView *cameraView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
-//    cameraView.backgroundColor = [UIColor greenColor];
 
     _image_controller.cameraOverlayView = nil;
     
@@ -78,24 +75,28 @@
 
 - (void)prescriptionSetup {
     _prescription_button = [self setButton:@"Add Prescription" xpos:0 ypos:50];
+    _prescription_button.imageView.image = [UIImage imageNamed:@"Add Prescription"];
+    [_prescription_button setImage:[UIImage imageNamed:@"Add Prescription"] forState:UIControlStateNormal];
 }
 
 - (void)insuranceSetup {
     _insurance_front_button = [self setButton:@"Add Insurance Front" xpos:0 ypos:100];
     _insurance_back_button = [self setButton:@"Add Insurance Back" xpos:0 ypos:-150];
     
+    [_insurance_front_button setImage:[UIImage imageNamed:@"Add Insurance Front"] forState:UIControlStateNormal];
+    [_insurance_front_button setImage:[UIImage imageNamed:@"Add Insurance Back"] forState:UIControlStateNormal];
+    
     [_insurance_front_button setRestorationIdentifier:@"front"];
     [_insurance_back_button setRestorationIdentifier:@"back"];
 }
 
-// button constructor
+// Button constructor
 - (UIButton*)setButton:(NSString*)title xpos:(NSInteger)xpos ypos:(NSInteger)ypos {
     UIButton *new_button = [[UIButton alloc] init];
     new_button.translatesAutoresizingMaskIntoConstraints = NO;
     new_button.imageView.clipsToBounds = YES;
     new_button.imageView.contentMode = UIViewContentModeScaleAspectFit;
     [new_button setTitle:title forState:UIControlStateNormal];
-    [new_button setBackgroundColor:[UIColor grayColor]];
     [new_button addTarget:self action:@selector(takePhoto:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:new_button];
     

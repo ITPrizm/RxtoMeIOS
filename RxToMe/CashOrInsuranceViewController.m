@@ -34,14 +34,13 @@
     _user.has_insurance = NO;
     ConditionsViewController *conditions = [self.storyboard instantiateViewControllerWithIdentifier:@"Terms"];
     [self.navigationController pushViewController:conditions animated:YES];
-    
 }
+
 - (IBAction)insuranceButtonPressed:(id)sender {
     _user.has_insurance = YES;
     InstructionsViewController *insurnace = [self.storyboard instantiateViewControllerWithIdentifier:@"Instruct"];
     insurnace.type = @"insurance";
     [self.navigationController pushViewController:insurnace animated:YES];
-    
 }
 
 /*

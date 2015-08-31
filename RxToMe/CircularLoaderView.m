@@ -17,7 +17,6 @@ const CGFloat circleRadius = 20.0;
 @end
 
 @implementation CircularLoaderView
-@synthesize progress;
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -54,6 +53,7 @@ const CGFloat circleRadius = 20.0;
     [self resetProgress];
 }
 
+
 - (CGRect)circleFrame {
     CGRect circleFrame = CGRectMake(0, 0, 2*circleRadius, 2*circleRadius);
     circleFrame.origin.x = CGRectGetMidX(_circlePathLayer.bounds) - CGRectGetMidX(circleFrame);
@@ -73,12 +73,12 @@ const CGFloat circleRadius = 20.0;
 
 - (void)resetProgress {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        _circlePathLayer.strokeEnd = .1;
+        _circlePathLayer.strokeEnd = .01;
     });
 }
 
 - (void)updateProgress:(CGFloat)frac {
-    if (frac > .1) {
+    if (frac > .01) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             _circlePathLayer.strokeEnd = frac;
         });

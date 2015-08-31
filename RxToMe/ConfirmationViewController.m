@@ -28,10 +28,14 @@ NSString* const kError = @"Error";
 @property (nonatomic) UIActivityIndicatorView *indicator;
 @property (weak, nonatomic) IBOutlet UILabel *signature_label;
 @property (nonatomic) CircularLoaderView *progressIndicatorView;
+@property (weak, nonatomic) IBOutlet UIButton *change_address_button;
+@property (weak, nonatomic) IBOutlet UIButton *change_contact_button;
 
 @end
 
 @implementation ConfirmationViewController
+
+#pragma mark - View Rendering
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -44,24 +48,14 @@ NSString* const kError = @"Error";
     [_progressIndicatorView setFrame:frame];
     _progressIndicatorView.center = self.view.center;
     _progressIndicatorView.autoresizingMask = YES;
+    _signature_label.font = [UIFont fontWithName:@"Arty Signature" size:30];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Order" style:UIBarButtonItemStylePlain target:self action:@selector(completeButtonPressed:)];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orderCreated:) name:@"OrderCreated" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orderCreated:) name:@"AccountRegistered" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateProgress:) name:@"FractionCompleted" object:nil];
 }
 
-- (IBAction)takePhoto:(id)sender {
-    [self.navigationController presentViewController:_image_controller animated:YES completion:nil];
-}
-
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    UIImage *image = info[UIImagePickerControllerOriginalImage];
-    [self.navigationController dismissViewControllerAnimated:YES completion:^{
-        [_prescription_image setImage:image];
-        [_user setPrescription_image:image];
-    }];
-}
-
+// Adjusts labels for possible change of text.
 - (void)viewWillAppear:(BOOL)animated {
     NSString *address2_string = _user.address2.length > 0 ? [NSString stringWithFormat:@"%@, ", [_user.address2 capitalizedString]] : @"";
     self.address_label.text = [NSString stringWithFormat:@"Send to: \n%@, %@%@, %@, %@, %@", [_user.address capitalizedString], address2_string, [_user.city capitalizedString], _user.state, _user.zip, _user.country];
@@ -82,18 +76,20 @@ NSString* const kError = @"Error";
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Listeners
+
+// Handles completion of upload portion by updating loading view.
 - (void)updateProgress:(NSNotification*)note {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        NSProgress* prog = note.userInfo[@"progress"];
-        [self.progressIndicatorView updateProgress:(CGFloat)prog.fractionCompleted];
-    });
+    NSProgress* prog = note.userInfo[@"progress"];
+    [self.progressIndicatorView updateProgress:(CGFloat)prog.fractionCompleted];
 }
 
+// Handler for successfull/failed completion of an order.
 - (void)orderCreated:(NSNotification*)note {
     [self.progressIndicatorView removeFromSuperview];
+    [self enableButtons:YES];
     if (note.userInfo[@"message"]) {
         [self presentAlertType:kError withMessage: note.userInfo[@"message"]];
     } else {
@@ -108,6 +104,17 @@ NSString* const kError = @"Error";
     }
 }
 
+#pragma mark - Helpers
+
+// Disables and/or grays out buttons all buttons on view.
+- (void)enableButtons:(BOOL)boolean {
+    self.navigationItem.rightBarButtonItem.enabled = boolean;
+    self.navigationItem.leftBarButtonItem.enabled = boolean;
+    self.change_address_button.enabled = boolean;
+    self.change_contact_button.enabled = boolean;
+}
+
+// Presents an alert view of success or failure depending on type.
 - (void)presentAlertType:(NSString*)type withMessage:(NSString*)alertMessage {
     UIAlertAction *ok_action;
     if ([type isEqualToString:kError]) {
@@ -125,10 +132,23 @@ NSString* const kError = @"Error";
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
+
+#pragma mark - UIImagePickerDelegate
+
+// Sets prescription image as taken image.
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+        [_prescription_image setImage:image];
+        [_user setPrescription_image:image];
+    }];
+}
+
 #pragma mark - Navigation
 
 - (IBAction)completeButtonPressed:(id)sender {
     [self.view addSubview:_progressIndicatorView];
+    [self enableButtons:NO];
     // or register user depending on login status
     if (_user.logged_in) {
         [_user createOrder];
@@ -136,6 +156,7 @@ NSString* const kError = @"Error";
         [_user registerAccount];
     }
 }
+
 - (IBAction)changeAddressButtonPressed:(id)sender {
     AddressFormViewController *addressVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Address"];
     addressVC.is_modal = YES;
@@ -151,13 +172,8 @@ NSString* const kError = @"Error";
     [self.navigationController presentViewController:nav animated:YES completion:nil];
 }
 
-/*
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)takePhoto:(id)sender {
+    [self.navigationController presentViewController:_image_controller animated:YES completion:nil];
 }
-*/
 
 @end

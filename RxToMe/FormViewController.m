@@ -154,6 +154,49 @@
     return NO; // We do not want UITextField to insert line-breaks.
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    // Telephone number field tag
+    if (textField.tag == 2) {
+        switch (textField.text.length) {
+            // adding/rmving opening paren
+            case 0:
+                if (string.length)
+                    textField.text = @"(";
+                break;
+            // rmving opening paren
+            case 2:
+                if (!string.length)
+                    textField.text = @"";
+                break;
+            // adding closing paren
+            case 4:
+                if (string.length)
+                    textField.text = [NSString stringWithFormat:@"%@) ", textField.text];
+                break;
+            // rmving closing paren
+            case 7:
+                if (!string.length)
+                    textField.text = [textField.text substringToIndex:textField.text.length-2];
+                break;
+            // adding hyphen
+            case 9:
+                if (string.length)
+                    textField.text = [NSString stringWithFormat:@"%@-", textField.text];
+                break;
+            // rmving hyphen
+            case 11:
+                if (!string.length)
+                    textField.text = [textField.text substringToIndex:textField.text.length-1];
+                break;
+            default:
+                if (textField.text.length >= 14 && string.length)
+                    return NO;
+                break;
+        }
+    }
+    return YES;
+}
+
 
 #pragma mark - Navigation
 

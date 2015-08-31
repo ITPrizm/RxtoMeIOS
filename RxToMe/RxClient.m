@@ -42,10 +42,6 @@ NSString* const kRxForgotPasswordEndpoint = @"api/v1/patient/forgotpassword";
     dispatch_once(&onceToken, ^{
         sharedManager = [[self alloc] initWithBaseURL:[NSURL URLWithString:kRxBaseURL]];
     });
-    User *user = [User sharedManager];
-    if (user.token != nil) {
-        [sharedManager.requestSerializer setValue:user.token forHTTPHeaderField:@"pt_token"];
-    }
     return sharedManager;
 }
 

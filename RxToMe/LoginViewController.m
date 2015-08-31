@@ -49,7 +49,13 @@
 
 - (IBAction)loginButtonPressed:(id)sender {
     [self.view addSubview:_progressIndicatorView];
+    [self enableButtons:NO];
     [_user loginWithEmail:_email_field.text password:_password_field.text];
+}
+
+- (void)enableButtons:(BOOL)enable {
+    self.navigationItem.rightBarButtonItem.enabled = enable;
+    self.login_button.enabled = enable;
 }
 
 - (void)updateProgress:(NSNotification*)note {
@@ -59,15 +65,17 @@
 
 - (IBAction)forgotPasswordButtonPressed:(id)sender {
     [self.view addSubview:_progressIndicatorView];
+    [self enableButtons:NO];
     [_user forgotPasswordForEmail:_email_field.text];
 }
 
-- (void)removeLoadingView {
+- (void)finishedLoading {
     [self.progressIndicatorView removeFromSuperview];
+    [self enableButtons:YES];
 }
 
 - (void)loginError:(NSNotification*)note {
-    [self removeLoadingView];
+    [self finishedLoading];
     [self presentSingleActionAlertWithTitle:@"Error" message:note.userInfo[@"message"]];
 }
 
@@ -88,7 +96,7 @@
         title = @"Error";
         message = note.userInfo[@"message"];
     }
-    [self removeLoadingView];
+    [self finishedLoading];
     [self presentSingleActionAlertWithTitle:title message:message];
 }
 

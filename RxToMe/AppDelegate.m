@@ -18,8 +18,36 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [[AFNetworkActivityLogger sharedLogger] startLogging];
+    if ([application respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        #ifdef __IPHONE_8_0
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:
+                                                (UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound)
+                                                                                 categories:nil];
+        [application registerUserNotificationSettings:settings];
+        #endif
+    } else {
+        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
+        [application registerForRemoteNotificationTypes:myTypes];
+    }
     return YES;
 }
+
+#ifdef __IPHONE_8_0
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
+    //register to receive notifications
+    [application registerForRemoteNotifications];
+}
+
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void(^)())completionHandler {
+    //handle the actions
+    if ([identifier isEqualToString:@"declineAction"]){
+        
+    }
+    else if ([identifier isEqualToString:@"answerAction"]){
+        
+    }
+}
+#endif
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

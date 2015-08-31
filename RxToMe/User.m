@@ -159,13 +159,6 @@
 
 
 - (void)forgotPasswordForEmail:(NSString*)email {
-//    [[RxClient sharedClient] POST:kRxForgotPasswordEndpoint parameters:@{@"pt_email":email} success:^(NSURLSessionDataTask *task, id responseObject) {
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"PasswordRecoveryComplete" object:self userInfo:nil];
-//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//        NSDictionary* error_info = @{@"message" : @"Could not find user with supplied email."};
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"PasswordRecoveryComplete" object:self userInfo:error_info];
-//    }];
-    
     NSString *params = [NSString stringWithFormat:@"pt_email=%@", email];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://api.rxtome.com/api/v1/patient/forgotpassword"]];
@@ -269,8 +262,24 @@
 
 - (BOOL)validatePhone:(NSString*)phone {
     // valid = 10 digits
-    if ([self onlyWhiteSpace:phone]) return NO;
-    return [self allChars:phone withLength:10];
+    if (phone.length != 14) return NO;
+    char c;
+    NSCharacterSet *phone_chars = [NSCharacterSet characterSetWithCharactersInString:@"1234567890()- "];
+    for (int i = 0; i < phone.length; i++) {
+        // strip special chars
+        c =  [phone characterAtIndex:i];
+        if (![phone_chars characterIsMember:c]) return NO;
+    }
+    if (!([phone characterAtIndex:0] == '(')) {
+        return NO;
+    } else if (!([phone characterAtIndex:4] == ')')) {
+        return NO;
+    } else if (!([phone characterAtIndex:5] == ' ')) {
+        return NO;
+    } else if (!([phone characterAtIndex:9] == '-')) {
+        return NO;
+    }
+    return YES;
 }
 
 - (BOOL)validateZip:(NSString*)zip {

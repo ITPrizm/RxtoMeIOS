@@ -11,7 +11,5 @@
 @interface CircularLoaderView : UIView
 
 - (void)updateProgress:(CGFloat)frac;
-@property (nonatomic) CGFloat progress;
-
 
 @end

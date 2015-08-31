@@ -2091,6 +2091,8 @@ We shall not be liable to you or any third party for any claims or damages arisi
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="address_label" destination="CJf-LI-ImB" id="sus-jZ-vln"/>
+                        <outlet property="change_address_button" destination="27O-vF-0F2" id="oCZ-uX-noV"/>
+                        <outlet property="change_contact_button" destination="7VG-xs-hWg" id="kgj-kI-MKZ"/>
                         <outlet property="email_label" destination="V5R-RS-iZm" id="8ii-3H-1Bd"/>
                         <outlet property="name_label" destination="rMP-Cs-uJf" id="c1N-Ju-NjR"/>
                         <outlet property="phone_label" destination="T8x-0w-LL2" id="ASc-cV-X1i"/>
