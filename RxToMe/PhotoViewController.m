@@ -84,7 +84,7 @@
     _insurance_back_button = [self setButton:@"Add Insurance Back" xpos:0 ypos:-150];
     
     [_insurance_front_button setImage:[UIImage imageNamed:@"Add Insurance Front"] forState:UIControlStateNormal];
-    [_insurance_front_button setImage:[UIImage imageNamed:@"Add Insurance Back"] forState:UIControlStateNormal];
+    [_insurance_back_button setImage:[UIImage imageNamed:@"Add Insurance Back"] forState:UIControlStateNormal];
     
     [_insurance_front_button setRestorationIdentifier:@"front"];
     [_insurance_back_button setRestorationIdentifier:@"back"];

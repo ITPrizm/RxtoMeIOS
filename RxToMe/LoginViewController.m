@@ -38,40 +38,16 @@
     [self.view addGestureRecognizer:tap_recog];
 }
 
-- (void)backgroundTapped {
-    [self.view endEditing:YES];
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)loginButtonPressed:(id)sender {
-    [self.view addSubview:_progressIndicatorView];
-    [self enableButtons:NO];
-    [_user loginWithEmail:_email_field.text password:_password_field.text];
-}
-
-- (void)enableButtons:(BOOL)enable {
-    self.navigationItem.rightBarButtonItem.enabled = enable;
-    self.login_button.enabled = enable;
-}
+#pragma mark - Notification Handlers
 
 - (void)updateProgress:(NSNotification*)note {
     NSProgress *prog = note.userInfo[@"progress"];
     [_progressIndicatorView updateProgress:prog.fractionCompleted];
-}
-
-- (IBAction)forgotPasswordButtonPressed:(id)sender {
-    [self.view addSubview:_progressIndicatorView];
-    [self enableButtons:NO];
-    [_user forgotPasswordForEmail:_email_field.text];
-}
-
-- (void)finishedLoading {
-    [self.progressIndicatorView removeFromSuperview];
-    [self enableButtons:YES];
 }
 
 - (void)loginError:(NSNotification*)note {
@@ -79,12 +55,6 @@
     [self presentSingleActionAlertWithTitle:@"Error" message:note.userInfo[@"message"]];
 }
 
-- (void)presentSingleActionAlertWithTitle:(NSString*)title message:(NSString*)message {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction* ok = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
-    [alertController addAction:ok];
-    [self presentViewController:alertController animated:YES completion:nil];
-}
 
 - (void)passwordRecoveryComplete:(NSNotification*)note {
     NSString *title;
@@ -98,6 +68,51 @@
     }
     [self finishedLoading];
     [self presentSingleActionAlertWithTitle:title message:message];
+}
+
+#pragma mark - Helpers
+
+- (void)finishedLoading {
+    [self.progressIndicatorView removeFromSuperview];
+    [self enableButtons:YES];
+}
+
+- (void)enableButtons:(BOOL)enable {
+    self.navigationItem.rightBarButtonItem.enabled = enable;
+    self.login_button.enabled = enable;
+}
+
+- (void)presentSingleActionAlertWithTitle:(NSString*)title message:(NSString*)message {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction* ok = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
+    [alertController addAction:ok];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+#pragma mark - Gesture Recognizer Handlers
+
+- (void)backgroundTapped {
+    [self.view endEditing:YES];
+}
+
+- (IBAction)passwordIconTapped:(id)sender {
+    [self.password_field becomeFirstResponder];
+}
+
+- (IBAction)emailIconTapped:(id)sender {
+    [self.email_field becomeFirstResponder];
+}
+
+- (IBAction)loginButtonPressed:(id)sender {
+    [self.view addSubview:_progressIndicatorView];
+    [self enableButtons:NO];
+    [_user loginWithEmail:_email_field.text password:_password_field.text];
+}
+
+- (IBAction)forgotPasswordButtonPressed:(id)sender {
+    [self.view addSubview:_progressIndicatorView];
+    [self enableButtons:NO];
+    [_user forgotPasswordForEmail:_email_field.text];
 }
 
 #pragma mark - UITextFieldDelegate Functions

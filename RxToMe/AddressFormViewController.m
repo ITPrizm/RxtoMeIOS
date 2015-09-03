@@ -10,7 +10,7 @@
 #import "User.h"
 #import "InstructionsViewController.h"
 #import "ConditionsViewController.h"
-
+#import "UIView+FindFirstResponder.h"
 
 @interface AddressFormViewController ()
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tap_recognizer;
@@ -36,6 +36,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     _user = [User sharedManager];
     [self.picker_gesture setDelegate:self];
     [self.picker setDelegate:self];
@@ -48,16 +49,7 @@
         self.state_field.enabled = YES;
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismiss)];
     }
-    
     [self registerForKeyboardNotifications];
-}
-
-- (void)updateViewConstraints {
-    [super updateViewConstraints];
-    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, 0.0, 0.0);
-    _scrollView.contentInset = contentInsets;
-    _scrollView.scrollIndicatorInsets = contentInsets;
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -83,9 +75,9 @@
     _user.city = _city_field.text;
 }
 
-// Call this method somewhere in your view controller setup code.
-- (void)registerForKeyboardNotifications
-{
+#pragma mark - Keyboard Handlers
+
+- (void)registerForKeyboardNotifications {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWasShown:)
                                                  name:UIKeyboardDidShowNotification object:nil];
@@ -97,16 +89,11 @@
 }
 
 // Called when the UIKeyboardDidShowNotification is sent.
-- (void)keyboardWasShown:(NSNotification*)aNotification
-{
-    UIView *firstResponder;
-    for (UIView *view in self.view.subviews) {
-        if (view.isFirstResponder)
-            firstResponder = view;
-    }
+- (void)keyboardWasShown:(NSNotification*)aNotification {
+    UIView *firstResponder = [self.view findFirstResponder];
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    
+    // Adjusts size of scrollview to size of viewable screen
     UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
     _scrollView.contentInset = contentInsets;
     _scrollView.scrollIndicatorInsets = contentInsets;
@@ -121,11 +108,41 @@
 }
 
 // Called when the UIKeyboardWillHideNotification is sent
-- (void)keyboardWillBeHidden:(NSNotification*)aNotification
-{
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification {
     UIEdgeInsets contentInsets = UIEdgeInsetsZero;
     _scrollView.contentInset = contentInsets;
     _scrollView.scrollIndicatorInsets = contentInsets;
+}
+
+#pragma mark - Gesture Recognizer Handlers
+
+- (IBAction)addressIconTapped:(id)sender {
+    [self.address_field becomeFirstResponder];
+}
+
+- (IBAction)address2IconTapped:(id)sender {
+    [self.address2_field becomeFirstResponder];
+}
+
+- (IBAction)countryIconTapped:(id)sender {
+    [self.country_field becomeFirstResponder];
+}
+
+- (IBAction)stateIconTapped:(id)sender {
+    if (_country_field.text.length)
+        [self.state_field becomeFirstResponder];
+    else {
+        [self.view endEditing:YES];
+        [self.picker setHidden:YES];
+    }
+}
+
+- (IBAction)cityIconTapped:(id)sender {
+    [self.city_field becomeFirstResponder];
+}
+
+- (IBAction)zipIconTapped:(id)sender {
+    [self.zip_field becomeFirstResponder];
 }
 
 - (IBAction)backgroundTapped:(id)sender {
@@ -137,32 +154,9 @@
     return YES;
 }
 
-- (NSString*)validateForm {
-    NSString *errors = @"";
-    if (![_user validateLength:_address_field.text])
-        errors = @"Address cannot be empty.";
-    if (![_user validateLength:_country_field.text])
-        errors = [NSString stringWithFormat:@"%@\n Country cannot be empty.", errors];
-    if (![_user validateLength:_state_field.text])
-        errors = [NSString stringWithFormat:@"%@\n State cannot be empty.", errors];
-    if (![_user validateLength:_city_field.text])
-        errors = [NSString stringWithFormat:@"%@\n City cannot be empty.", errors];
-    if (![_user validateLength:_zip_field.text])
-        errors = [NSString stringWithFormat:@"%@\n Postal code cannot be empty.", errors];
-    else {
-        if ([_country_field.text isEqualToString:@"Canada"]) {
-            if (![_user validatePostalCode:_zip_field.text])
-                errors = [NSString stringWithFormat:@"%@\n Postal code is invalid.", errors];
-        } else {
-            if (![_user validateZip:_zip_field.text])
-                errors = [NSString stringWithFormat:@"%@\n Zip code is invalid.", errors];
-        }
-    }
-    return errors;
-}
-
 #pragma mark - UITextFieldDelegate Functions
 
+// Handles picker based on selected keyboard
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     if (!([textField.restorationIdentifier isEqualToString:@"country"] || [textField.restorationIdentifier isEqualToString:@"state"])) return YES;
     if ([textField.restorationIdentifier isEqualToString:@"country"]) {
@@ -183,6 +177,20 @@
     _selected_field = textField;
     _picker.hidden = NO;
     return NO;
+}
+
+// Navigating through textfields
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    NSInteger nextTag = textField.tag + 1;
+    // Try to find next responder
+    UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
+    if (nextResponder) {
+        // Found next responder, so set it.
+        [nextResponder becomeFirstResponder];
+    } else {
+        [self nextButtonPressed:nil];
+    }
+    return NO; // We do not want UITextField to insert line-breaks.
 }
 
 #pragma mark - UIPickerViewDelegate Functions
@@ -230,30 +238,6 @@
     }
 }
 
-- (void)presentErrors:(NSString*)errors {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Please fix error" message:errors preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-    [alertController addAction:ok];
-    
-    [self presentViewController:alertController animated:YES completion:nil];
-}
-
-#pragma mark - UITextFieldDelegate Functions
-// Navigating through textfields
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    NSInteger nextTag = textField.tag + 1;
-    // Try to find next responder
-    UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
-    if (nextResponder) {
-        // Found next responder, so set it.
-        [nextResponder becomeFirstResponder];
-    } else {
-        [self nextButtonPressed:nil];
-    }
-    return NO; // We do not want UITextField to insert line-breaks.
-}
-
 #pragma mark - Navigation
 
 - (IBAction)nextButtonPressed:(id)sender {
@@ -273,6 +257,41 @@
     } else {
         [self dismissViewControllerAnimated:YES completion:nil];
     }
+}
+
+#pragma mark - Validations/Errors
+
+- (NSString*)validateForm {
+    NSString *errors = @"";
+    if (![_user validateLength:_address_field.text])
+        errors = @"Address cannot be empty.";
+    if (![_user validateLength:_country_field.text])
+        errors = [NSString stringWithFormat:@"%@\n Country cannot be empty.", errors];
+    if (![_user validateLength:_state_field.text])
+        errors = [NSString stringWithFormat:@"%@\n State cannot be empty.", errors];
+    if (![_user validateLength:_city_field.text])
+        errors = [NSString stringWithFormat:@"%@\n City cannot be empty.", errors];
+    if (![_user validateLength:_zip_field.text])
+        errors = [NSString stringWithFormat:@"%@\n Postal code cannot be empty.", errors];
+    else {
+        if ([_country_field.text isEqualToString:@"Canada"]) {
+            if (![_user validatePostalCode:_zip_field.text])
+                errors = [NSString stringWithFormat:@"%@\n Postal code is invalid.", errors];
+        } else {
+            if (![_user validateZip:_zip_field.text])
+                errors = [NSString stringWithFormat:@"%@\n Zip code is invalid.", errors];
+        }
+    }
+    return errors;
+}
+
+- (void)presentErrors:(NSString*)errors {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Please fix error" message:errors preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+    [alertController addAction:ok];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 

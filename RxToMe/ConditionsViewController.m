@@ -22,6 +22,7 @@
 - (void)updateViewConstraints {
     [super updateViewConstraints];
     self.agreement_label.text = [NSString stringWithFormat:@"I, %@, agree to the above terms and conditions.", _user.name];
+    // Resizing spacing between label and switch if label size is changed.
     CGFloat switch_right_pos = self.view.frame.size.width - _agree_switch.frame.size.width - _agree_switch.frame.origin.x - 40;
     [self.agreement_label setPreferredMaxLayoutWidth:switch_right_pos];
 }

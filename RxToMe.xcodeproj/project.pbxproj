@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		58071FFF1B8E79D600E2BE01 /* CircularLoaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58071FFE1B8E79D600E2BE01 /* CircularLoaderView.m */; };
 		580720011B911D9300E2BE01 /* Arty Signature.otf in Resources */ = {isa = PBXBuildFile; fileRef = 580720001B911D9300E2BE01 /* Arty Signature.otf */; };
+		58360C9B1B9634B7008523B5 /* UIView+FindFirstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 58360C9A1B9634B7008523B5 /* UIView+FindFirstResponder.m */; };
+		589252251B9779ED0059543A /* NSString+PhoneFormating.m in Sources */ = {isa = PBXBuildFile; fileRef = 589252241B9779ED0059543A /* NSString+PhoneFormating.m */; };
 		58A3F6471B77FB780037C6E8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 58A3F6461B77FB780037C6E8 /* main.m */; };
 		58A3F64A1B77FB780037C6E8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 58A3F6491B77FB780037C6E8 /* AppDelegate.m */; };
 		58A3F6561B77FB780037C6E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58A3F6541B77FB780037C6E8 /* Main.storyboard */; };
@@ -44,6 +46,10 @@
 		58071FFD1B8E79D600E2BE01 /* CircularLoaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircularLoaderView.h; sourceTree = "<group>"; };
 		58071FFE1B8E79D600E2BE01 /* CircularLoaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircularLoaderView.m; sourceTree = "<group>"; };
 		580720001B911D9300E2BE01 /* Arty Signature.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Arty Signature.otf"; path = "../../../../Downloads/arty-signature/Arty Signature.otf"; sourceTree = "<group>"; };
+		58360C991B9634B7008523B5 /* UIView+FindFirstResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+FindFirstResponder.h"; sourceTree = "<group>"; };
+		58360C9A1B9634B7008523B5 /* UIView+FindFirstResponder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+FindFirstResponder.m"; sourceTree = "<group>"; };
+		589252231B9779ED0059543A /* NSString+PhoneFormating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PhoneFormating.h"; sourceTree = "<group>"; };
+		589252241B9779ED0059543A /* NSString+PhoneFormating.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PhoneFormating.m"; sourceTree = "<group>"; };
 		58A3F6411B77FB780037C6E8 /* RxToMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxToMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		58A3F6451B77FB780037C6E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		58A3F6461B77FB780037C6E8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -103,6 +109,55 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		58360C9C1B965DBD008523B5 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				58A3F6701B7907D50037C6E8 /* MainPageViewController.h */,
+				58A3F6711B7907D50037C6E8 /* MainPageViewController.m */,
+				58A3F6921B7BA94A0037C6E8 /* InstructionsViewController.h */,
+				58A3F6931B7BA94A0037C6E8 /* InstructionsViewController.m */,
+				58A3F6761B7913F80037C6E8 /* FormViewController.h */,
+				58A3F6771B7913F80037C6E8 /* FormViewController.m */,
+				58A3F6981B7BCB670037C6E8 /* AddressFormViewController.h */,
+				58A3F6991B7BCB670037C6E8 /* AddressFormViewController.m */,
+				58A81C141B87AC25008F0593 /* CashOrInsuranceViewController.h */,
+				58A81C151B87AC25008F0593 /* CashOrInsuranceViewController.m */,
+				58A3F6811B7959610037C6E8 /* ConfirmationViewController.h */,
+				58A3F6821B7959610037C6E8 /* ConfirmationViewController.m */,
+				58A3F6861B7A6DEB0037C6E8 /* PhotoViewController.h */,
+				58A3F6871B7A6DEB0037C6E8 /* PhotoViewController.m */,
+				58A3F6891B7AA1AA0037C6E8 /* ConditionsViewController.h */,
+				58A3F68A1B7AA1AA0037C6E8 /* ConditionsViewController.m */,
+				58A81C171B87D5E0008F0593 /* LoginViewController.h */,
+				58A81C181B87D5E0008F0593 /* LoginViewController.m */,
+				589252231B9779ED0059543A /* NSString+PhoneFormating.h */,
+				589252241B9779ED0059543A /* NSString+PhoneFormating.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		58360C9D1B965DE2008523B5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				58A3F67E1B794CF50037C6E8 /* User.h */,
+				58A3F67F1B794CF50037C6E8 /* User.m */,
+				58C907871B7E568E007E7702 /* RxClient.h */,
+				58C907881B7E568E007E7702 /* RxClient.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		58360C9E1B965DF1008523B5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				58071FFD1B8E79D600E2BE01 /* CircularLoaderView.h */,
+				58071FFE1B8E79D600E2BE01 /* CircularLoaderView.m */,
+				58360C991B9634B7008523B5 /* UIView+FindFirstResponder.h */,
+				58360C9A1B9634B7008523B5 /* UIView+FindFirstResponder.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		58A3F6381B77FB780037C6E8 = {
 			isa = PBXGroup;
 			children = (
@@ -128,33 +183,12 @@
 			children = (
 				58A3F6481B77FB780037C6E8 /* AppDelegate.h */,
 				58A3F6491B77FB780037C6E8 /* AppDelegate.m */,
-				58A3F6701B7907D50037C6E8 /* MainPageViewController.h */,
-				58A3F6711B7907D50037C6E8 /* MainPageViewController.m */,
-				58A3F6921B7BA94A0037C6E8 /* InstructionsViewController.h */,
-				58A3F6931B7BA94A0037C6E8 /* InstructionsViewController.m */,
 				58A3F6541B77FB780037C6E8 /* Main.storyboard */,
-				58A3F67E1B794CF50037C6E8 /* User.h */,
-				58A3F67F1B794CF50037C6E8 /* User.m */,
-				58C907871B7E568E007E7702 /* RxClient.h */,
-				58C907881B7E568E007E7702 /* RxClient.m */,
-				58A3F6761B7913F80037C6E8 /* FormViewController.h */,
-				58A3F6771B7913F80037C6E8 /* FormViewController.m */,
-				58A3F6981B7BCB670037C6E8 /* AddressFormViewController.h */,
-				58A3F6991B7BCB670037C6E8 /* AddressFormViewController.m */,
-				58A81C141B87AC25008F0593 /* CashOrInsuranceViewController.h */,
-				58A81C151B87AC25008F0593 /* CashOrInsuranceViewController.m */,
-				58A3F6571B77FB790037C6E8 /* Images.xcassets */,
+				58360C9C1B965DBD008523B5 /* Controllers */,
+				58360C9D1B965DE2008523B5 /* Models */,
+				58360C9E1B965DF1008523B5 /* Views */,
 				58A3F6591B77FB790037C6E8 /* LaunchScreen.xib */,
-				58A3F6811B7959610037C6E8 /* ConfirmationViewController.h */,
-				58A3F6821B7959610037C6E8 /* ConfirmationViewController.m */,
-				58A3F6861B7A6DEB0037C6E8 /* PhotoViewController.h */,
-				58A3F6871B7A6DEB0037C6E8 /* PhotoViewController.m */,
-				58A3F6891B7AA1AA0037C6E8 /* ConditionsViewController.h */,
-				58A3F68A1B7AA1AA0037C6E8 /* ConditionsViewController.m */,
-				58A81C171B87D5E0008F0593 /* LoginViewController.h */,
-				58A81C181B87D5E0008F0593 /* LoginViewController.m */,
-				58071FFD1B8E79D600E2BE01 /* CircularLoaderView.h */,
-				58071FFE1B8E79D600E2BE01 /* CircularLoaderView.m */,
+				58A3F6571B77FB790037C6E8 /* Images.xcassets */,
 				58A3F6441B77FB780037C6E8 /* Supporting Files */,
 			);
 			path = RxToMe;
@@ -352,9 +386,11 @@
 				58A81C161B87AC25008F0593 /* CashOrInsuranceViewController.m in Sources */,
 				58A81C191B87D5E0008F0593 /* LoginViewController.m in Sources */,
 				58C907891B7E568E007E7702 /* RxClient.m in Sources */,
+				58360C9B1B9634B7008523B5 /* UIView+FindFirstResponder.m in Sources */,
 				58071FFF1B8E79D600E2BE01 /* CircularLoaderView.m in Sources */,
 				58A3F69A1B7BCB670037C6E8 /* AddressFormViewController.m in Sources */,
 				58A3F6831B7959610037C6E8 /* ConfirmationViewController.m in Sources */,
+				589252251B9779ED0059543A /* NSString+PhoneFormating.m in Sources */,
 				58A3F6941B7BA94A0037C6E8 /* InstructionsViewController.m in Sources */,
 				58A3F6801B794CF50037C6E8 /* User.m in Sources */,
 				58A3F6731B7907D50037C6E8 /* MainPageViewController.m in Sources */,

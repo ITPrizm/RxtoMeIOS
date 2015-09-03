@@ -12,6 +12,7 @@
 #import "MainPageViewController.h"
 #import "AddressFormViewController.h"
 #import "CircularLoaderView.h"
+#import "NSString+PhoneFormating.h"
 
 NSString* const kSuccess = @"Success";
 NSString* const kError = @"Error";
@@ -55,22 +56,19 @@ NSString* const kError = @"Error";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateProgress:) name:@"FractionCompleted" object:nil];
 }
 
-// Adjusts labels for possible change of text.
+
 - (void)viewWillAppear:(BOOL)animated {
+    [self reloadLabels];
+}
+
+// Adjusts labels for possible changes in text.
+- (void)reloadLabels {
     NSString *address2_string = _user.address2.length > 0 ? [NSString stringWithFormat:@"%@, ", [_user.address2 capitalizedString]] : @"";
     self.address_label.text = [NSString stringWithFormat:@"Send to: \n%@, %@%@, %@, %@, %@", [_user.address capitalizedString], address2_string, [_user.city capitalizedString], _user.state, _user.zip, _user.country];
     self.name_label.text = [_user.name capitalizedString];
     self.signature_label.text = [_user.name capitalizedString];
     self.email_label.text = _user.email;
-    NSString *area_code;
-    NSString *prefix;
-    NSString *suffix;
-    if (_user.phone.length > 0) {
-        area_code = [_user.phone substringToIndex:3];
-        prefix = [_user.phone substringWithRange:NSMakeRange(3, 3)];
-        suffix = [_user.phone substringFromIndex:6];
-    }
-    self.phone_label.text = [NSString stringWithFormat:@"(%@)-%@-%@", area_code, prefix, suffix];
+    self.phone_label.text = [_user.phone stringToPhone];
     self.prescription_image.image = _user.prescription_image;
 }
 
