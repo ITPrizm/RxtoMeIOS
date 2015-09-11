@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CamViewController.h"
 
-@interface PhotoViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface PhotoViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UINavigationBarDelegate, CamViewDelegate>
 
 @property (weak, nonatomic) NSString* type;
 

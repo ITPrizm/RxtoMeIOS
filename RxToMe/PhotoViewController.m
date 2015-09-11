@@ -9,17 +9,17 @@
 #import "PhotoViewController.h"
 #import "User.h"
 #import "CashOrInsuranceViewController.h"
+#import "CamViewController.h"
 
 @interface PhotoViewController ()
 
 @property (weak, nonatomic) User *user;
-@property (nonatomic) UIImagePickerController *image_controller;
 @property (nonatomic) UIButton *prescription_button;
 @property (nonatomic) UIButton *insurance_front_button;
 @property (nonatomic) UIButton *insurance_back_button;
 @property (weak, nonatomic) IBOutlet UILabel *note_label;
-@property (weak, nonatomic) IBOutlet UIButton *next_button;
 @property (weak, nonatomic) UIButton *selected_apv;
+@property (nonatomic) CamViewController *cameraVC;
 
 @end
 
@@ -32,13 +32,10 @@
     // Used for the prescription and insurance scenes
     // Which is loaded depends on _type
     _user = [User sharedManager];
-    _image_controller = [[UIImagePickerController alloc] init];
-    _image_controller.sourceType = UIImagePickerControllerSourceTypeCamera;
-    _image_controller.delegate = self;
-    _image_controller.showsCameraControls = YES;
-    _image_controller.allowsEditing = NO;
-
-    _image_controller.cameraOverlayView = nil;
+    
+    _cameraVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Camera"];
+    _cameraVC.delegate = self;
+    
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(nextButtonPressed:)];
     if ([_type isEqualToString:@"prescription"]) {
@@ -48,20 +45,35 @@
     }
 }
 
+- (void)backButtonPressed {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Warning" message:@"Going back to the dashboard will clear your current information, are you sure you want to proceed?" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction* yes = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [_user empty];
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+    UIAlertAction* no = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:nil];
+    [alertController addAction:yes];
+    [alertController addAction:no];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     if ([_type isEqualToString:@"prescription"]) {
         if (_user.prescription_image) {
             [_prescription_button setImage:_user.prescription_image forState:UIControlStateNormal];
+            [_prescription_button setBackgroundImage:nil forState:UIControlStateNormal];
             _note_label.hidden = NO;
         }
     } else {
         _note_label.hidden = YES;
         if (_user.insurance_front) {
             [_insurance_front_button setImage:_user.insurance_front forState:UIControlStateNormal];
+            [_insurance_front_button setBackgroundImage:nil forState:UIControlStateNormal];
         }
         if (_user.insurance_back) {
             [_insurance_back_button setImage:_user.insurance_back forState:UIControlStateNormal];
+            [_insurance_back_button setBackgroundImage:nil forState:UIControlStateNormal];
         }
     }
 }
@@ -74,29 +86,30 @@
 #pragma mark - View Setup
 
 - (void)prescriptionSetup {
-    _prescription_button = [self setButton:@"Add Prescription" xpos:0 ypos:50];
-    _prescription_button.imageView.image = [UIImage imageNamed:@"Add Prescription"];
-    [_prescription_button setImage:[UIImage imageNamed:@"Add Prescription"] forState:UIControlStateNormal];
+    _prescription_button = [self setButtonWithXpos:0 ypos:50];
+    [_prescription_button setBackgroundImage:[UIImage imageNamed:@"Add Prescription"] forState:UIControlStateNormal];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Home" style:UIBarButtonItemStylePlain target:self action:@selector(backButtonPressed)];
+    self.cameraVC.alwaysLandscape = NO;
 }
 
 - (void)insuranceSetup {
-    _insurance_front_button = [self setButton:@"Add Insurance Front" xpos:0 ypos:100];
-    _insurance_back_button = [self setButton:@"Add Insurance Back" xpos:0 ypos:-150];
+    _insurance_front_button = [self setButtonWithXpos:0 ypos:100];
+    _insurance_back_button = [self setButtonWithXpos:0 ypos:-150];
     
-    [_insurance_front_button setImage:[UIImage imageNamed:@"Add Insurance Front"] forState:UIControlStateNormal];
-    [_insurance_back_button setImage:[UIImage imageNamed:@"Add Insurance Back"] forState:UIControlStateNormal];
+    [_insurance_front_button setBackgroundImage:[UIImage imageNamed:@"Add Insurance Front"] forState:UIControlStateNormal];
+    [_insurance_back_button setBackgroundImage:[UIImage imageNamed:@"Add Insurance Back"] forState:UIControlStateNormal];
     
     [_insurance_front_button setRestorationIdentifier:@"front"];
     [_insurance_back_button setRestorationIdentifier:@"back"];
+    self.cameraVC.alwaysLandscape = YES;
 }
 
 // Button constructor
-- (UIButton*)setButton:(NSString*)title xpos:(NSInteger)xpos ypos:(NSInteger)ypos {
+- (UIButton*)setButtonWithXpos:(NSInteger)xpos ypos:(NSInteger)ypos {
     UIButton *new_button = [[UIButton alloc] init];
     new_button.translatesAutoresizingMaskIntoConstraints = NO;
     new_button.imageView.clipsToBounds = YES;
     new_button.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [new_button setTitle:title forState:UIControlStateNormal];
     [new_button addTarget:self action:@selector(takePhoto:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:new_button];
     
@@ -138,37 +151,28 @@
 
 - (IBAction)takePhoto:(id)sender {
     _selected_apv = sender;
-    [self.navigationController presentViewController:_image_controller animated:YES completion:nil];
+    [self.navigationController presentViewController:_cameraVC animated:YES completion:nil];
 }
 
-- (UIImage*)cropImage:(UIImage*)image {
-    CGRect crop = CGRectMake(0, image.size.height/4, image.size.width, image.size.width*3/4);
-    UIGraphicsBeginImageContextWithOptions(crop.size, false, [image scale]);
-    [image drawAtPoint:CGPointMake(-crop.origin.x, -crop.origin.y)];
-    UIImage *cropped_image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return cropped_image;
-}
-
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    UIImage *image = info[UIImagePickerControllerOriginalImage];
-    if (image.size.height > image.size.width) {
-        image = [self cropImage:image];
-    }
-    
+- (void)cameraVC:(CamViewController *)cameraVC selectedImage:(UIImage *)selectedImage {
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
-        [_selected_apv setImage:image forState:UIControlStateNormal];
+        [_selected_apv setImage:selectedImage forState:UIControlStateNormal];
+        [_selected_apv setBackgroundImage:nil forState:UIControlStateNormal];
         if ([_type isEqualToString:@"prescription"]) {
-            _user.prescription_image = image;
+            _user.prescription_image = selectedImage;
             _note_label.hidden = NO;
         } else {
             if ([_selected_apv.restorationIdentifier isEqualToString: @"front"]) {
-                _user.insurance_front = image;
+                _user.insurance_front = selectedImage;
             } else {
-                _user.insurance_back = image;
+                _user.insurance_back = selectedImage;
             }
         }
     }];
+}
+
+- (void)cameraVCDidCancel:(CamViewController *)cameraVC {
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)presentErrorWithMessage:(NSString*)message {
@@ -181,7 +185,6 @@
 #pragma mark - Navigation
 
 - (IBAction)nextButtonPressed:(id)sender {
-    UIViewController *conditions = [self.storyboard instantiateViewControllerWithIdentifier:@"Terms"];
     if ([_type isEqualToString:@"prescription"]) {
         if (_prescription_button.imageView.image) {
             if (_user.logged_in) {
@@ -196,17 +199,12 @@
         }
     } else {
         if (_insurance_back_button.imageView.image && _insurance_front_button.imageView.image) {
+            UIViewController *conditions = [self.storyboard instantiateViewControllerWithIdentifier:@"Terms"];
             [self.navigationController pushViewController:conditions animated:YES];
         } else {
             [self presentErrorWithMessage:@"Add images of the front and back of your insurance before continuing."];
         }
     }
-}
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
 }
 
 

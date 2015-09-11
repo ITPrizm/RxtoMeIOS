@@ -11,9 +11,7 @@
 
 @interface ConditionsViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *agreement_text;
-@property (weak, nonatomic) IBOutlet UISwitch *agree_switch;
 @property (nonatomic) UIActivityIndicatorView *indicator;
-@property (weak, nonatomic) IBOutlet UILabel *agreement_label;
 @property (weak, nonatomic) User *user;
 @end
 
@@ -21,10 +19,6 @@
 
 - (void)updateViewConstraints {
     [super updateViewConstraints];
-    self.agreement_label.text = [NSString stringWithFormat:@"I, %@, agree to the above terms and conditions.", _user.name];
-    // Resizing spacing between label and switch if label size is changed.
-    CGFloat switch_right_pos = self.view.frame.size.width - _agree_switch.frame.size.width - _agree_switch.frame.origin.x - 40;
-    [self.agreement_label setPreferredMaxLayoutWidth:switch_right_pos];
 }
 
 - (void)viewDidLoad {
@@ -33,22 +27,21 @@
     [self.agreement_text scrollRangeToVisible:NSMakeRange(0, 0)];
     self.automaticallyAdjustsScrollViewInsets = NO;
     // Do any additional setup after loading the view.
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sign" style:UIBarButtonItemStylePlain target:self action:@selector(createAccountButtonPressed:)];
-
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Order" style:UIBarButtonItemStylePlain target:self action:@selector(createAccountButtonPressed:)];
 }
 
 - (IBAction)createAccountButtonPressed:(id)sender {
-    if (_agree_switch.on) {
-        UIViewController *confirmVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Confirmation"];
-        [self.navigationController pushViewController:confirmVC animated:YES];
-    } else {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Terms and Conditions" message:@"You must agree to the terms and conditions before continuing" preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-        [alertController addAction:ok];
-        
-        [self presentViewController:alertController animated:YES completion:nil];
-    }
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Terms and Conditions" message:@"I agree to adopt the above electronic representation of my signature/initials for medical purposes- just the same as a pen-and-paper signature/initial." preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* agree = [UIAlertAction actionWithTitle:@"Accept" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"Confirmation"] animated:YES];
+    }];
+    [alertController addAction:agree];
+    
+    UIAlertAction* disagree = [UIAlertAction actionWithTitle:@"Reject" style:UIAlertActionStyleDefault handler:nil];
+    [alertController addAction:disagree];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {

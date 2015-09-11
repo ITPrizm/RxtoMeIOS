@@ -7,10 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		58033DD21BA36B8A00734A8D /* CompletionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58033DD11BA36B8900734A8D /* CompletionViewController.m */; };
 		58071FFF1B8E79D600E2BE01 /* CircularLoaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58071FFE1B8E79D600E2BE01 /* CircularLoaderView.m */; };
 		580720011B911D9300E2BE01 /* Arty Signature.otf in Resources */ = {isa = PBXBuildFile; fileRef = 580720001B911D9300E2BE01 /* Arty Signature.otf */; };
 		58360C9B1B9634B7008523B5 /* UIView+FindFirstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 58360C9A1B9634B7008523B5 /* UIView+FindFirstResponder.m */; };
+		583F69BA1B990F990018A4C8 /* CamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 583F69B91B990F990018A4C8 /* CamViewController.m */; };
+		583F69BD1B990FF20018A4C8 /* CamView.m in Sources */ = {isa = PBXBuildFile; fileRef = 583F69BC1B990FF20018A4C8 /* CamView.m */; };
+		583F69C61B9A35A80018A4C8 /* UINavigationController+AutoRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 583F69C51B9A35A80018A4C8 /* UINavigationController+AutoRotation.m */; };
 		589252251B9779ED0059543A /* NSString+PhoneFormating.m in Sources */ = {isa = PBXBuildFile; fileRef = 589252241B9779ED0059543A /* NSString+PhoneFormating.m */; };
+		589B74531B9F9239005BA7C8 /* InstructionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 589B74521B9F9239005BA7C8 /* InstructionsViewController.m */; };
 		58A3F6471B77FB780037C6E8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 58A3F6461B77FB780037C6E8 /* main.m */; };
 		58A3F64A1B77FB780037C6E8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 58A3F6491B77FB780037C6E8 /* AppDelegate.m */; };
 		58A3F6561B77FB780037C6E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58A3F6541B77FB780037C6E8 /* Main.storyboard */; };
@@ -24,7 +29,6 @@
 		58A3F6851B796CDC0037C6E8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58A3F6841B796CDC0037C6E8 /* CoreLocation.framework */; };
 		58A3F6881B7A6DEB0037C6E8 /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58A3F6871B7A6DEB0037C6E8 /* PhotoViewController.m */; };
 		58A3F68B1B7AA1AA0037C6E8 /* ConditionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58A3F68A1B7AA1AA0037C6E8 /* ConditionsViewController.m */; };
-		58A3F6941B7BA94A0037C6E8 /* InstructionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58A3F6931B7BA94A0037C6E8 /* InstructionsViewController.m */; };
 		58A3F69A1B7BCB670037C6E8 /* AddressFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58A3F6991B7BCB670037C6E8 /* AddressFormViewController.m */; };
 		58A81C161B87AC25008F0593 /* CashOrInsuranceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58A81C151B87AC25008F0593 /* CashOrInsuranceViewController.m */; };
 		58A81C191B87D5E0008F0593 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58A81C181B87D5E0008F0593 /* LoginViewController.m */; };
@@ -43,13 +47,23 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		58033DD01BA36B8900734A8D /* CompletionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompletionViewController.h; sourceTree = "<group>"; };
+		58033DD11BA36B8900734A8D /* CompletionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompletionViewController.m; sourceTree = "<group>"; };
 		58071FFD1B8E79D600E2BE01 /* CircularLoaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircularLoaderView.h; sourceTree = "<group>"; };
 		58071FFE1B8E79D600E2BE01 /* CircularLoaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircularLoaderView.m; sourceTree = "<group>"; };
 		580720001B911D9300E2BE01 /* Arty Signature.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Arty Signature.otf"; path = "../../../../Downloads/arty-signature/Arty Signature.otf"; sourceTree = "<group>"; };
 		58360C991B9634B7008523B5 /* UIView+FindFirstResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+FindFirstResponder.h"; sourceTree = "<group>"; };
 		58360C9A1B9634B7008523B5 /* UIView+FindFirstResponder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+FindFirstResponder.m"; sourceTree = "<group>"; };
+		583F69B81B990F990018A4C8 /* CamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CamViewController.h; sourceTree = "<group>"; };
+		583F69B91B990F990018A4C8 /* CamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CamViewController.m; sourceTree = "<group>"; };
+		583F69BB1B990FF20018A4C8 /* CamView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CamView.h; sourceTree = "<group>"; };
+		583F69BC1B990FF20018A4C8 /* CamView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CamView.m; sourceTree = "<group>"; };
+		583F69C41B9A35A80018A4C8 /* UINavigationController+AutoRotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+AutoRotation.h"; sourceTree = "<group>"; };
+		583F69C51B9A35A80018A4C8 /* UINavigationController+AutoRotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+AutoRotation.m"; sourceTree = "<group>"; };
 		589252231B9779ED0059543A /* NSString+PhoneFormating.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PhoneFormating.h"; sourceTree = "<group>"; };
 		589252241B9779ED0059543A /* NSString+PhoneFormating.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PhoneFormating.m"; sourceTree = "<group>"; };
+		589B74511B9F9239005BA7C8 /* InstructionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstructionsViewController.h; sourceTree = "<group>"; };
+		589B74521B9F9239005BA7C8 /* InstructionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstructionsViewController.m; sourceTree = "<group>"; };
 		58A3F6411B77FB780037C6E8 /* RxToMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxToMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		58A3F6451B77FB780037C6E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		58A3F6461B77FB780037C6E8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -74,8 +88,6 @@
 		58A3F6871B7A6DEB0037C6E8 /* PhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoViewController.m; sourceTree = "<group>"; };
 		58A3F6891B7AA1AA0037C6E8 /* ConditionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionsViewController.h; sourceTree = "<group>"; };
 		58A3F68A1B7AA1AA0037C6E8 /* ConditionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionsViewController.m; sourceTree = "<group>"; };
-		58A3F6921B7BA94A0037C6E8 /* InstructionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstructionsViewController.h; sourceTree = "<group>"; };
-		58A3F6931B7BA94A0037C6E8 /* InstructionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstructionsViewController.m; sourceTree = "<group>"; };
 		58A3F6981B7BCB670037C6E8 /* AddressFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressFormViewController.h; sourceTree = "<group>"; };
 		58A3F6991B7BCB670037C6E8 /* AddressFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressFormViewController.m; sourceTree = "<group>"; };
 		58A81C141B87AC25008F0593 /* CashOrInsuranceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CashOrInsuranceViewController.h; sourceTree = "<group>"; };
@@ -112,10 +124,12 @@
 		58360C9C1B965DBD008523B5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				589B74511B9F9239005BA7C8 /* InstructionsViewController.h */,
+				589B74521B9F9239005BA7C8 /* InstructionsViewController.m */,
+				583F69B81B990F990018A4C8 /* CamViewController.h */,
+				583F69B91B990F990018A4C8 /* CamViewController.m */,
 				58A3F6701B7907D50037C6E8 /* MainPageViewController.h */,
 				58A3F6711B7907D50037C6E8 /* MainPageViewController.m */,
-				58A3F6921B7BA94A0037C6E8 /* InstructionsViewController.h */,
-				58A3F6931B7BA94A0037C6E8 /* InstructionsViewController.m */,
 				58A3F6761B7913F80037C6E8 /* FormViewController.h */,
 				58A3F6771B7913F80037C6E8 /* FormViewController.m */,
 				58A3F6981B7BCB670037C6E8 /* AddressFormViewController.h */,
@@ -128,10 +142,14 @@
 				58A3F6871B7A6DEB0037C6E8 /* PhotoViewController.m */,
 				58A3F6891B7AA1AA0037C6E8 /* ConditionsViewController.h */,
 				58A3F68A1B7AA1AA0037C6E8 /* ConditionsViewController.m */,
+				58033DD01BA36B8900734A8D /* CompletionViewController.h */,
+				58033DD11BA36B8900734A8D /* CompletionViewController.m */,
 				58A81C171B87D5E0008F0593 /* LoginViewController.h */,
 				58A81C181B87D5E0008F0593 /* LoginViewController.m */,
 				589252231B9779ED0059543A /* NSString+PhoneFormating.h */,
 				589252241B9779ED0059543A /* NSString+PhoneFormating.m */,
+				583F69C41B9A35A80018A4C8 /* UINavigationController+AutoRotation.h */,
+				583F69C51B9A35A80018A4C8 /* UINavigationController+AutoRotation.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -154,6 +172,8 @@
 				58071FFE1B8E79D600E2BE01 /* CircularLoaderView.m */,
 				58360C991B9634B7008523B5 /* UIView+FindFirstResponder.h */,
 				58360C9A1B9634B7008523B5 /* UIView+FindFirstResponder.m */,
+				583F69BB1B990FF20018A4C8 /* CamView.h */,
+				583F69BC1B990FF20018A4C8 /* CamView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -385,19 +405,23 @@
 				58A3F64A1B77FB780037C6E8 /* AppDelegate.m in Sources */,
 				58A81C161B87AC25008F0593 /* CashOrInsuranceViewController.m in Sources */,
 				58A81C191B87D5E0008F0593 /* LoginViewController.m in Sources */,
+				589B74531B9F9239005BA7C8 /* InstructionsViewController.m in Sources */,
 				58C907891B7E568E007E7702 /* RxClient.m in Sources */,
 				58360C9B1B9634B7008523B5 /* UIView+FindFirstResponder.m in Sources */,
 				58071FFF1B8E79D600E2BE01 /* CircularLoaderView.m in Sources */,
 				58A3F69A1B7BCB670037C6E8 /* AddressFormViewController.m in Sources */,
 				58A3F6831B7959610037C6E8 /* ConfirmationViewController.m in Sources */,
+				583F69C61B9A35A80018A4C8 /* UINavigationController+AutoRotation.m in Sources */,
 				589252251B9779ED0059543A /* NSString+PhoneFormating.m in Sources */,
-				58A3F6941B7BA94A0037C6E8 /* InstructionsViewController.m in Sources */,
 				58A3F6801B794CF50037C6E8 /* User.m in Sources */,
 				58A3F6731B7907D50037C6E8 /* MainPageViewController.m in Sources */,
 				58A3F6781B7913F80037C6E8 /* FormViewController.m in Sources */,
+				58033DD21BA36B8A00734A8D /* CompletionViewController.m in Sources */,
 				58A3F6471B77FB780037C6E8 /* main.m in Sources */,
+				583F69BD1B990FF20018A4C8 /* CamView.m in Sources */,
 				58A3F68B1B7AA1AA0037C6E8 /* ConditionsViewController.m in Sources */,
 				58A3F6881B7A6DEB0037C6E8 /* PhotoViewController.m in Sources */,
+				583F69BA1B990F990018A4C8 /* CamViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

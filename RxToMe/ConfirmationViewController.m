@@ -13,6 +13,8 @@
 #import "AddressFormViewController.h"
 #import "CircularLoaderView.h"
 #import "NSString+PhoneFormating.h"
+#import "CamViewController.h"
+#import "ConditionsViewController.h"
 
 NSString* const kSuccess = @"Success";
 NSString* const kError = @"Error";
@@ -25,12 +27,12 @@ NSString* const kError = @"Error";
 @property (weak, nonatomic) IBOutlet UILabel *email_label;
 @property (weak, nonatomic) IBOutlet UILabel *phone_label;
 @property (weak, nonatomic) IBOutlet UIImageView *prescription_image;
-@property (nonatomic) UIImagePickerController *image_controller;
 @property (nonatomic) UIActivityIndicatorView *indicator;
 @property (weak, nonatomic) IBOutlet UILabel *signature_label;
 @property (nonatomic) CircularLoaderView *progressIndicatorView;
 @property (weak, nonatomic) IBOutlet UIButton *change_address_button;
 @property (weak, nonatomic) IBOutlet UIButton *change_contact_button;
+@property (nonatomic) CamViewController *cameraVC;
 
 @end
 
@@ -40,9 +42,9 @@ NSString* const kError = @"Error";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _image_controller = [[UIImagePickerController alloc] init];
-    _image_controller.sourceType = UIImagePickerControllerSourceTypeCamera;
-    _image_controller.delegate = self;
+    _cameraVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Camera"];
+    _cameraVC.delegate = self;
+    
     _user = [User sharedManager];
     _progressIndicatorView = [[CircularLoaderView alloc] initWithFrame: CGRectZero];
     CGRect frame = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, 100, 100);
@@ -50,7 +52,7 @@ NSString* const kError = @"Error";
     _progressIndicatorView.center = self.view.center;
     _progressIndicatorView.autoresizingMask = YES;
     _signature_label.font = [UIFont fontWithName:@"Arty Signature" size:30];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Order" style:UIBarButtonItemStylePlain target:self action:@selector(completeButtonPressed:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Confirm" style:UIBarButtonItemStylePlain target:self action:@selector(completeButtonPressed:)];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orderCreated:) name:@"OrderCreated" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orderCreated:) name:@"AccountRegistered" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateProgress:) name:@"FractionCompleted" object:nil];
@@ -91,13 +93,7 @@ NSString* const kError = @"Error";
     if (note.userInfo[@"message"]) {
         [self presentAlertType:kError withMessage: note.userInfo[@"message"]];
     } else {
-        NSString *alertMessage;
-        if (_user.logged_in) {
-            alertMessage = @"A pharmacy in your area will deliver your product within 24 hours";
-        } else {
-            alertMessage = @"Your account has been created.\nWe have sent your new password to the email address you provided.\nA pharmacy in your area will deliver your product within 24 hours";
-        }
-        [self presentAlertType:kSuccess withMessage:alertMessage];
+        [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"Completion"] animated:YES];
         [_user empty];
     }
 }
@@ -133,13 +129,15 @@ NSString* const kError = @"Error";
 
 #pragma mark - UIImagePickerDelegate
 
-// Sets prescription image as taken image.
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    UIImage *image = info[UIImagePickerControllerOriginalImage];
+- (void)cameraVC:(CamViewController *)cameraVC selectedImage:(UIImage *)selectedImage {
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
-        [_prescription_image setImage:image];
-        [_user setPrescription_image:image];
+        [_prescription_image setImage:selectedImage];
+        _user.prescription_image = selectedImage;
     }];
+}
+
+- (void)cameraVCDidCancel:(CamViewController *)cameraVC {
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Navigation
@@ -147,7 +145,7 @@ NSString* const kError = @"Error";
 - (IBAction)completeButtonPressed:(id)sender {
     [self.view addSubview:_progressIndicatorView];
     [self enableButtons:NO];
-    // or register user depending on login status
+//     or register user depending on login status
     if (_user.logged_in) {
         [_user createOrder];
     } else {
@@ -171,7 +169,7 @@ NSString* const kError = @"Error";
 }
 
 - (IBAction)takePhoto:(id)sender {
-    [self.navigationController presentViewController:_image_controller animated:YES completion:nil];
+    [self.navigationController presentViewController:_cameraVC animated:YES completion:nil];
 }
 
 @end

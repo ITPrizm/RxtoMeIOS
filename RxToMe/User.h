@@ -35,9 +35,9 @@
 @property (strong, nonatomic) NSString *city;
 @property (strong, nonatomic) NSString *token;
 @property (strong, nonatomic) NSString *device_id;
-@property (strong, nonatomic) UIImage *prescription_image;
-@property (strong, nonatomic) UIImage *insurance_front;
-@property (strong, nonatomic) UIImage *insurance_back;
+@property (strong, nonatomic) UIImage  *prescription_image;
+@property (strong, nonatomic) UIImage  *insurance_front;
+@property (strong, nonatomic) UIImage  *insurance_back;
 @property (nonatomic) BOOL has_insurance;
 @property (nonatomic) BOOL logged_in;
 

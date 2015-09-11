@@ -17,11 +17,12 @@ NSString* const kRxForgotPasswordEndpoint = @"api/v1/patient/forgotpassword";
 
 @interface RxClient ()
 
-@property NSProgress *progress;
+@property AFNetworkReachabilityManager *reachbilityManager;
 
 @end
 
 @implementation RxClient
+
 
 - (id)initWithBaseURL:(NSURL *)url
 {
@@ -32,6 +33,28 @@ NSString* const kRxForgotPasswordEndpoint = @"api/v1/patient/forgotpassword";
     self.responseSerializer = [AFJSONResponseSerializer serializer];
     [self.requestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     [self.requestSerializer setValue:@"close" forHTTPHeaderField:@"Connection"];
+    
+    [self.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status){
+        switch (status) {
+            case AFNetworkReachabilityStatusReachableViaWiFi:
+            case AFNetworkReachabilityStatusReachableViaWWAN:
+                // Our connection is fine
+                // Resume our requests or do nothing
+                NSLog(@"Reachable");
+                break;
+            case AFNetworkReachabilityStatusNotReachable:
+                // We have no active connection - disable all requests and don’t let the user do anything
+                NSLog(@"Not reachable");
+                break;
+            default:
+                // If we get here, we’re most likely timing out
+                NSLog(@"Unknown");
+                break;
+        }
+    }];
+    
+    // Set the reachabilityManager to actively wait for these events
+    [self.reachabilityManager startMonitoring];
     
     return self;
 }

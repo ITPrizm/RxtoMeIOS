@@ -8,7 +8,6 @@
 
 #import "LoginViewController.h"
 #import "User.h"
-#import "InstructionsViewController.h"
 #import "CircularLoaderView.h"
 
 @interface LoginViewController ()
@@ -54,7 +53,6 @@
     [self finishedLoading];
     [self presentSingleActionAlertWithTitle:@"Error" message:note.userInfo[@"message"]];
 }
-
 
 - (void)passwordRecoveryComplete:(NSNotification*)note {
     NSString *title;

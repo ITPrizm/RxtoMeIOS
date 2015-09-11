@@ -7,7 +7,7 @@
 //
 
 #import "MainPageViewController.h"
-#import "InstructionsViewController.h"
+#import "PhotoViewController.h"
 #import "User.h"
 
 @interface MainPageViewController ()
@@ -32,17 +32,17 @@
 
 - (void)loginSuccess {
     [self dismissViewControllerAnimated:YES completion:^{
-        [self navigateToInstructions];
+        [self navigateToPrescription];
     }];
     
 }
 
 - (IBAction)getStartedButtonPressed:(id)sender {
-    [self navigateToInstructions];
+    [self navigateToPrescription];
 }
 
-- (void)navigateToInstructions {
-    InstructionsViewController *prescription = [self.storyboard instantiateViewControllerWithIdentifier:@"Instruct"];
+- (void)navigateToPrescription {
+    PhotoViewController *prescription = [self.storyboard instantiateViewControllerWithIdentifier:@"Photo"];
     prescription.type = @"prescription";
     [self.navigationController pushViewController:prescription animated:YES];
 }

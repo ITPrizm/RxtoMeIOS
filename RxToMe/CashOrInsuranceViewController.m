@@ -7,7 +7,7 @@
 //
 
 #import "CashOrInsuranceViewController.h"
-#import "ConditionsViewController.h"
+#import "ConfirmationViewController.h"
 #import "InstructionsViewController.h"
 #import "User.h"
 
@@ -30,8 +30,8 @@
 
 - (IBAction)cashButtonPressed:(id)sender {
     _user.has_insurance = NO;
-    ConditionsViewController *conditions = [self.storyboard instantiateViewControllerWithIdentifier:@"Terms"];
-    [self.navigationController pushViewController:conditions animated:YES];
+    ConfirmationViewController *confirmation = [self.storyboard instantiateViewControllerWithIdentifier:@"Terms"];
+    [self.navigationController pushViewController:confirmation animated:YES];
 }
 
 - (IBAction)insuranceButtonPressed:(id)sender {

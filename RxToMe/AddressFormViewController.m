@@ -8,7 +8,6 @@
 
 #import "AddressFormViewController.h"
 #import "User.h"
-#import "InstructionsViewController.h"
 #import "ConditionsViewController.h"
 #import "UIView+FindFirstResponder.h"
 
@@ -94,16 +93,16 @@
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     // Adjusts size of scrollview to size of viewable screen
-    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
-    _scrollView.contentInset = contentInsets;
-    _scrollView.scrollIndicatorInsets = contentInsets;
+    _scrollView.contentInset = UIEdgeInsetsMake(0.0, 0.0, kbSize.height - (_picker.frame.size.height - 20), 0.0);
+    _scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
     
     // If active text field is hidden by keyboard, scroll it so it's visible
     // Your app might not need or want this behavior.
     CGRect aRect = self.view.frame;
     aRect.size.height -= kbSize.height;
-    if (!CGRectContainsPoint(aRect, firstResponder.frame.origin) ) {
-        [self.scrollView scrollRectToVisible:firstResponder.frame animated:YES];
+    CGPoint point = CGPointMake(firstResponder.frame.origin.x, firstResponder.frame.origin.y + _picker.frame.size.height - 20);
+    if (!CGRectContainsPoint(aRect, point)) {
+        [self.scrollView scrollRectToVisible:CGRectMake(point.x, point.y, firstResponder.frame.size.width, firstResponder.frame.size.height) animated:YES];
     }
 }
 

@@ -23,8 +23,19 @@
 }
 
 - (id)init {
-    if (self = [super init])
-        _device_id = [UIDevice currentDevice].identifierForVendor.UUIDString;
+    if (self = [super init]) {
+//        _device_id = [[NSUserDefaults standardUserDefaults] objectForKey:@"device_id"];
+        _device_id = @"DEMO_DEVICE_ID";
+        self.address = @"123 E. Newton St.";
+        self.city = @"Gainsville";
+        self.state = @"FL";
+        self.zip = @"98761";
+        self.country = @"USA";
+        self.name = @"John Smith";
+        self.email = @"jsmith@gmail.com";
+        self.phone = @"5555555555";
+        self.prescription_image = [UIImage imageNamed:@"prescription_blurred"];
+    }
     return self;
 }
 
@@ -33,7 +44,8 @@
 - (void)loginWithEmail:(NSString*)email password:(NSString*)password {
     NSString *params = [NSString stringWithFormat:@"pt_email=%@&pt_upass=%@", email, password];
     
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://api.rxtome.com/api/v1/patient/login"]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://api.rxtome.com/api/v1/patient/login"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0];
+    
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody: [params dataUsingEncoding:NSUTF8StringEncoding]];
     
@@ -117,12 +129,11 @@
 }
 
 - (void)registerAccount {
-    
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:@"http://api.rxtome.com/api/v1/patient/newuser" parameters:[self formatUserParams] constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        [formData appendPartWithFileData:UIImageJPEGRepresentation(_prescription_image, .5) name:@"pre_front" fileName:@"pre_front.jpeg" mimeType:@"image/jpeg"];
+        [formData appendPartWithFileData:UIImageJPEGRepresentation(_prescription_image, .3) name:@"pre_front" fileName:@"pre_front.jpeg" mimeType:@"image/jpeg"];
         if (_has_insurance) {
-            [formData appendPartWithFileData:UIImageJPEGRepresentation(_insurance_front, .5) name:@"ins_front" fileName:@"ins_front.jpg" mimeType:@"image/jpeg"];
-            [formData appendPartWithFileData:UIImageJPEGRepresentation(_insurance_back, .5) name:@"ins_back" fileName:@"ins_back.jpg" mimeType:@"image/jpeg"];
+            [formData appendPartWithFileData:UIImageJPEGRepresentation(_insurance_front, .3) name:@"ins_front" fileName:@"ins_front.jpg" mimeType:@"image/jpeg"];
+            [formData appendPartWithFileData:UIImageJPEGRepresentation(_insurance_back, .3) name:@"ins_back" fileName:@"ins_back.jpg" mimeType:@"image/jpeg"];
         }
     } error:nil];
     
@@ -160,8 +171,7 @@
 
 - (void)forgotPasswordForEmail:(NSString*)email {
     NSString *params = [NSString stringWithFormat:@"pt_email=%@", email];
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://api.rxtome.com/api/v1/patient/forgotpassword"]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://api.rxtome.com/api/v1/patient/forgotpassword"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10.0];
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody: [params dataUsingEncoding:NSUTF8StringEncoding]];
     
@@ -188,7 +198,7 @@
 
 
 #pragma mark - Formatting/Parsing
-/* Performs special formating on User parameters in order to match servers format requirements */
+/* Performs special formating on User parameters in order to match server's formating requirements */
 - (NSDictionary*)formatUserParams {
     NSDictionary *pt_data = @{@"pt_phone"       : _phone,
                               @"or_cash"        : (_has_insurance ? @"0" : @"1"),
@@ -201,9 +211,11 @@
                               @"pt_uname"       : _name,
                               @"or_regid"       : _device_id,
                               @"pt_deviceid"    : _device_id,
-                              @"pt_zip"         : _zip};
+                              @"pt_zip"         : _zip,
+                              @"pt_devicetype"  : @"ios"};
     // Server expects pt_data value as string
     NSString *pt_data_string = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:pt_data options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding];
+    pt_data_string = [pt_data_string stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
     
     return @{@"pt_data" : pt_data_string};
 }

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CamViewController.h"
 
-@interface ConfirmationViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface ConfirmationViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, CamViewDelegate>
 
 @end

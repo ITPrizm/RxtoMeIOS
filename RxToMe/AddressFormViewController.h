@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface AddressFormViewController : UIViewController <UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource,CLLocationManagerDelegate, UIGestureRecognizerDelegate>
+@interface AddressFormViewController : UIViewController <UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource,CLLocationManagerDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate>
 @property BOOL is_modal;
 @end

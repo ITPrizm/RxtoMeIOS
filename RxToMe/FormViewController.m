@@ -23,9 +23,7 @@
 
 @end
 
-@implementation FormViewController {
-    double topInsert;
-}
+@implementation FormViewController
 
 #pragma mark - View Rendering
 
