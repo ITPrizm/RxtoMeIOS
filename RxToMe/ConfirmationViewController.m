@@ -145,7 +145,7 @@ NSString* const kError = @"Error";
 - (IBAction)completeButtonPressed:(id)sender {
     [self.view addSubview:_progressIndicatorView];
     [self enableButtons:NO];
-//     or register user depending on login status
+//  create order or register user depending on login status
     if (_user.logged_in) {
         [_user createOrder];
     } else {

@@ -428,7 +428,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Ensure that prescription is readable before proceeding" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aFe-ni-1TU">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Ensure that prescription is readable before proceeding" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aFe-ni-1TU">
                                 <rect key="frame" x="92" y="431" width="416" height="41"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -439,6 +439,7 @@
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="aFe-ni-1TU" secondAttribute="centerX" id="EjP-Hi-QYv"/>
                             <constraint firstItem="aFe-ni-1TU" firstAttribute="width" secondItem="Mkh-Ai-WiZ" secondAttribute="width" multiplier="2:3" id="FRX-vr-noP"/>
+                            <constraint firstItem="SyQ-gM-SnU" firstAttribute="top" secondItem="aFe-ni-1TU" secondAttribute="bottom" constant="128" id="NNk-lO-1JK"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
@@ -1723,20 +1724,20 @@ We shall not be liable to you or any third party for any claims or damages arisi
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Great, thanks!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tqg-mX-zzP">
-                                <rect key="frame" x="246" y="219" width="108" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Success!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tqg-mX-zzP">
+                                <rect key="frame" x="265" y="209" width="70" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Retain your copy of the prescription. It is required when your prescription is delivered " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X4S-ZR-YIL">
-                                <rect key="frame" x="50" y="331" width="500" height="41"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Retain your copy of the prescription. It is required when your prescription is delivered." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X4S-ZR-YIL">
+                                <rect key="frame" x="50" y="341" width="500" height="41"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A pharmacy in your area will deliver your product within 24 hours" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Yj-uM-uMc">
-                                <rect key="frame" x="50" y="290" width="500" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A pharmacy in your area will deliver your product within 24 hours." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Yj-uM-uMc">
+                                <rect key="frame" x="50" y="280" width="500" height="41"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1778,13 +1779,13 @@ We shall not be liable to you or any third party for any claims or damages arisi
                                         <rect key="frame" x="0.0" y="0.0" width="568" height="536"/>
                                         <subviews>
                                             <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jLa-PV-BfG" userLabel="Alignment View">
-                                                <rect key="frame" x="47" y="-92" width="474" height="50"/>
+                                                <rect key="frame" x="47" y="-98" width="474" height="50"/>
                                                 <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="0.48999999999999999" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="lKG-M3-uvR"/>
                                                 </constraints>
                                             </view>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" restorationIdentifier="address" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Address" minimumFontSize="17" background="textbox" translatesAutoresizingMaskIntoConstraints="NO" id="4gE-Eh-WN1">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="address" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Address" minimumFontSize="17" background="textbox" translatesAutoresizingMaskIntoConstraints="NO" id="4gE-Eh-WN1">
                                                 <rect key="frame" x="97" y="30" width="424" height="41"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="next"/>
@@ -1792,7 +1793,7 @@ We shall not be liable to you or any third party for any claims or damages arisi
                                                     <outlet property="delegate" destination="VwR-hn-c8K" id="6Hs-ef-DeZ"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" misplaced="YES" restorationIdentifier="address2" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Address 2" minimumFontSize="17" background="textbox" translatesAutoresizingMaskIntoConstraints="NO" id="YP4-j9-7fY">
+                                            <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" restorationIdentifier="address2" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Address 2" minimumFontSize="17" background="textbox" translatesAutoresizingMaskIntoConstraints="NO" id="YP4-j9-7fY">
                                                 <rect key="frame" x="97" y="86" width="424" height="41"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="next"/>
@@ -1800,7 +1801,7 @@ We shall not be liable to you or any third party for any claims or damages arisi
                                                     <outlet property="delegate" destination="VwR-hn-c8K" id="fj9-bz-uhk"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" misplaced="YES" restorationIdentifier="city" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="City" minimumFontSize="17" background="textbox" translatesAutoresizingMaskIntoConstraints="NO" id="IAO-tA-bTU">
+                                            <textField opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" restorationIdentifier="city" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="City" minimumFontSize="17" background="textbox" translatesAutoresizingMaskIntoConstraints="NO" id="IAO-tA-bTU">
                                                 <rect key="frame" x="97" y="254" width="424" height="41"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="next"/>
@@ -1808,7 +1809,7 @@ We shall not be liable to you or any third party for any claims or damages arisi
                                                     <outlet property="delegate" destination="VwR-hn-c8K" id="CTT-gt-tRt"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" misplaced="YES" restorationIdentifier="country" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Country" minimumFontSize="17" background="textbox" translatesAutoresizingMaskIntoConstraints="NO" id="O7h-dH-d05">
+                                            <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" restorationIdentifier="country" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Country" minimumFontSize="17" background="textbox" translatesAutoresizingMaskIntoConstraints="NO" id="O7h-dH-d05">
                                                 <rect key="frame" x="97" y="142" width="424" height="41"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="next"/>
@@ -1816,7 +1817,7 @@ We shall not be liable to you or any third party for any claims or damages arisi
                                                     <outlet property="delegate" destination="VwR-hn-c8K" id="R0v-Ht-PdI"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" misplaced="YES" restorationIdentifier="state" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="State/Province" minimumFontSize="17" background="textbox" translatesAutoresizingMaskIntoConstraints="NO" id="2S1-20-tj7">
+                                            <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" restorationIdentifier="state" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="State/Province" minimumFontSize="17" background="textbox" translatesAutoresizingMaskIntoConstraints="NO" id="2S1-20-tj7">
                                                 <rect key="frame" x="97" y="198" width="424" height="41"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="next"/>
@@ -1824,7 +1825,7 @@ We shall not be liable to you or any third party for any claims or damages arisi
                                                     <outlet property="delegate" destination="VwR-hn-c8K" id="Z1W-xJ-VwY"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" misplaced="YES" restorationIdentifier="zip" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="ZIP" minimumFontSize="17" background="textbox" translatesAutoresizingMaskIntoConstraints="NO" id="Lti-tk-yf2">
+                                            <textField opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" restorationIdentifier="zip" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="ZIP" minimumFontSize="17" background="textbox" translatesAutoresizingMaskIntoConstraints="NO" id="Lti-tk-yf2">
                                                 <rect key="frame" x="97" y="310" width="424" height="41"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
@@ -1832,7 +1833,7 @@ We shall not be liable to you or any third party for any claims or damages arisi
                                                     <outlet property="delegate" destination="VwR-hn-c8K" id="XBy-t6-63V"/>
                                                 </connections>
                                             </textField>
-                                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="icon_city" translatesAutoresizingMaskIntoConstraints="NO" id="oZN-a1-ZQv">
+                                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_city" translatesAutoresizingMaskIntoConstraints="NO" id="oZN-a1-ZQv">
                                                 <rect key="frame" x="47" y="254" width="50" height="41"/>
                                                 <gestureRecognizers/>
                                                 <constraints>
@@ -1842,7 +1843,7 @@ We shall not be liable to you or any third party for any claims or damages arisi
                                                     <outletCollection property="gestureRecognizers" destination="cWg-AN-19V" appends="YES" id="mgw-Xz-9GX"/>
                                                 </connections>
                                             </imageView>
-                                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="icon_state" translatesAutoresizingMaskIntoConstraints="NO" id="bsz-L0-FUy">
+                                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_state" translatesAutoresizingMaskIntoConstraints="NO" id="bsz-L0-FUy">
                                                 <rect key="frame" x="47" y="198" width="50" height="41"/>
                                                 <gestureRecognizers/>
                                                 <constraints>
@@ -1852,7 +1853,7 @@ We shall not be liable to you or any third party for any claims or damages arisi
                                                     <outletCollection property="gestureRecognizers" destination="59d-mu-fNC" appends="YES" id="xDi-WI-IcQ"/>
                                                 </connections>
                                             </imageView>
-                                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="textbox_country" translatesAutoresizingMaskIntoConstraints="NO" id="gSC-Br-ZAG">
+                                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="textbox_country" translatesAutoresizingMaskIntoConstraints="NO" id="gSC-Br-ZAG">
                                                 <rect key="frame" x="47" y="142" width="50" height="41"/>
                                                 <gestureRecognizers/>
                                                 <constraints>
@@ -1862,7 +1863,7 @@ We shall not be liable to you or any third party for any claims or damages arisi
                                                     <outletCollection property="gestureRecognizers" destination="urs-FJ-QsS" appends="YES" id="atA-fu-56e"/>
                                                 </connections>
                                             </imageView>
-                                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="icon_address" translatesAutoresizingMaskIntoConstraints="NO" id="n1O-Ok-oZM" userLabel="icon_address2">
+                                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_address" translatesAutoresizingMaskIntoConstraints="NO" id="n1O-Ok-oZM" userLabel="icon_address2">
                                                 <rect key="frame" x="47" y="86" width="50" height="41"/>
                                                 <gestureRecognizers/>
                                                 <constraints>
@@ -1873,7 +1874,7 @@ We shall not be liable to you or any third party for any claims or damages arisi
                                                     <outletCollection property="gestureRecognizers" destination="42j-66-E5b" appends="YES" id="8x2-HW-gO0"/>
                                                 </connections>
                                             </imageView>
-                                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="icon_zip" translatesAutoresizingMaskIntoConstraints="NO" id="YPT-30-dRm">
+                                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_zip" translatesAutoresizingMaskIntoConstraints="NO" id="YPT-30-dRm">
                                                 <rect key="frame" x="47" y="310" width="50" height="41"/>
                                                 <gestureRecognizers/>
                                                 <constraints>
@@ -1883,7 +1884,7 @@ We shall not be liable to you or any third party for any claims or damages arisi
                                                     <outletCollection property="gestureRecognizers" destination="4KG-Oy-fRh" appends="YES" id="6p7-ax-LSu"/>
                                                 </connections>
                                             </imageView>
-                                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="icon_address" translatesAutoresizingMaskIntoConstraints="NO" id="PjX-bw-Eu2">
+                                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_address" translatesAutoresizingMaskIntoConstraints="NO" id="PjX-bw-Eu2">
                                                 <rect key="frame" x="47" y="30" width="50" height="41"/>
                                                 <gestureRecognizers/>
                                                 <constraints>
@@ -2246,8 +2247,8 @@ We shall not be liable to you or any third party for any claims or damages arisi
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZIh-KN-xQG">
-                                <rect key="frame" x="179" y="337" width="242" height="243"/>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZIh-KN-xQG">
+                                <rect key="frame" x="10" y="337" width="580" height="253"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="R53-Qa-Xnu" appends="YES" id="CgD-mJ-Wht"/>
@@ -2311,7 +2312,7 @@ We shall not be liable to you or any third party for any claims or damages arisi
                             <constraint firstItem="JI7-Nh-vdw" firstAttribute="centerY" secondItem="rMP-Cs-uJf" secondAttribute="centerY" id="SiP-X6-Fc8"/>
                             <constraint firstItem="JI7-Nh-vdw" firstAttribute="leading" secondItem="rMP-Cs-uJf" secondAttribute="trailing" constant="15" id="XJW-hG-L2s"/>
                             <constraint firstItem="T8x-0w-LL2" firstAttribute="top" secondItem="V5R-RS-iZm" secondAttribute="bottom" constant="10" id="Zto-CW-RQF"/>
-                            <constraint firstItem="e1Y-6u-GjG" firstAttribute="top" secondItem="ZIh-KN-xQG" secondAttribute="bottom" constant="20" id="Zw2-0B-2UH"/>
+                            <constraint firstItem="e1Y-6u-GjG" firstAttribute="top" secondItem="ZIh-KN-xQG" secondAttribute="bottom" constant="10" id="Zw2-0B-2UH"/>
                             <constraint firstItem="rMP-Cs-uJf" firstAttribute="top" secondItem="27O-vF-0F2" secondAttribute="bottom" constant="30" id="bcc-ZG-Ve1"/>
                             <constraint firstItem="7VG-xs-hWg" firstAttribute="width" secondItem="7VG-xs-hWg" secondAttribute="height" multiplier="151:40" id="cXj-7g-1tC"/>
                             <constraint firstItem="27O-vF-0F2" firstAttribute="top" secondItem="CJf-LI-ImB" secondAttribute="bottom" constant="15" id="o4y-sk-FxI"/>

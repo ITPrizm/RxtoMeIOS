@@ -17,7 +17,7 @@
 @property (nonatomic) UIButton *prescription_button;
 @property (nonatomic) UIButton *insurance_front_button;
 @property (nonatomic) UIButton *insurance_back_button;
-@property (weak, nonatomic) IBOutlet UILabel *note_label;
+@property (nonatomic) IBOutlet UILabel *note_label;
 @property (weak, nonatomic) UIButton *selected_apv;
 @property (nonatomic) CamViewController *cameraVC;
 
