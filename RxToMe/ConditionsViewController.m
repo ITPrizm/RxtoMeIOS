@@ -29,7 +29,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     // Do any additional setup after loading the view.
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Order" style:UIBarButtonItemStylePlain target:self action:@selector(createAccountButtonPressed:)];
-    NSMutableAttributedString *signiture = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"I,  %@  agree to the terms and conditions and to adopt the above electronic representation of my signature for medical purposes.", _user.name]];
+    NSMutableAttributedString *signiture = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"I,  %@  agree to the terms and conditions and to adopt the above electronic representation of my signature for medical purposes.", [_user.name capitalizedString]]];
     [signiture addAttribute:NSFontAttributeName
                       value:[UIFont fontWithName:@"Arty Signature" size:30]
                       range:NSMakeRange(4, _user.name.length)];
