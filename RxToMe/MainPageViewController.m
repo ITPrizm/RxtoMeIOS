@@ -20,7 +20,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewDidLoad];
-    [self.get_started_button addTarget:self action:@selector(getStartedButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.get_started_button addTarget:self action:@selector(getStartedButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccess) name:@"LoginSuccess" object:nil];
     self.navigationController.navigationBarHidden = true;
 }

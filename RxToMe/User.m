@@ -24,17 +24,17 @@
 
 - (id)init {
     if (self = [super init]) {
-        _device_id = [[NSUserDefaults standardUserDefaults] objectForKey:@"device_id"];
-//        _device_id = @"DEMO_DEVICE_ID";
-//        self.address = @"123 E. Newton St.";
-//        self.city = @"Gainsville";
-//        self.state = @"FL";
-//        self.zip = @"98761";
-//        self.country = @"USA";
-//        self.name = @"John Smith";
-//        self.email = @"jsmith@gmail.com";
-//        self.phone = @"5555555555";
-//        self.prescription_image = [UIImage imageNamed:@"prescription_blurred"];
+//        _device_id = [[NSUserDefaults standardUserDefaults] objectForKey:@"device_id"];
+        _device_id = @"DEMO_DEVICE_ID";
+        self.address = @"123 E. Newton St.";
+        self.city = @"Gainsville";
+        self.state = @"FL";
+        self.zip = @"98761";
+        self.country = @"USA";
+        self.name = @"John Smith";
+        self.email = @"jsmith@gmail.com";
+        self.phone = @"5555555555";
+        self.prescription_image = [UIImage imageNamed:@"prescription_blurred"];
     }
     return self;
 }

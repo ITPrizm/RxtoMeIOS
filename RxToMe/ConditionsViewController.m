@@ -12,6 +12,8 @@
 @interface ConditionsViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *agreement_text;
 @property (nonatomic) UIActivityIndicatorView *indicator;
+@property (weak, nonatomic) IBOutlet UIView *lower_view;
+@property (weak) IBOutlet UILabel *agreement_label;
 @property (weak, nonatomic) User *user;
 @end
 
@@ -28,20 +30,17 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     // Do any additional setup after loading the view.
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Order" style:UIBarButtonItemStylePlain target:self action:@selector(createAccountButtonPressed:)];
+    
+    NSMutableAttributedString *signiture = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"I,  %@  agree to the terms and conditions and to adopt the above electronic representation of my signature for medical purposes.", _user.name]];
+    [signiture addAttribute:NSFontAttributeName
+                      value:[UIFont fontWithName:@"Arty Signature" size:30]
+                      range:NSMakeRange(4, _user.name.length)];
+    _agreement_label.attributedText = signiture;
 }
 
 - (IBAction)createAccountButtonPressed:(id)sender {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Terms and Conditions" message:@"I agree to adopt the above electronic representation of my signature/initials for medical purposes- just the same as a pen-and-paper signature/initial." preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction* agree = [UIAlertAction actionWithTitle:@"Accept" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"Confirmation"] animated:YES];
-    }];
-    [alertController addAction:agree];
-    
-    UIAlertAction* disagree = [UIAlertAction actionWithTitle:@"Reject" style:UIAlertActionStyleDefault handler:nil];
-    [alertController addAction:disagree];
-    
-    [self presentViewController:alertController animated:YES completion:nil];
+    [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"Confirmation"] animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -22,6 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _user = [User sharedManager];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismiss)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -39,6 +40,10 @@
     InstructionsViewController *insurnace = [self.storyboard instantiateViewControllerWithIdentifier:@"Instruct"];
     insurnace.type = @"insurance";
     [self.navigationController pushViewController:insurnace animated:YES];
+}
+
+- (void)dismiss {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

@@ -37,7 +37,7 @@
     _cameraVC.delegate = self;
     
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(nextButtonPressed:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss:)];
     if ([_type isEqualToString:@"prescription"]) {
         [self prescriptionSetup];
     } else {
@@ -184,23 +184,16 @@
 
 #pragma mark - Navigation
 
-- (IBAction)nextButtonPressed:(id)sender {
+- (IBAction)dimisss:(id)sender {
     if ([_type isEqualToString:@"prescription"]) {
         if (_prescription_button.imageView.image) {
-            if (_user.logged_in) {
-                CashOrInsuranceViewController *cashVC = [self.storyboard instantiateViewControllerWithIdentifier:@"CashOrInsurance"];
-                [self.navigationController pushViewController:cashVC animated:YES];
-            } else {
-                UIViewController *formVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Form"];
-                [self.navigationController pushViewController:formVC animated:YES];
-            }
+            [self.navigationController popViewControllerAnimated:YES];
         } else {
             [self presentErrorWithMessage:@"Add an image of your prescription before continuing."];
         }
     } else {
         if (_insurance_back_button.imageView.image && _insurance_front_button.imageView.image) {
-            UIViewController *conditions = [self.storyboard instantiateViewControllerWithIdentifier:@"Terms"];
-            [self.navigationController pushViewController:conditions animated:YES];
+            [self.navigationController popViewControllerAnimated:YES];
         } else {
             [self presentErrorWithMessage:@"Add images of the front and back of your insurance before continuing."];
         }

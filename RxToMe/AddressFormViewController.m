@@ -43,11 +43,8 @@
     [self setTitle:@"Contact Information"];
     _picker.hidden = YES;
     _picker_gesture.cancelsTouchesInView = NO;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(nextButtonPressed:)];
-    if (_is_modal) {
-        self.state_field.enabled = YES;
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismiss)];
-    }
+    self.state_field.enabled = YES;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismiss)];
     [self registerForKeyboardNotifications];
 }
 
@@ -89,18 +86,19 @@
 
 // Called when the UIKeyboardDidShowNotification is sent.
 - (void)keyboardWasShown:(NSNotification*)aNotification {
+    double pickerOffset = _picker.frame.size.height - 50;
     UIView *firstResponder = [self.view findFirstResponder];
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     // Adjusts size of scrollview to size of viewable screen
-    _scrollView.contentInset = UIEdgeInsetsMake(0.0, 0.0, kbSize.height - (_picker.frame.size.height - 20), 0.0);
+    _scrollView.contentInset = UIEdgeInsetsMake(0.0, 0.0, kbSize.height - pickerOffset, 0.0);
     _scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
     
     // If active text field is hidden by keyboard, scroll it so it's visible
     // Your app might not need or want this behavior.
     CGRect aRect = self.view.frame;
     aRect.size.height -= kbSize.height;
-    CGPoint point = CGPointMake(firstResponder.frame.origin.x, firstResponder.frame.origin.y + _picker.frame.size.height - 20);
+    CGPoint point = CGPointMake(firstResponder.frame.origin.x, firstResponder.frame.origin.y + pickerOffset);
     if (!CGRectContainsPoint(aRect, point)) {
         [self.scrollView scrollRectToVisible:CGRectMake(point.x, point.y, firstResponder.frame.size.width, firstResponder.frame.size.height) animated:YES];
     }

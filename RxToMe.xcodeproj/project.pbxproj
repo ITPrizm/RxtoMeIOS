@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		58033DD21BA36B8A00734A8D /* CompletionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58033DD11BA36B8900734A8D /* CompletionViewController.m */; };
+		58033DD81BA8CE5400734A8D /* InfoPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58033DD71BA8CE5400734A8D /* InfoPageViewController.m */; };
 		58071FFF1B8E79D600E2BE01 /* CircularLoaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58071FFE1B8E79D600E2BE01 /* CircularLoaderView.m */; };
 		580720011B911D9300E2BE01 /* Arty Signature.otf in Resources */ = {isa = PBXBuildFile; fileRef = 580720001B911D9300E2BE01 /* Arty Signature.otf */; };
 		58360C9B1B9634B7008523B5 /* UIView+FindFirstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 58360C9A1B9634B7008523B5 /* UIView+FindFirstResponder.m */; };
@@ -49,6 +50,8 @@
 /* Begin PBXFileReference section */
 		58033DD01BA36B8900734A8D /* CompletionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompletionViewController.h; sourceTree = "<group>"; };
 		58033DD11BA36B8900734A8D /* CompletionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompletionViewController.m; sourceTree = "<group>"; };
+		58033DD61BA8CE5400734A8D /* InfoPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoPageViewController.h; sourceTree = "<group>"; };
+		58033DD71BA8CE5400734A8D /* InfoPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoPageViewController.m; sourceTree = "<group>"; };
 		58071FFD1B8E79D600E2BE01 /* CircularLoaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircularLoaderView.h; sourceTree = "<group>"; };
 		58071FFE1B8E79D600E2BE01 /* CircularLoaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircularLoaderView.m; sourceTree = "<group>"; };
 		580720001B911D9300E2BE01 /* Arty Signature.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Arty Signature.otf"; path = "../../../../Downloads/arty-signature/Arty Signature.otf"; sourceTree = "<group>"; };
@@ -150,6 +153,8 @@
 				589252241B9779ED0059543A /* NSString+PhoneFormating.m */,
 				583F69C41B9A35A80018A4C8 /* UINavigationController+AutoRotation.h */,
 				583F69C51B9A35A80018A4C8 /* UINavigationController+AutoRotation.m */,
+				58033DD61BA8CE5400734A8D /* InfoPageViewController.h */,
+				58033DD71BA8CE5400734A8D /* InfoPageViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -402,6 +407,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58033DD81BA8CE5400734A8D /* InfoPageViewController.m in Sources */,
 				58A3F64A1B77FB780037C6E8 /* AppDelegate.m in Sources */,
 				58A81C161B87AC25008F0593 /* CashOrInsuranceViewController.m in Sources */,
 				58A81C191B87D5E0008F0593 /* LoginViewController.m in Sources */,
