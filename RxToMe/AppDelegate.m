@@ -37,7 +37,7 @@
     
     // Format device token for server
     NSString *token_str = [[[deviceToken description] stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString:@"<>"]] stringByReplacingOccurrencesOfString:@" " withString:@""];
-    
+    NSLog(@"%@", token_str);
     [defaults setObject:token_str forKey:@"device_id"];
     [defaults synchronize];
 }
