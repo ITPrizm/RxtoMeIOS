@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *agreement_text;
 @property (weak, nonatomic) IBOutlet UILabel *agreement_label;
 @property (nonatomic) UIActivityIndicatorView *indicator;
+@property (weak, nonatomic) IBOutlet UISwitch *agree_switch;
 @property (weak, nonatomic) User *user;
 @end
 
@@ -29,6 +30,9 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     // Do any additional setup after loading the view.
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Order" style:UIBarButtonItemStylePlain target:self action:@selector(createAccountButtonPressed:)];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
     NSMutableAttributedString *signiture = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"I,  %@  agree to the terms and conditions and to adopt the above electronic representation of my signature for medical purposes.", [_user.name capitalizedString]]];
     [signiture addAttribute:NSFontAttributeName
                       value:[UIFont fontWithName:@"Arty Signature" size:30]
@@ -37,7 +41,17 @@
 }
 
 - (IBAction)createAccountButtonPressed:(id)sender {
-    [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"Confirmation"] animated:YES];
+    if (_agree_switch.on) {
+        UIViewController *confirmVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Confirmation"];
+        [self.navigationController pushViewController:confirmVC animated:YES];
+    } else {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Terms and Conditions" message:@"You must agree to the terms and conditions before continuing" preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        [alertController addAction:ok];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
