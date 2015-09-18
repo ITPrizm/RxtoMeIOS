@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <sys/utsname.h>
 #import "AFNetworkActivityLogger.h"
 
 @interface AppDelegate ()
@@ -17,6 +18,16 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    // Determine device type
+    struct utsname systemInfo;
+    uname(&systemInfo);
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    NSString *device_str = [NSString stringWithCString:systemInfo.machine
+                                  encoding:NSUTF8StringEncoding];
+    [defaults setObject:device_str forKey:@"device_type"];
+    [defaults synchronize];
+    
     [[AFNetworkActivityLogger sharedLogger] startLogging];
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     if ([application respondsToSelector:@selector(isRegisteredForRemoteNotifications)]) {
@@ -62,6 +73,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    application.applicationIconBadgeNumber = 0;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

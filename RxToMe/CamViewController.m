@@ -41,12 +41,14 @@
     self.imagePreview.contentMode = UIViewContentModeScaleAspectFit;
     [self.view insertSubview:self.imagePreview belowSubview:self.previewView];
     
+    // Initializing camera in a landscape orientation. This is beacuse no rotatation is done when in portrait/upsidedown mode and alwaysLandscape is true.
     [self.captureButton setImage:[[FAKIonIcons ios7CameraIconWithSize:60] imageWithSize:CGSizeMake(50, 50)] forState:UIControlStateNormal];
     [self.cancelButton setImage:[[FAKFoundationIcons xIconWithSize:60] imageWithSize:CGSizeMake(50, 50)] forState:UIControlStateNormal];
     [self.doneButton setImage:[[FAKFontAwesome saveIconWithSize:60] imageWithSize:CGSizeMake(50, 50)] forState:UIControlStateNormal];
     [self.retakeButton setImage:[[FAKFoundationIcons xIconWithSize:60] imageWithSize:CGSizeMake(50, 50)] forState:UIControlStateNormal];
     self.captureButton.transform = CGAffineTransformRotate(self.captureButton.transform, M_PI_2);
     self.doneButton.transform = CGAffineTransformRotate(self.doneButton.transform, M_PI_2);
+    self.imagePreview.transform = CGAffineTransformRotate(self.imagePreview.transform, M_PI_2);
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceDidRotate:) name:UIDeviceOrientationDidChangeNotification object:nil];
     
@@ -72,6 +74,8 @@
             [stillImageOutput setOutputSettings:@{AVVideoCodecKey : AVVideoCodecJPEG}];
             [session addOutput:stillImageOutput];
             [self setStillImageOutput:stillImageOutput];
+            // Update the orientation on the still image output video connection.
+            [[[self stillImageOutput] connectionWithMediaType:AVMediaTypeVideo] setVideoOrientation:(AVCaptureVideoOrientation)UIDeviceOrientationLandscapeLeft];
         }
     });
 }
@@ -94,8 +98,10 @@
 - (void)viewWillAppear:(BOOL)animated {
     [self enablePreviewMode:NO];
     [self setLockInterface:NO];
-    [[self session] startRunning];
     [self deviceDidRotate:nil];
+    dispatch_async([self sessionQueue], ^{
+        [[self session] startRunning];
+    });
 }
 
 + (AVCaptureDevice *)deviceWithMediaType:(NSString *)mediaType preferringPosition:(AVCaptureDevicePosition)position {
@@ -126,12 +132,14 @@
 }
 
 - (void)enablePreviewMode:(BOOL)enable {
-    self.previewView.hidden = enable;
-    self.captureButton.hidden = enable;
-    self.cancelButton.hidden = enable;
-    self.retakeButton.hidden = !enable;
-    self.doneButton.hidden = !enable;
-    self.imagePreview.hidden = !enable;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.previewView.hidden = enable;
+        self.captureButton.hidden = enable;
+        self.cancelButton.hidden = enable;
+        self.retakeButton.hidden = !enable;
+        self.doneButton.hidden = !enable;
+        self.imagePreview.hidden = !enable;
+    });
 }
 
 - (void)deviceDidRotate:(NSNotification *)notification {

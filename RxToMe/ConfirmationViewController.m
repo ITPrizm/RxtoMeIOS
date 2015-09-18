@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Michael Spearman. All rights reserved.
 //
 
+#import <sys/utsname.h>
 #import "ConfirmationViewController.h"
 #import "FormViewController.h"
 #import "User.h"
@@ -53,14 +54,20 @@ NSString* const kError = @"Error";
     _progressIndicatorView.autoresizingMask = YES;
     _signature_label.font = [UIFont fontWithName:@"Arty Signature" size:30];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Confirm" style:UIBarButtonItemStylePlain target:self action:@selector(completeButtonPressed:)];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orderCreated:) name:@"OrderCreated" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orderCreated:) name:@"AccountRegistered" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateProgress:) name:@"FractionCompleted" object:nil];
 }
 
 
 - (void)viewWillAppear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orderCreated:) name:@"OrderCreated" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orderCreated:) name:@"AccountRegistered" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateProgress:) name:@"FractionCompleted" object:nil];
     [self reloadLabels];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"OrderCreated" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"AccountRegistered" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"FractionCompleted" object:nil];
 }
 
 // Adjusts labels for possible changes in text.
@@ -76,6 +83,15 @@ NSString* const kError = @"Error";
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+// Determine device type
+NSString* deviceName() {
+    struct utsname systemInfo;
+    uname(&systemInfo);
+    
+    return [NSString stringWithCString:systemInfo.machine
+                              encoding:NSUTF8StringEncoding];
 }
 
 #pragma mark - Listeners
@@ -102,10 +118,11 @@ NSString* const kError = @"Error";
 
 // Disables and/or grays out buttons all buttons on view.
 - (void)enableButtons:(BOOL)boolean {
+    self.navigationItem.hidesBackButton = !boolean;
     self.navigationItem.rightBarButtonItem.enabled = boolean;
-    self.navigationItem.leftBarButtonItem.enabled = boolean;
     self.change_address_button.enabled = boolean;
     self.change_contact_button.enabled = boolean;
+    self.prescription_image.userInteractionEnabled = boolean;
 }
 
 // Presents an alert view of success or failure depending on type.

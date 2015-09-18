@@ -22,6 +22,7 @@
 
 - (void)viewDidLoad {
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(nextButtonPressed)];
+    self.navigationItem.hidesBackButton = YES;
 }
 
 - (void)nextButtonPressed {
